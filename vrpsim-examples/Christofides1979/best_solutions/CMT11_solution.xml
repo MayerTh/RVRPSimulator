@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+
+    Copyright (C) 2016 Thomas Mayer (thomas.mayer@unibw.de)
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+            http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
+-->
+<customerTour>
+    <CustomerIds>
+        <Id>CUSTOMER-110</Id>
+        <Id>CUSTOMER-86</Id>
+        <Id>CUSTOMER-91</Id>
+        <Id>CUSTOMER-92</Id>
+        <Id>CUSTOMER-95</Id>
+        <Id>CUSTOMER-109</Id>
+        <Id>CUSTOMER-56</Id>
+        <Id>CUSTOMER-58</Id>
+        <Id>CUSTOMER-62</Id>
+        <Id>CUSTOMER-59</Id>
+        <Id>CUSTOMER-52</Id>
+        <Id>CUSTOMER-77</Id>
+        <Id>CUSTOMER-73</Id>
+        <Id>CUSTOMER-103</Id>
+        <Id>CUSTOMER-106</Id>
+        <Id>CUSTOMER-100</Id>
+        <Id>CUSTOMER-105</Id>
+        <Id>CUSTOMER-104</Id>
+        <Id>CUSTOMER-119</Id>
+        <Id>CUSTOMER-118</Id>
+        <Id>CUSTOMER-80</Id>
+        <Id>CUSTOMER-116</Id>
+        <Id>CUSTOMER-4</Id>
+        <Id>CUSTOMER-13</Id>
+        <Id>CUSTOMER-12</Id>
+        <Id>CUSTOMER-11</Id>
+        <Id>CUSTOMER-24</Id>
+        <Id>CUSTOMER-23</Id>
+        <Id>CUSTOMER-32</Id>
+        <Id>CUSTOMER-30</Id>
+        <Id>CUSTOMER-25</Id>
+        <Id>CUSTOMER-22</Id>
+        <Id>CUSTOMER-7</Id>
+        <Id>CUSTOMER-82</Id>
+        <Id>CUSTOMER-83</Id>
+        <Id>CUSTOMER-98</Id>
+        <Id>CUSTOMER-99</Id>
+        <Id>CUSTOMER-68</Id>
+        <Id>CUSTOMER-69</Id>
+        <Id>CUSTOMER-70</Id>
+        <Id>CUSTOMER-71</Id>
+        <Id>CUSTOMER-74</Id>
+        <Id>CUSTOMER-79</Id>
+        <Id>CUSTOMER-54</Id>
+        <Id>CUSTOMER-57</Id>
+        <Id>CUSTOMER-61</Id>
+        <Id>CUSTOMER-60</Id>
+        <Id>CUSTOMER-53</Id>
+        <Id>CUSTOMER-115</Id>
+        <Id>CUSTOMER-94</Id>
+        <Id>CUSTOMER-96</Id>
+        <Id>CUSTOMER-36</Id>
+        <Id>CUSTOMER-40</Id>
+        <Id>CUSTOMER-43</Id>
+        <Id>CUSTOMER-45</Id>
+        <Id>CUSTOMER-46</Id>
+        <Id>CUSTOMER-47</Id>
+        <Id>CUSTOMER-44</Id>
+        <Id>CUSTOMER-42</Id>
+        <Id>CUSTOMER-64</Id>
+        <Id>CUSTOMER-65</Id>
+        <Id>CUSTOMER-63</Id>
+        <Id>CUSTOMER-55</Id>
+        <Id>CUSTOMER-67</Id>
+        <Id>CUSTOMER-102</Id>
+        <Id>CUSTOMER-88</Id>
+        <Id>CUSTOMER-90</Id>
+        <Id>CUSTOMER-89</Id>
+        <Id>CUSTOMER-112</Id>
+        <Id>CUSTOMER-1</Id>
+        <Id>CUSTOMER-0</Id>
+        <Id>CUSTOMER-2</Id>
+        <Id>CUSTOMER-3</Id>
+        <Id>CUSTOMER-14</Id>
+        <Id>CUSTOMER-10</Id>
+        <Id>CUSTOMER-9</Id>
+        <Id>CUSTOMER-8</Id>
+        <Id>CUSTOMER-6</Id>
+        <Id>CUSTOMER-5</Id>
+        <Id>CUSTOMER-17</Id>
+        <Id>CUSTOMER-93</Id>
+        <Id>CUSTOMER-101</Id>
+        <Id>CUSTOMER-85</Id>
+        <Id>CUSTOMER-84</Id>
+        <Id>CUSTOMER-113</Id>
+        <Id>CUSTOMER-117</Id>
+        <Id>CUSTOMER-107</Id>
+        <Id>CUSTOMER-16</Id>
+        <Id>CUSTOMER-15</Id>
+        <Id>CUSTOMER-18</Id>
+        <Id>CUSTOMER-21</Id>
+        <Id>CUSTOMER-26</Id>
+        <Id>CUSTOMER-29</Id>
+        <Id>CUSTOMER-33</Id>
+        <Id>CUSTOMER-35</Id>
+        <Id>CUSTOMER-28</Id>
+        <Id>CUSTOMER-34</Id>
+        <Id>CUSTOMER-31</Id>
+        <Id>CUSTOMER-27</Id>
+        <Id>CUSTOMER-19</Id>
+        <Id>CUSTOMER-20</Id>
+        <Id>CUSTOMER-114</Id>
+        <Id>CUSTOMER-111</Id>
+        <Id>CUSTOMER-81</Id>
+        <Id>CUSTOMER-87</Id>
+        <Id>CUSTOMER-108</Id>
+        <Id>CUSTOMER-37</Id>
+        <Id>CUSTOMER-38</Id>
+        <Id>CUSTOMER-41</Id>
+        <Id>CUSTOMER-48</Id>
+        <Id>CUSTOMER-49</Id>
+        <Id>CUSTOMER-50</Id>
+        <Id>CUSTOMER-39</Id>
+        <Id>CUSTOMER-51</Id>
+        <Id>CUSTOMER-78</Id>
+        <Id>CUSTOMER-76</Id>
+        <Id>CUSTOMER-75</Id>
+        <Id>CUSTOMER-72</Id>
+        <Id>CUSTOMER-66</Id>
+        <Id>CUSTOMER-97</Id>
+    </CustomerIds>
+</customerTour>

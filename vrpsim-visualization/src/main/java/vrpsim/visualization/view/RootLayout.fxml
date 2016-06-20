@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.layout.BorderPane?>
+
+<BorderPane prefHeight="600.0" prefWidth="800.0"
+	xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1"
+	fx:controller="vrpsim.visualization.view.RootLayoutController">
+	<top>
+		<MenuBar BorderPane.alignment="CENTER">
+			<menus>
+				<Menu mnemonicParsing="false" text="Simulation">
+					<items>
+						<MenuItem fx:id="startSimulation" mnemonicParsing="false"
+							text="Start" />
+						<MenuItem fx:id="stepSimulation" mnemonicParsing="false"
+							text="Step" />
+						<MenuItem fx:id="pauseSimulation" mnemonicParsing="false"
+							text="Pause" />
+					</items>
+				</Menu>
+				<Menu mnemonicParsing="false" text="Delay">
+					<items>
+						<MenuItem fx:id="speed1" mnemonicParsing="false" text="1 ms" />
+						<MenuItem fx:id="speed250" mnemonicParsing="false" text="250 ms" />
+						<MenuItem fx:id="speed500" mnemonicParsing="false" text="500 ms" />
+					</items>
+				</Menu>
+			</menus>
+		</MenuBar>
+	</top>
+</BorderPane>
