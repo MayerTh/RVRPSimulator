@@ -23,6 +23,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.Vector;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,7 +31,9 @@ import org.slf4j.LoggerFactory;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
+import javafx.scene.shape.Polygon;
 import vrpsim.core.model.IVRPSimulationModelElement;
 import vrpsim.core.model.VRPSimulationModel;
 import vrpsim.core.model.behaviour.ITour;
@@ -47,6 +50,7 @@ import vrpsim.core.simulator.ITime;
 import vrpsim.visualization.components.NetworkNodeVisualization;
 import vrpsim.visualization.components.OrderBoardVisualizationPopup;
 import vrpsim.visualization.components.TourVisualizationPopup;
+import vrpsim.visualization.support.MathUtil;
 import vrpsim.visualization.support.OriginLocation;
 import vrpsim.visualization.support.TransformationManager;
 import vrpsim.visualization.support.VRPVisualizationModel;
@@ -153,7 +157,7 @@ public class ModelViewController implements Observer {
 		// Locate all nodes regarding to current transformation.
 		List<Node> nodesToRemove = new ArrayList<>();
 		for (Node n : this.pane.getChildren()) {
-			if (n instanceof Line) {
+			if (n instanceof Line || n instanceof Polygon) {
 				nodesToRemove.add(n);
 			} else {
 				n.relocate(
@@ -192,7 +196,19 @@ public class ModelViewController implements Observer {
 					endY = endNNV.getLayoutY() + (endNNV.getBoundsInLocal().getHeight() / 2);
 
 					Line line = new Line(startX, startY, endX, endY);
+					line.setStroke(Color.GRAY);
 					this.pane.getChildren().add(line);
+
+					Vector<Double> solutionVector = MathUtil.calc(startX, startY, endX, endY, 30);
+					Polygon polygon = new Polygon(endX, endY, solutionVector.get(0), solutionVector.get(1), solutionVector.get(2), solutionVector.get(3));
+					this.pane.getChildren().add(polygon);
+					
+//					Line line2 = new Line(endX, endY, solutionVector.get(0), solutionVector.get(1));
+//					line2.setStroke(Color.DARKGRAY);
+//					this.pane.getChildren().add(line2);
+//					Line line3 = new Line(endX, endY, solutionVector.get(2), solutionVector.get(3));
+//					line3.setStroke(Color.DARKGRAY);
+//					this.pane.getChildren().add(line3);
 				}
 			}
 		}

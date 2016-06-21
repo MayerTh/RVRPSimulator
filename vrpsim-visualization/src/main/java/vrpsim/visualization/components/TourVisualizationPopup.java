@@ -22,6 +22,7 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import vrpsim.core.model.behaviour.ITour;
 import vrpsim.core.model.network.INode;
+import vrpsim.core.model.network.IVRPSimulationModelNetworkElement;
 import vrpsim.core.model.structure.util.storage.CanStoreType;
 import vrpsim.core.model.structure.util.storage.DefaultStorageManager;
 import vrpsim.core.model.util.exceptions.VRPArithmeticException;
@@ -80,13 +81,14 @@ public class TourVisualizationPopup extends VisualizationPopup {
 		}
 
 		// location
-		Text location = new Text("Tour location");
+		Text location = new Text("Tour location: "
+				+ tour.getTourContext().getCurrentPlace().getVRPSimulationModelElementParameters().getId());
 		location.setFont(Font.font("Arial", FontWeight.BOLD, 12));
 		VBox.setMargin(location, new Insets(4, 0, 0, 2));
 		this.dataBox.getChildren().add(location);
 
 		if (tour.getTourContext().getCurrentPlace() instanceof INode) {
-			Text locationValue = new Text(((INode)tour.getTourContext().getCurrentPlace()).getLocation().toString());
+			Text locationValue = new Text(((INode) tour.getTourContext().getCurrentPlace()).getLocation().toString());
 			VBox.setMargin(locationValue, new Insets(0, 0, 0, 12));
 			this.dataBox.getChildren().add(locationValue);
 		}
@@ -101,6 +103,18 @@ public class TourVisualizationPopup extends VisualizationPopup {
 				tour.getTourContext().getCurrentDriver().getVRPSimulationModelElementParameters().getId());
 		VBox.setMargin(driverValue, new Insets(0, 0, 0, 12));
 		this.dataBox.getChildren().add(driverValue);
+
+		// driver
+		Text history = new Text("Tour History");
+		history.setFont(Font.font("Arial", FontWeight.BOLD, 12));
+		VBox.setMargin(history, new Insets(4, 0, 0, 2));
+		this.dataBox.getChildren().add(history);
+
+		for (IVRPSimulationModelNetworkElement place : tour.getTourContext().getPlaceHistory()) {
+			Text placeValue = new Text(place.getVRPSimulationModelElementParameters().getId());
+			VBox.setMargin(placeValue, new Insets(0, 0, 0, 12));
+			this.dataBox.getChildren().add(placeValue);
+		}
 
 	}
 
