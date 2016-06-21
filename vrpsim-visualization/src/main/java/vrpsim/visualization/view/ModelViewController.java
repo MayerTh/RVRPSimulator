@@ -19,6 +19,7 @@
 package vrpsim.visualization.view;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Observable;
@@ -176,8 +177,8 @@ public class ModelViewController implements Observer {
 		// Draw lines dependent on the current context.
 		if (!this.tourContexts.isEmpty()) {
 			for (TourContext context : this.tourContexts.keySet()) {
-				for (int i = 0; i < context.getPlaceHistory().size(); i++) {
-
+				int lineCounter = 0;
+				for (int i = context.getPlaceHistory().size()-1; i >= 0; i--) {
 					NetworkNodeVisualization startNNV = this.networkElementToVisualisation
 							.get(context.getPlaceHistory().get(i));
 					double startX = startNNV.getLayoutX() + (startNNV.getBoundsInLocal().getWidth() / 2);
@@ -186,7 +187,7 @@ public class ModelViewController implements Observer {
 					double endX = 0;
 					double endY = 0;
 					NetworkNodeVisualization endNNV = null;
-					if (i + 1 < context.getPlaceHistory().size()) {
+					if (i < context.getPlaceHistory().size()-1) {
 						endNNV = this.networkElementToVisualisation.get(context.getPlaceHistory().get(i + 1));
 					} else {
 						endNNV = this.networkElementToVisualisation
@@ -196,19 +197,15 @@ public class ModelViewController implements Observer {
 					endY = endNNV.getLayoutY() + (endNNV.getBoundsInLocal().getHeight() / 2);
 
 					Line line = new Line(startX, startY, endX, endY);
-					line.setStroke(Color.GRAY);
+					line.setStroke(lineCounter < 3 ? Color.GRAY : Color.LIGHTGRAY);
 					this.pane.getChildren().add(line);
 
-					Vector<Double> solutionVector = MathUtil.calc(startX, startY, endX, endY, 30);
+					Vector<Double> solutionVector = MathUtil.calculateArrowVector(startX, startY, endX, endY, 30);
 					Polygon polygon = new Polygon(endX, endY, solutionVector.get(0), solutionVector.get(1), solutionVector.get(2), solutionVector.get(3));
 					this.pane.getChildren().add(polygon);
 					
-//					Line line2 = new Line(endX, endY, solutionVector.get(0), solutionVector.get(1));
-//					line2.setStroke(Color.DARKGRAY);
-//					this.pane.getChildren().add(line2);
-//					Line line3 = new Line(endX, endY, solutionVector.get(2), solutionVector.get(3));
-//					line3.setStroke(Color.DARKGRAY);
-//					this.pane.getChildren().add(line3);
+					lineCounter++;
+					if(lineCounter >= 7) break;
 				}
 			}
 		}
