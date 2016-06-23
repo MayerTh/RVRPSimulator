@@ -15,6 +15,9 @@
  */
 package vrpsim.core.model.network;
 
+import java.util.Observable;
+import java.util.Observer;
+
 import vrpsim.core.model.IVRPSimulationModelElement;
 import vrpsim.core.model.VRPSimulationModelElementParameters;
 import vrpsim.core.model.behaviour.IJob;
@@ -28,7 +31,7 @@ import vrpsim.core.simulator.ITime;
  * @author thomas.mayer@unibw.de
  *
  */
-public class DefaultWay implements IWay {
+public class DefaultWay extends Observable implements IWay {
 
 	private final INode source;
 	private final INode destination;
@@ -98,7 +101,7 @@ public class DefaultWay implements IWay {
 	 * structure.IVRPSimulationModelStructureElement)
 	 */
 	@Override
-	public void freeFrom(IVRPSimulationModelElement element) {
+	public void releaseFrom(IVRPSimulationModelElement element) {
 		// not relevant for StaticDefaultWay.
 	}
 
@@ -112,9 +115,9 @@ public class DefaultWay implements IWay {
 	 */
 	@Override
 	public ITime getServiceTime(IJob job, IClock clock) {
-		return clock.getCurrentSimulationTime()
-				.createTimeFrom(this.travelTimeFunction.getTravelTime(this.source.getLocation(),
-						this.destination.getLocation(), this.distanceFunction, this.getMaxSpeed(), job.getInvolvedTransporter(), clock));
+		return clock.getCurrentSimulationTime().createTimeFrom(
+				this.travelTimeFunction.getTravelTime(this.source.getLocation(), this.destination.getLocation(),
+						this.distanceFunction, this.getMaxSpeed(), job.getInvolvedTransporter(), clock));
 	}
 
 	/*
@@ -165,6 +168,11 @@ public class DefaultWay implements IWay {
 	@Override
 	public ITimeFunction getTravelTimeFunction() {
 		return this.travelTimeFunction;
+	}
+
+	@Override
+	public void addReleaseFromListener(Observer observer) {
+		// not relevant for StaticDefaultWay.
 	}
 
 }

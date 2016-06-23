@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<instance>
+    <info>
+        <dataset>Adapted version of Augerat 1995 — P-n016-k08</dataset>
+        <name>CVRP_Instances</name>
+    </info>
+    <network>
+        <nodes>
+            <node id="1" type="0">
+                <cx>30.0</cx>
+                <cy>40.0</cy>
+            </node>
+            <node id="2" type="1">
+                <cx>37.0</cx>
+                <cy>52.0</cy>
+            </node>
+            <node id="3" type="1">
+                <cx>49.0</cx>
+                <cy>49.0</cy>
+            </node>
+            <node id="4" type="1">
+                <cx>52.0</cx>
+                <cy>64.0</cy>
+            </node>
+            <node id="5" type="1">
+                <cx>31.0</cx>
+                <cy>62.0</cy>
+            </node>
+            <node id="6" type="1">
+                <cx>52.0</cx>
+                <cy>33.0</cy>
+            </node>
+            <node id="7" type="1">
+                <cx>42.0</cx>
+                <cy>41.0</cy>
+            </node>
+        </nodes>
+        <euclidean/>
+        <decimals>0</decimals>
+    </network>
+    <fleet>
+        <vehicle_profile type="0">
+            <departure_node>1</departure_node>
+            <arrival_node>1</arrival_node>
+            <capacity>35.0</capacity>
+			<!-- 1 distance in 5 time. -->
+			<speedFactor>5</speedFactor>
+        </vehicle_profile>
+    </fleet>
+    <requests>
+        <request id="1" node="2">
+            <quantity>19.0</quantity>
+        </request>
+        <request id="2" node="3">
+            <quantity>30.0</quantity>
+        </request>
+        <request id="3" node="4">
+            <quantity>16.0</quantity>
+        </request>
+        <request id="4" node="5">
+            <quantity>23.0</quantity>
+        </request>
+        <request id="5" node="6">
+            <quantity>11.0</quantity>
+        </request>
+        <request id="6" node="7">
+            <quantity>31.0</quantity>
+        </request>
+    </requests>
+</instance>

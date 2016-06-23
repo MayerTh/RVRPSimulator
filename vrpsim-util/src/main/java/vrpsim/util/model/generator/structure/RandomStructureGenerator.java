@@ -36,6 +36,7 @@ import vrpsim.core.model.structure.util.storage.CanStoreParameters;
 import vrpsim.core.model.structure.util.storage.Capacity;
 import vrpsim.core.model.structure.util.storage.Compartment;
 import vrpsim.core.model.structure.util.storage.DefaultStorage;
+import vrpsim.core.model.structure.util.storage.DefaultStorageManager;
 import vrpsim.core.model.structure.util.storage.ICanStore;
 import vrpsim.core.model.structure.util.storage.IStorable;
 import vrpsim.core.model.structure.util.storage.IStorableGenerator;
@@ -158,12 +159,12 @@ public class RandomStructureGenerator {
 					new StorableGenerator(randomStructureGeneratorConfiguration.getStorableParameters()));
 
 			ICanStore compartment = new Compartment(compartmentParameters);
-			DefaultStorage storage = new DefaultStorage(randomStructureGeneratorConfiguration.getCanStoreType(),
-					compartment);
+			DefaultStorageManager storageManager = new DefaultStorageManager(
+					new DefaultStorage(randomStructureGeneratorConfiguration.getCanStoreType(), compartment));
 
 			// new UncertainParamters() -> means empty/no breakdowns.
 			IVehicle vehicle = new DefaultVehicle(vrpSimulationModelElementParameters,
-					vrpSimulationModelStructureElementParameters, new UncertainParamters(), storage,
+					vrpSimulationModelStructureElementParameters, new UncertainParamters(), storageManager,
 					randomStructureGeneratorConfiguration.getSpeedOfVehicles());
 			vehicles.add(vehicle);
 		}
@@ -193,11 +194,11 @@ public class RandomStructureGenerator {
 						new StorableGenerator(randomStructureGeneratorConfiguration.getStorableParameters()));
 
 				ICanStore compartment = new Compartment(compartmentParameters);
-				DefaultStorage storage = new DefaultStorage(randomStructureGeneratorConfiguration.getCanStoreType(),
-						compartment);
+				DefaultStorageManager storageManager = new DefaultStorageManager(
+						new DefaultStorage(randomStructureGeneratorConfiguration.getCanStoreType(), compartment));
 
 				depot = new SourceDepot(vrpSimulationModelElementParameters,
-						vrpSimulationModelStructureElementParameters, new UncertainParamters(), storage);
+						vrpSimulationModelStructureElementParameters, new UncertainParamters(), storageManager);
 
 			} else {
 				// Default Depot
@@ -213,11 +214,11 @@ public class RandomStructureGenerator {
 						new StorableGenerator(randomStructureGeneratorConfiguration.getStorableParameters()));
 
 				ICanStore compartment = new Compartment(compartmentParameters);
-				DefaultStorage storage = new DefaultStorage(randomStructureGeneratorConfiguration.getCanStoreType(),
-						compartment);
+				DefaultStorageManager storageManager = new DefaultStorageManager(
+						new DefaultStorage(randomStructureGeneratorConfiguration.getCanStoreType(), compartment));
 
 				depot = new DefaultDepot(vrpSimulationModelElementParameters,
-						vrpSimulationModelStructureElementParameters, new UncertainParamters(), storage);
+						vrpSimulationModelStructureElementParameters, new UncertainParamters(), storageManager);
 				IStorableGenerator storableGenerator = new StorableGenerator(
 						randomStructureGeneratorConfiguration.getStorableParameters());
 				for (int s = 1; s <= randomStructureGeneratorConfiguration.getNumberStorablesInDefaultDepot(); s++) {
@@ -249,8 +250,8 @@ public class RandomStructureGenerator {
 					new LIFOLoadingPolicy(),
 					new StorableGenerator(randomStructureGeneratorConfiguration.getStorableParameters()));
 			ICanStore compartment = new Compartment(compartmentParameters);
-			DefaultStorage storage = new DefaultStorage(randomStructureGeneratorConfiguration.getCanStoreType(),
-					compartment);
+			DefaultStorageManager storageManager = new DefaultStorageManager(new DefaultStorage(randomStructureGeneratorConfiguration.getCanStoreType(),
+					compartment));
 
 			Double minAmount = randomStructureGeneratorConfiguration.getMinConsumptionAmountOfStaticCustomer();
 			Double maxAmount = randomStructureGeneratorConfiguration.getMaxConsumptionAmountOfStaticCustomer();
@@ -265,7 +266,7 @@ public class RandomStructureGenerator {
 									random.nextInt(maxAmount.intValue() - minAmount.intValue()) + minAmount),
 							new DeterministicDistributionFunction(
 									random.nextInt(maxCycle.intValue() - minCycle.intValue()) + minCycle))),
-					storage);
+					storageManager);
 
 			customers.add(customer);
 		}
@@ -285,8 +286,8 @@ public class RandomStructureGenerator {
 					new LIFOLoadingPolicy(),
 					new StorableGenerator(randomStructureGeneratorConfiguration.getStorableParameters()));
 			ICanStore compartment = new Compartment(compartmentParameters);
-			DefaultStorage storage = new DefaultStorage(randomStructureGeneratorConfiguration.getCanStoreType(),
-					compartment);
+			DefaultStorageManager storageManager = new DefaultStorageManager(new DefaultStorage(randomStructureGeneratorConfiguration.getCanStoreType(),
+					compartment));
 
 			Double minAmount = randomStructureGeneratorConfiguration.getMinOrderAmountOfDynamicCustomer();
 			Double maxAmount = randomStructureGeneratorConfiguration.getMaxOrderAmountOfDynamicCustomer();
@@ -302,7 +303,7 @@ public class RandomStructureGenerator {
 									random.nextInt(maxCycle.intValue() - minCycle.intValue()) + minCycle)));
 
 			ICustomer customer = new DynamicCustomer(vrpSimulationModelElementParameters,
-					vrpSimulationModelStructureElementParameters, storage, orderParameters);
+					vrpSimulationModelStructureElementParameters, storageManager, orderParameters);
 
 			customers.add(customer);
 		}

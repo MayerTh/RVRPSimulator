@@ -18,36 +18,32 @@ package vrpsim.core.model.structure.occasionaldriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import vrpsim.core.model.IVRPSimulationModelElement;
 import vrpsim.core.model.VRPSimulationModelElementParameters;
 import vrpsim.core.model.behaviour.IJob;
+import vrpsim.core.model.network.IVRPSimulationModelNetworkElement;
 import vrpsim.core.model.network.NetworkService;
 import vrpsim.core.model.solution.OrderBord;
+import vrpsim.core.model.structure.AbstractVRPSimulationModelStructureElementWithStorage;
 import vrpsim.core.model.structure.StructureService;
 import vrpsim.core.model.structure.VRPSimulationModelStructureElementParameters;
-import vrpsim.core.model.structure.util.storage.DefaultStorage;
 import vrpsim.core.model.structure.util.storage.DefaultStorageManager;
 import vrpsim.core.simulator.EventListService;
 import vrpsim.core.simulator.IClock;
 import vrpsim.core.simulator.ITime;
 
-public abstract class AbstractOccasionalDriver extends DefaultStorageManager implements IOccasionalDriver {
+public abstract class AbstractOccasionalDriver extends AbstractVRPSimulationModelStructureElementWithStorage implements IOccasionalDriver {
 
 	protected Logger logger = LoggerFactory.getLogger(AbstractOccasionalDriver.class);
 
-	protected VRPSimulationModelElementParameters vrpSimulationModelElementParameters;
-	protected VRPSimulationModelStructureElementParameters vrpSimulationModelStructureElementParameters;
 	protected EventListService eventListService;
 	protected NetworkService networkService;
 	protected StructureService structureService;
 
-	public AbstractOccasionalDriver(VRPSimulationModelElementParameters vrpSimulationModelElementParameters,
-			VRPSimulationModelStructureElementParameters vrpSimulationModelStructureElementParameters,
-			DefaultStorage storage) {
-		super(storage);
+	public AbstractOccasionalDriver(final VRPSimulationModelElementParameters vrpSimulationModelElementParameters,
+			final VRPSimulationModelStructureElementParameters vrpSimulationModelStructureElementParameters,
+			final DefaultStorageManager storageManager) {
+		super(vrpSimulationModelElementParameters, vrpSimulationModelStructureElementParameters, storageManager);
 
-		this.vrpSimulationModelElementParameters = vrpSimulationModelElementParameters;
-		this.vrpSimulationModelStructureElementParameters = vrpSimulationModelStructureElementParameters;
 	}
 
 	@Override
@@ -64,30 +60,13 @@ public abstract class AbstractOccasionalDriver extends DefaultStorageManager imp
 	}
 
 	@Override
-	public VRPSimulationModelStructureElementParameters getVRPSimulationModelStructureElementParameters() {
-		return this.vrpSimulationModelStructureElementParameters;
-	}
-
-	@Override
-	public VRPSimulationModelElementParameters getVRPSimulationModelElementParameters() {
-		return this.vrpSimulationModelElementParameters;
-	}
-
-	@Override
-	public boolean isAvailable(IClock clock) {
-		return true;
-	}
-
-	@Override
 	public ITime getServiceTime(IJob job, IClock clock) {
 		return clock.getCurrentSimulationTime().createTimeFrom(0.0);
 	}
-
+	
 	@Override
-	public void allocateBy(IVRPSimulationModelElement element) {
+	public void setCurrentPlace(IVRPSimulationModelNetworkElement networkElement) {
+		this.currentPlace = networkElement;
 	}
 
-	@Override
-	public void freeFrom(IVRPSimulationModelElement element) {
-	}
 }

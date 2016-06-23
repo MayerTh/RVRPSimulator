@@ -54,6 +54,7 @@ import vrpsim.core.model.structure.util.storage.CanStoreType;
 import vrpsim.core.model.structure.util.storage.Capacity;
 import vrpsim.core.model.structure.util.storage.Compartment;
 import vrpsim.core.model.structure.util.storage.DefaultStorage;
+import vrpsim.core.model.structure.util.storage.DefaultStorageManager;
 import vrpsim.core.model.structure.util.storage.ICanStore;
 import vrpsim.core.model.structure.util.storage.IStorable;
 import vrpsim.core.model.structure.util.storage.StorableGenerator;
@@ -156,12 +157,12 @@ public class VRPREPImporter {
 			CanStoreParameters compartmentParameters = new CanStoreParameters(canStoreType,
 					new Capacity(capacityUnit, vehicleCapacity), new LIFOLoadingPolicy(), new StorableGenerator(this.storableParameters));
 			ICanStore compartment = new Compartment(compartmentParameters);
-			DefaultStorage storage = new DefaultStorage(canStoreType, compartment);
+			DefaultStorageManager storageManager = new DefaultStorageManager(new DefaultStorage(canStoreType, compartment));
 
 			VRPSimulationModelElementParameters elementParameters = new VRPSimulationModelElementParameters(
 					"VEHICLE-" + i, 0);
 			IVehicle vehicle = new DefaultVehicle(elementParameters, structureElementParameters, breakdownParameters,
-					storage, 80.0);
+					storageManager, 80.0);
 			vehicles.add(vehicle);
 			logger.debug("Vehicle {} created with capacity {} and location {}",
 					vehicle.getVRPSimulationModelElementParameters().getId(), vehicleCapacity, nodeId);
@@ -187,9 +188,9 @@ public class VRPREPImporter {
 				new Capacity(capacityUnit, this.maxCustomerStorageCapacity), new LIFOLoadingPolicy(),
 				storableGenerator);
 		ICanStore compartment = new Compartment(compartmentParameters);
-		DefaultStorage storage = new DefaultStorage(canStoreType, compartment);
+		DefaultStorageManager storageManager = new DefaultStorageManager(new DefaultStorage(canStoreType, compartment));
 
-		IDepot depot = new DefaultDepot(elementParameters, structureElementParameters, arrivalParameters, storage);
+		IDepot depot = new DefaultDepot(elementParameters, structureElementParameters, arrivalParameters, storageManager);
 
 		logger.debug("Depot generated on location {}.",
 				structureElementParameters.getHome().getVRPSimulationModelElementParameters().getId());
@@ -229,10 +230,10 @@ public class VRPREPImporter {
 					new Capacity(capacityUnit, this.maxCustomerStorageCapacity), new LIFOLoadingPolicy(),
 					new StorableGenerator(this.storableParameters));
 			ICanStore compartment = new Compartment(compartmentParameters);
-			DefaultStorage storage = new DefaultStorage(canStoreType, compartment);
+			DefaultStorageManager storageManager = new DefaultStorageManager(new DefaultStorage(canStoreType, compartment));
 
 			DefaultNonDynamicCustomer dndc = new DefaultNonDynamicCustomer(elementParameters,
-					structureElementParameters, consumptionParameters, storage);
+					structureElementParameters, consumptionParameters, storageManager);
 			customers.add(dndc);
 			logger.debug("Parameterized customer build {}.", dndc.getVRPSimulationModelElementParameters().getId());
 		}

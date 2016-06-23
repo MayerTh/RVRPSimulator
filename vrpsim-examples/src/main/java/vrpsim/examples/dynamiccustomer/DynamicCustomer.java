@@ -33,32 +33,34 @@ import vrpsim.visualization.Visualisation;
 
 public class DynamicCustomer extends Visualisation {
 
-	public static void main(String[] args) throws GeneratorConfigurationInitializationException, VRPArithmeticException, StorageException {
-		
-		Random random = new Random(2);
-		
+	public static void main(String[] args)
+			throws GeneratorConfigurationInitializationException, VRPArithmeticException, StorageException {
+
+		Random random = new Random(1111);
+
 		RandomNetworkGeneratorConfiguration networkConfig = new RandomNetworkGeneratorConfiguration();
-		networkConfig.
-			setNumberNodes(100);
+		networkConfig.setNumberNodes(10);
 		Network network = new RandomNetworkGenerator().generateRandomNetwork(random, networkConfig);
-		
+
 		RandomStructureGeneratorConfiguration structureConfig = new RandomStructureGeneratorConfiguration();
-		structureConfig
-			.setNetwork(network.getNetworkService())
-			.setNumberOfStaticCustomers(0)
-			.setNumberOfDynamicCustomers(1);
-		
+		structureConfig.setNetwork(network.getNetworkService()).setNumberOfStaticCustomers(0)
+				.setNumberOfDynamicCustomers(5)
+				.setNumberOfVehicles(5)
+				.setNumberOfSourceDepot(1)
+				.setNumberOfDriver(5)
+				.setNumberOfDefaultDepot(0);
+
 		Structure structure = new RandomStructureGenerator().generatreRandomStructure(random, structureConfig);
-		VRPSimulationModelParameters vrpSimulationModelParameters = new VRPSimulationModelParameters("DynamicCustomer", "thomas.mayer@unibw.de");
-		
-		
+		VRPSimulationModelParameters vrpSimulationModelParameters = new VRPSimulationModelParameters("DynamicCustomer",
+				"thomas.mayer@unibw.de");
+
 		MainProgramm mainProgramm = new MainProgramm();
-		
+
 		VRPSimulationModel model = new VRPSimulationModel(vrpSimulationModelParameters, structure, network);
-		
+
 		init(mainProgramm, model, 432000.0); // 300 days
 		launch(args);
-		
+
 	}
-	
+
 }

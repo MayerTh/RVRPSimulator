@@ -21,16 +21,15 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import vrpsim.core.model.IVRPSimulationModelElement;
 import vrpsim.core.model.VRPSimulationModelElementParameters;
 import vrpsim.core.model.behaviour.IJob;
 import vrpsim.core.model.events.IEvent;
 import vrpsim.core.model.events.IEventType;
 import vrpsim.core.model.events.UncertainEvent;
+import vrpsim.core.model.structure.AbstractVRPSimulationModelStructureElementWithStorage;
 import vrpsim.core.model.structure.VRPSimulationModelStructureElementParameters;
 import vrpsim.core.model.structure.customer.DefaultNonDynamicCustomer;
 import vrpsim.core.model.structure.util.storage.CanStoreType;
-import vrpsim.core.model.structure.util.storage.DefaultStorage;
 import vrpsim.core.model.structure.util.storage.DefaultStorageManager;
 import vrpsim.core.model.util.exceptions.EventException;
 import vrpsim.core.model.util.exceptions.StorageException;
@@ -47,25 +46,18 @@ import vrpsim.core.simulator.ITime;
  * @author thomas.mayer@unibw.de
  *
  */
-public class DefaultDepot extends DefaultStorageManager implements IDepot {
+public class DefaultDepot extends AbstractVRPSimulationModelStructureElementWithStorage implements IDepot {
 
 	private static Logger logger = LoggerFactory.getLogger(DefaultNonDynamicCustomer.class);
-
-	private final VRPSimulationModelElementParameters vrpSimulationModelElementParameters;
-	private final VRPSimulationModelStructureElementParameters vrpSimulationModelStructureElementParameters;
 
 	private final List<IEventType> eventTypes;
 	private final UncertainParamters arrivalParameters;
 
-	private boolean available = true;
-
 	public DefaultDepot(final VRPSimulationModelElementParameters vrpSimulationModelElementParameters,
 			final VRPSimulationModelStructureElementParameters vrpSimulationModelStructureElementParameters,
-			final UncertainParamters arrivalParameters, final DefaultStorage storage) {
+			final UncertainParamters arrivalParameters, final DefaultStorageManager storageManager) {
 
-		super(storage);
-		this.vrpSimulationModelElementParameters = vrpSimulationModelElementParameters;
-		this.vrpSimulationModelStructureElementParameters = vrpSimulationModelStructureElementParameters;
+		super(vrpSimulationModelElementParameters, vrpSimulationModelStructureElementParameters, storageManager);
 		this.arrivalParameters = arrivalParameters;
 
 		this.eventTypes = new ArrayList<IEventType>();
@@ -117,7 +109,7 @@ public class DefaultDepot extends DefaultStorageManager implements IDepot {
 
 			for (CanStoreType type : this.getAllCanStoreTypes()) {
 				try {
-					this.loadGeneratedIn(type, cEvent.getContainer().getNumber().getNumber().intValue(),
+					this.storageManager.loadGeneratedIn(type, cEvent.getContainer().getNumber().getNumber().intValue(),
 							cEvent.getContainer().getStorableParameters());
 				} catch (StorageException | VRPArithmeticException exception) {
 					exception.printStackTrace();
@@ -127,30 +119,11 @@ public class DefaultDepot extends DefaultStorageManager implements IDepot {
 				}
 			}
 
-			this.printDebugInformationForStorage(this.vrpSimulationModelElementParameters.getId());
+			this.storageManager.printDebugInformationForStorage(this.vrpSimulationModelElementParameters.getId());
 			List<IEvent> events = new ArrayList<>();
 			events.add(createEvent(cEvent.getContainer(), clock));
 			return events;
 		}
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * vrpsim.core.model.IVRPSimModelEntity#getVRPSimModelElementParameters()
-	 */
-	public VRPSimulationModelStructureElementParameters getVRPSimulationModelStructureElementParameters() {
-		return this.vrpSimulationModelStructureElementParameters;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see vrpsim.core.model.IVRPSimModelEntity#isOutOfOrder()
-	 */
-	public boolean isAvailable(IClock clock) {
-		return this.available;
 	}
 
 	/*
@@ -186,41 +159,6 @@ public class DefaultDepot extends DefaultStorageManager implements IDepot {
 	 */
 	public ITime getServiceTime(IJob job, IClock clock) {
 		return clock.getCurrentSimulationTime().createTimeFrom(0.0);
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see vrpsim.core.model.structure.IVRPSimulationModelStructureElement#
-	 * allocateBy(vrpsim.core.model.structure.
-	 * IVRPSimulationModelStructureElement)
-	 */
-	public void allocateBy(IVRPSimulationModelElement element) {
-		// TODO FIX
-		// this.notAvailable = true;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * vrpsim.core.model.structure.IVRPSimulationModelStructureElement#freeFrom(
-	 * vrpsim.core.model.structure.IVRPSimulationModelStructureElement)
-	 */
-	public void freeFrom(IVRPSimulationModelElement element) {
-		// TODO FIX
-		// this.notAvailable = false;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see vrpsim.core.model.IVRPSimulationModelElement#
-	 * getVRPSimulationModelElementParameters()
-	 */
-	@Override
-	public VRPSimulationModelElementParameters getVRPSimulationModelElementParameters() {
-		return this.vrpSimulationModelElementParameters;
 	}
 
 }

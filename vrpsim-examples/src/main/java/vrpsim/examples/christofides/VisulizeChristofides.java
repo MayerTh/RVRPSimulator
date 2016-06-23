@@ -61,9 +61,6 @@ public class VisulizeChristofides extends Visualisation {
 		SimpleBehaviorGenerator behaviourGenerator = new SimpleBehaviorGenerator();
 		Behaviour behaviour = behaviourGenerator.createBehaviour(model, tour.getCustomerIds(), clock);
 		
-//		StaticBehaviorProvider staticBehaviorProvider = new StaticBehaviorProvider(behaviour);
-//		model.setSolutionManager(new SolutionManager(staticBehaviorProvider));
-		
 		model.setSolutionManager(new SolutionManager((network, structure) -> behaviour));
 
 		init(mainProgramm, model, 100.0);

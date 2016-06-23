@@ -15,7 +15,7 @@
  */
 package vrpsim.core.model.structure;
 
-import vrpsim.core.model.network.INode;
+import vrpsim.core.model.network.IVRPSimulationModelNetworkElement;
 
 /**
  * @date 02.02.2016
@@ -24,14 +24,14 @@ import vrpsim.core.model.network.INode;
  */
 public class VRPSimulationModelStructureElementParameters {
 
-	private final INode home;
+	private final IVRPSimulationModelNetworkElement home;
 
-	public VRPSimulationModelStructureElementParameters(final INode home) {
+	public VRPSimulationModelStructureElementParameters(final IVRPSimulationModelNetworkElement home) {
 		super();
 		this.home = home;
 	}
 
-	public INode getHome() {
+	public IVRPSimulationModelNetworkElement getHome() {
 		return home;
 	}
 

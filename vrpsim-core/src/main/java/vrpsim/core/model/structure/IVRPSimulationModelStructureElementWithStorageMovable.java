@@ -15,6 +15,8 @@
  */
 package vrpsim.core.model.structure;
 
+import vrpsim.core.model.network.IVRPSimulationModelNetworkElement;
+
 public interface IVRPSimulationModelStructureElementWithStorageMovable
 		extends IVRPSimulationModelStructureElementWithStorage {
 
@@ -25,5 +27,12 @@ public interface IVRPSimulationModelStructureElementWithStorageMovable
 	 * @return
 	 */
 	public Double getAverageSpeed();
+	
+	/**
+	 * Sets the current place of a movable simulation element with storage.
+	 * 
+	 * @param networkElement
+	 */
+	public void setCurrentPlace(IVRPSimulationModelNetworkElement networkElement);
 
 }

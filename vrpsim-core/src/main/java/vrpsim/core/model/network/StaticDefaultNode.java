@@ -17,6 +17,8 @@ package vrpsim.core.model.network;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
 
 import vrpsim.core.model.IVRPSimulationModelElement;
 import vrpsim.core.model.VRPSimulationModelElementParameters;
@@ -29,7 +31,7 @@ import vrpsim.core.simulator.ITime;
  * @author thomas.mayer@unibw.de
  *
  */
-public class StaticDefaultNode implements INode {
+public class StaticDefaultNode extends Observable implements INode {
 
 	private final Location location;
 	private final VRPSimulationModelElementParameters vrpSimulationModelElementParameters;
@@ -86,7 +88,7 @@ public class StaticDefaultNode implements INode {
 	 * structure.IVRPSimulationModelStructureElement)
 	 */
 	@Override
-	public void freeFrom(IVRPSimulationModelElement element) {
+	public void releaseFrom(IVRPSimulationModelElement element) {
 		// not relevant for StativDefaultNode.
 	}
 
@@ -129,6 +131,11 @@ public class StaticDefaultNode implements INode {
 	@Override
 	public void setWays(List<IWay> ways) {
 		this.ways = ways;
+	}
+
+	@Override
+	public void addReleaseFromListener(Observer observer) {
+		// not relevant for StativDefaultNode.
 	}
 
 }

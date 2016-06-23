@@ -16,6 +16,7 @@
 package vrpsim.core.model.structure;
 
 import vrpsim.core.model.IVRPSimulationModelElement;
+import vrpsim.core.model.network.IVRPSimulationModelNetworkElement;
 
 /**
  * @date 02.02.2016
@@ -31,5 +32,14 @@ public interface IVRPSimulationModelStructureElement extends IVRPSimulationModel
 	 * @return
 	 */
 	public VRPSimulationModelStructureElementParameters getVRPSimulationModelStructureElementParameters();
+
+	/**
+	 * Returns the current place of the element. For not movable
+	 * {@link IVRPSimulationModelElement}, the current place should be equal to
+	 * {@link VRPSimulationModelStructureElementParameters#getHome()}.
+	 * 
+	 * @return
+	 */
+	public IVRPSimulationModelNetworkElement getCurrentPlace();
 
 }

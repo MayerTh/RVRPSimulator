@@ -138,8 +138,8 @@ public class StorableExchangeActivity implements IActivity {
 		logger.debug("Exchange of {} goods executed. {} new capacity={}, {} new capacity={}", job.getNumber(), source,
 				capaSource, target, capaTarget);
 
-		job.getStorableSource().freeFrom(job.getStorableTarget());
-		job.getStorableTarget().freeFrom(job.getStorableSource());
+		job.getStorableSource().releaseFrom(job.getStorableTarget());
+		job.getStorableTarget().releaseFrom(job.getStorableSource());
 
 		context.addElementsUpdated(job.getStorableTarget());
 		context.addElementsUpdated(job.getStorableSource());

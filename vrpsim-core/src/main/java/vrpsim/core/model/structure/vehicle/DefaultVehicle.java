@@ -21,14 +21,14 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import vrpsim.core.model.IVRPSimulationModelElement;
 import vrpsim.core.model.VRPSimulationModelElementParameters;
 import vrpsim.core.model.behaviour.IJob;
 import vrpsim.core.model.events.IEvent;
 import vrpsim.core.model.events.IEventType;
 import vrpsim.core.model.events.UncertainEvent;
+import vrpsim.core.model.network.IVRPSimulationModelNetworkElement;
+import vrpsim.core.model.structure.AbstractVRPSimulationModelStructureElementWithStorage;
 import vrpsim.core.model.structure.VRPSimulationModelStructureElementParameters;
-import vrpsim.core.model.structure.util.storage.DefaultStorage;
 import vrpsim.core.model.structure.util.storage.DefaultStorageManager;
 import vrpsim.core.model.util.exceptions.EventException;
 import vrpsim.core.model.util.exceptions.detail.RejectEventException;
@@ -43,26 +43,22 @@ import vrpsim.core.simulator.ITime;
  * @author thomas.mayer@unibw.de
  *
  */
-public class DefaultVehicle extends DefaultStorageManager implements IVehicle {
+public class DefaultVehicle extends AbstractVRPSimulationModelStructureElementWithStorage implements IVehicle {
 
 	private static Logger logger = LoggerFactory.getLogger(DefaultVehicle.class);
-
-	private final VRPSimulationModelElementParameters vrpSimulationModelElementParameters;
-	private final VRPSimulationModelStructureElementParameters vrpSimulationModelStructureElementParameters;
 
 	private final List<IEventType> eventTypes;
 	private final UncertainParamters breakdownParameters;
 	private final Double averageSpeed;
 
-	boolean available = true;
+	private boolean isBroken = false;
 
 	public DefaultVehicle(final VRPSimulationModelElementParameters vrpSimulationModelElementParameters,
 			final VRPSimulationModelStructureElementParameters vrpSimulationModelStructureElementParameters,
-			final UncertainParamters breakdownParameters, final DefaultStorage storage, final Double averageSpeed) {
+			final UncertainParamters breakdownParameters, final DefaultStorageManager storageManager,
+			final Double averageSpeed) {
 
-		super(storage);
-		this.vrpSimulationModelElementParameters = vrpSimulationModelElementParameters;
-		this.vrpSimulationModelStructureElementParameters = vrpSimulationModelStructureElementParameters;
+		super(vrpSimulationModelElementParameters, vrpSimulationModelStructureElementParameters, storageManager);
 		this.breakdownParameters = breakdownParameters;
 		this.averageSpeed = averageSpeed;
 
@@ -106,10 +102,10 @@ public class DefaultVehicle extends DefaultStorageManager implements IVehicle {
 		} else {
 
 			// Logic of breakdown.
-			this.available = !this.available;
+			this.isBroken = !this.isBroken;
 
 			logger.debug("{} from type {} is out of order now? {}.", this.vrpSimulationModelElementParameters.getId(),
-					this.getClass().getSimpleName(), this.available);
+					this.getClass().getSimpleName(), this.isAvailable);
 		}
 
 		List<IEvent> events = new ArrayList<>();
@@ -117,20 +113,16 @@ public class DefaultVehicle extends DefaultStorageManager implements IVehicle {
 		return events;
 	}
 
+	@Override
+	public boolean isAvailable(IClock clock) {
+		return isBroken ? !isBroken : super.isAvailable(clock);
+	}
+
 	private IEvent createEvent(UncertainParameterContainer container, IClock clock) {
 		Double timeFrom = this.isAvailable(clock) ? container.getNumber().getNumber()
 				: container.getCycle().getNumber();
 		ITime time = clock.getCurrentSimulationTime().createTimeFrom(timeFrom);
 		return new UncertainEvent(this, this.getAllEventTypes().get(0), time, container);
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see vrpsim.core.model.IVRPSimModelElement#isOutOfOrder()
-	 */
-	public boolean isAvailable(IClock clock) {
-		return this.available;
 	}
 
 	/*
@@ -145,44 +137,10 @@ public class DefaultVehicle extends DefaultStorageManager implements IVehicle {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * vrpsim.core.model.IVRPSimModelElement#getVRPSimModelElementParameters()
-	 */
-	public VRPSimulationModelStructureElementParameters getVRPSimulationModelStructureElementParameters() {
-		return this.vrpSimulationModelStructureElementParameters;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
 	 * @see vrpsim.core.model.util.events.IEventOwner#getAllEventTypes()
 	 */
 	public List<IEventType> getAllEventTypes() {
 		return this.eventTypes;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * vrpsim.core.model.structure.IVRPSimulationModelStructureElement#allocate(
-	 * vrpsim.core.model.structure.IVRPSimulationModelStructureElement)
-	 */
-	public void allocateBy(IVRPSimulationModelElement element) {
-		// TODO FIX
-		// this.notAvailable = true;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * vrpsim.core.model.structure.IVRPSimulationModelStructureElement#free(
-	 * vrpsim.core.model.structure.IVRPSimulationModelStructureElement)
-	 */
-	public void freeFrom(IVRPSimulationModelElement element) {
-		// TODO FIX
-		// this.notAvailable = false;
 	}
 
 	/*
@@ -195,20 +153,14 @@ public class DefaultVehicle extends DefaultStorageManager implements IVehicle {
 		return clock.getCurrentSimulationTime().createTimeFrom(0.0);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see vrpsim.core.model.IVRPSimulationModelElement#
-	 * getVRPSimulationModelElementParameters()
-	 */
-	@Override
-	public VRPSimulationModelElementParameters getVRPSimulationModelElementParameters() {
-		return this.vrpSimulationModelElementParameters;
-	}
-
 	@Override
 	public Double getAverageSpeed() {
 		return this.averageSpeed;
+	}
+
+	@Override
+	public void setCurrentPlace(IVRPSimulationModelNetworkElement networkElement) {
+		this.currentPlace = networkElement;
 	}
 
 }

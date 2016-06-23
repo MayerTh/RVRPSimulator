@@ -48,8 +48,8 @@ public class Tour implements ITour {
 
 	private static Logger logger = LoggerFactory.getLogger(Tour.class);
 
-	private TourContext context;
-	private List<IActivity> orderedActivities;
+	private final TourContext context;
+	private final List<IActivity> orderedActivities;
 	private int activityIndex;
 	private List<IEventType> eventTypes;
 

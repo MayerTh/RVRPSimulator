@@ -17,6 +17,8 @@ package vrpsim.core.model.structure.driver;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,6 +29,7 @@ import vrpsim.core.model.behaviour.IJob;
 import vrpsim.core.model.events.IEvent;
 import vrpsim.core.model.events.IEventType;
 import vrpsim.core.model.events.UncertainEvent;
+import vrpsim.core.model.network.IVRPSimulationModelNetworkElement;
 import vrpsim.core.model.structure.VRPSimulationModelStructureElementParameters;
 import vrpsim.core.model.util.exceptions.EventException;
 import vrpsim.core.model.util.exceptions.detail.RejectEventException;
@@ -41,7 +44,7 @@ import vrpsim.core.simulator.ITime;
  * @author thomas.mayer@unibw.de
  *
  */
-public class DefaultDriver implements IDriver {
+public class DefaultDriver extends Observable implements IDriver {
 
 	private static Logger logger = LoggerFactory.getLogger(DefaultDriver.class);
 
@@ -185,8 +188,10 @@ public class DefaultDriver implements IDriver {
 	 * vrpsim.core.model.structure.IVRPSimulationModelStructureElement#freeFrom(
 	 * vrpsim.core.model.structure.IVRPSimulationModelStructureElement)
 	 */
-	public void freeFrom(IVRPSimulationModelElement element) {
+	public void releaseFrom(IVRPSimulationModelElement element) {
 		this.available = true;
+		this.setChanged();
+		this.notifyObservers();
 	}
 
 	/*
@@ -198,6 +203,16 @@ public class DefaultDriver implements IDriver {
 	@Override
 	public VRPSimulationModelElementParameters getVRPSimulationModelElementParameters() {
 		return this.vrpSimulationModelElementParameters;
+	}
+
+	@Override
+	public IVRPSimulationModelNetworkElement getCurrentPlace() {
+		return this.vrpSimulationModelStructureElementParameters.getHome();
+	}
+
+	@Override
+	public void addReleaseFromListener(Observer observer) {
+		this.addObserver(observer);
 	}
 
 }

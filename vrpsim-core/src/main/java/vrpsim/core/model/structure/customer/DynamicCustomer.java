@@ -18,7 +18,6 @@ package vrpsim.core.model.structure.customer;
 import java.util.ArrayList;
 import java.util.List;
 
-import vrpsim.core.model.IVRPSimulationModelElement;
 import vrpsim.core.model.VRPSimulationModelElementParameters;
 import vrpsim.core.model.behaviour.IJob;
 import vrpsim.core.model.events.IEvent;
@@ -26,8 +25,8 @@ import vrpsim.core.model.events.IEventType;
 import vrpsim.core.model.events.OrderEvent;
 import vrpsim.core.model.events.UncertainEvent;
 import vrpsim.core.model.solution.Order;
+import vrpsim.core.model.structure.AbstractVRPSimulationModelStructureElementWithStorage;
 import vrpsim.core.model.structure.VRPSimulationModelStructureElementParameters;
-import vrpsim.core.model.structure.util.storage.DefaultStorage;
 import vrpsim.core.model.structure.util.storage.DefaultStorageManager;
 import vrpsim.core.model.util.exceptions.EventException;
 import vrpsim.core.model.util.uncertainty.UncertainParamters;
@@ -41,24 +40,19 @@ import vrpsim.core.simulator.ITime;
  * 
  * @author mayert
  */
-public class DynamicCustomer extends DefaultStorageManager implements ICustomer {
-
-	private final VRPSimulationModelElementParameters vrpSimulationModelElementParameters;
-	private final VRPSimulationModelStructureElementParameters vrpSimulationModelStructureElementParameters;
+public class DynamicCustomer extends AbstractVRPSimulationModelStructureElementWithStorage implements ICustomer {
 
 	private final UncertainParamters orderParameters;
 	private List<IEventType> eventTypes = new ArrayList<IEventType>();
 	private List<Order> createdOrders = new ArrayList<>();
-	
-	public DynamicCustomer(VRPSimulationModelElementParameters vrpSimulationModelElementParameters,
-			VRPSimulationModelStructureElementParameters vrpSimulationModelStructureElementParameters,
-			DefaultStorage storage, final UncertainParamters orderParameters) {
-		super(storage);
+
+	public DynamicCustomer(final VRPSimulationModelElementParameters vrpSimulationModelElementParameters,
+			final VRPSimulationModelStructureElementParameters vrpSimulationModelStructureElementParameters,
+			final DefaultStorageManager storageManager, final UncertainParamters orderParameters) {
+		super(vrpSimulationModelElementParameters, vrpSimulationModelStructureElementParameters, storageManager);
 
 		this.orderParameters = orderParameters;
-		this.vrpSimulationModelElementParameters = vrpSimulationModelElementParameters;
-		this.vrpSimulationModelStructureElementParameters = vrpSimulationModelStructureElementParameters;
-		
+
 		/* The Order itself. */
 		eventTypes.add(() -> IEventType.ORDER_EVENT);
 		/* When to trigger new orders. */
@@ -98,33 +92,6 @@ public class DynamicCustomer extends DefaultStorageManager implements ICustomer 
 	}
 
 	@Override
-	public VRPSimulationModelStructureElementParameters getVRPSimulationModelStructureElementParameters() {
-		return this.vrpSimulationModelStructureElementParameters;
-	}
-
-	@Override
-	public VRPSimulationModelElementParameters getVRPSimulationModelElementParameters() {
-		return this.vrpSimulationModelElementParameters;
-	}
-
-	@Override
-	public boolean isAvailable(IClock clock) {
-		return true;
-	}
-
-	@Override
-	public void allocateBy(IVRPSimulationModelElement element) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void freeFrom(IVRPSimulationModelElement element) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
 	public ITime getServiceTime(IJob job, IClock clock) {
 		return clock.getCurrentSimulationTime().createTimeFrom(0.0);
 	}
@@ -142,22 +109,28 @@ public class DynamicCustomer extends DefaultStorageManager implements ICustomer 
 
 	private IEvent createORDER_EVENT(UncertainParameterContainer container, IClock clock) throws EventException {
 
-//		if(container.getEarliestDueDate() == null || container.getLatestDueDate() == null) {
-//			throw new EventException("Can not create Order event with no earliestDueDate or latestDueDate.");
-//		}
-		
-		ITime earliestDueDate = container.getEarliestDueDate() != null ? clock.getCurrentSimulationTime()
-				.add(clock.getCurrentSimulationTime().createTimeFrom(container.getEarliestDueDate().getNumber())) : null;
-		ITime latestDueDate = container.getLatestDueDate() != null ? clock.getCurrentSimulationTime()
-				.add(clock.getCurrentSimulationTime().createTimeFrom(container.getLatestDueDate().getNumber())) : null;
+		// if(container.getEarliestDueDate() == null ||
+		// container.getLatestDueDate() == null) {
+		// throw new EventException("Can not create Order event with no
+		// earliestDueDate or latestDueDate.");
+		// }
+
+		ITime earliestDueDate = container.getEarliestDueDate() != null
+				? clock.getCurrentSimulationTime().add(
+						clock.getCurrentSimulationTime().createTimeFrom(container.getEarliestDueDate().getNumber()))
+				: null;
+		ITime latestDueDate = container.getLatestDueDate() != null
+				? clock.getCurrentSimulationTime()
+						.add(clock.getCurrentSimulationTime().createTimeFrom(container.getLatestDueDate().getNumber()))
+				: null;
 
 		Order order = new Order(createOrderId(clock.getCurrentSimulationTime()), earliestDueDate, latestDueDate,
 				container.getStorableParameters().getStorableType(), container.getNumber().getNumber().intValue(),
 				this);
-		
+
 		// Save order in history.
 		this.createdOrders.add(order);
-		
+
 		// An order event always occurrs with no time delay.
 		return new OrderEvent(this, () -> IEventType.ORDER_EVENT, 0,
 				clock.getCurrentSimulationTime().createTimeFrom(0.0), order);
@@ -166,5 +139,5 @@ public class DynamicCustomer extends DefaultStorageManager implements ICustomer 
 	private String createOrderId(ITime currentTime) {
 		return "ORDER_FROM_" + this.getVRPSimulationModelElementParameters().getId() + "_AT" + currentTime.getValue();
 	}
-	
+
 }

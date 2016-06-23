@@ -25,7 +25,7 @@ import vrpsim.core.model.events.IEventType;
 import vrpsim.core.model.solution.Order;
 import vrpsim.core.model.solution.OrderBord;
 import vrpsim.core.model.structure.VRPSimulationModelStructureElementParameters;
-import vrpsim.core.model.structure.util.storage.DefaultStorage;
+import vrpsim.core.model.structure.util.storage.DefaultStorageManager;
 import vrpsim.core.model.util.exceptions.EventException;
 import vrpsim.core.simulator.EventListService;
 import vrpsim.core.simulator.IClock;
@@ -35,10 +35,10 @@ public class OccasionalDriver extends AbstractOccasionalDriver {
 	private ITour myDailyBehaviour;
 	private Double averageSpeed;
 
-	public OccasionalDriver(VRPSimulationModelElementParameters vrpSimulationModelElementParameters,
-			VRPSimulationModelStructureElementParameters vrpSimulationModelStructureElementParameters,
-			DefaultStorage storage, ITour myDailyBehaviour, Double averageSpeed) {
-		super(vrpSimulationModelElementParameters, vrpSimulationModelStructureElementParameters, storage);
+	public OccasionalDriver(final VRPSimulationModelElementParameters vrpSimulationModelElementParameters,
+			final VRPSimulationModelStructureElementParameters vrpSimulationModelStructureElementParameters,
+			final DefaultStorageManager storageManager, ITour myDailyBehaviour, Double averageSpeed) {
+		super(vrpSimulationModelElementParameters, vrpSimulationModelStructureElementParameters, storageManager);
 
 		this.myDailyBehaviour = myDailyBehaviour;
 		this.averageSpeed = averageSpeed;
@@ -83,6 +83,5 @@ public class OccasionalDriver extends AbstractOccasionalDriver {
 		}
 
 	}
-
 
 }

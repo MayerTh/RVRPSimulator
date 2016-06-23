@@ -42,6 +42,7 @@ import vrpsim.core.model.structure.util.storage.CanStoreType;
 import vrpsim.core.model.structure.util.storage.Capacity;
 import vrpsim.core.model.structure.util.storage.Compartment;
 import vrpsim.core.model.structure.util.storage.DefaultStorage;
+import vrpsim.core.model.structure.util.storage.DefaultStorageManager;
 import vrpsim.core.model.structure.util.storage.ICanStore;
 import vrpsim.core.model.structure.util.storage.IStorable;
 import vrpsim.core.model.structure.util.storage.IStorableGenerator;
@@ -105,14 +106,14 @@ public class SimpleModelGenerator {
 			CanStoreParameters compartmentParameters = new CanStoreParameters(canStoreType,
 					new Capacity(capacityUnit, customerCapacity), new LIFOLoadingPolicy(), new StorableGenerator(this.storableParameters));
 			ICanStore compartment = new Compartment(compartmentParameters);
-			DefaultStorage storage = new DefaultStorage(canStoreType, compartment);
+			DefaultStorageManager storageManager = new DefaultStorageManager(new DefaultStorage(canStoreType, compartment));
 
 			IStorableGenerator storableGenerator = new StorableGenerator(this.storableParameters);
 			ICustomer customer = new DefaultNonDynamicCustomer(vrpSimulationModelElementParameters,
 					vrpSimulationModelStructureElementParameters,
 					new UncertainParamters(new UncertainParamters.UncertainParameterContainer(storableParameters,
 							new DeterministicDistributionFunction(10.0), new DeterministicDistributionFunction(100.0))),
-					storage);
+					storageManager);
 			for (int s = 1; s <= numberItemsInsideCustomer; s++) {
 				IStorable storable = storableGenerator.generateStorable(this.storableParameters);
 				compartment.load(storable);
@@ -134,11 +135,11 @@ public class SimpleModelGenerator {
 			CanStoreParameters compartmentParameters = new CanStoreParameters(canStoreType,
 					new Capacity(capacityUnit, depotCapacity), new LIFOLoadingPolicy(), new StorableGenerator(this.storableParameters));
 			ICanStore compartment = new Compartment(compartmentParameters);
-			DefaultStorage storage = new DefaultStorage(canStoreType, compartment);
+			DefaultStorageManager storageManager = new DefaultStorageManager(new DefaultStorage(canStoreType, compartment));
 
 			IStorableGenerator storableGenerator = new StorableGenerator(this.storableParameters);
 			IDepot depot = new DefaultDepot(vrpSimulationModelElementParameters,
-					vrpSimulationModelStructureElementParameters, new UncertainParamters(), storage);
+					vrpSimulationModelStructureElementParameters, new UncertainParamters(), storageManager);
 
 			for (int s = 1; s <= numberItemsInsideDepot; s++) {
 				IStorable storable = storableGenerator.generateStorable(this.storableParameters);
@@ -162,10 +163,10 @@ public class SimpleModelGenerator {
 			CanStoreParameters compartmentParameters = new CanStoreParameters(canStoreType,
 					new Capacity(capacityUnit, vehicleCapacity), new LIFOLoadingPolicy(), new StorableGenerator(this.storableParameters));
 			ICanStore compartment = new Compartment(compartmentParameters);
-			DefaultStorage storage = new DefaultStorage(canStoreType, compartment);
+			DefaultStorageManager storageManager = new DefaultStorageManager(new DefaultStorage(canStoreType, compartment));
 
 			IVehicle vehicle = new DefaultVehicle(vrpSimulationModelElementParameters,
-					vrpSimulationModelStructureElementParameters, new UncertainParamters(), storage, 80.0);
+					vrpSimulationModelStructureElementParameters, new UncertainParamters(), storageManager, 80.0);
 			vehicles.add(vehicle);
 		}
 		return vehicles;

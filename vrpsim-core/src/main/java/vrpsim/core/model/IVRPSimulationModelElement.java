@@ -15,6 +15,8 @@
  */
 package vrpsim.core.model;
 
+import java.util.Observer;
+
 import vrpsim.core.model.behaviour.IJob;
 import vrpsim.core.simulator.IClock;
 import vrpsim.core.simulator.ITime;
@@ -61,7 +63,7 @@ public interface IVRPSimulationModelElement extends IVRPSimulationElement {
 	 * 
 	 * @param element
 	 */
-	public void freeFrom(IVRPSimulationModelElement element);
+	public void releaseFrom(IVRPSimulationModelElement element);
 
 	/**
 	 * Returns the service time depending on the {@link IJob} and the current
@@ -72,5 +74,12 @@ public interface IVRPSimulationModelElement extends IVRPSimulationElement {
 	 * @return
 	 */
 	public ITime getServiceTime(IJob job, IClock clock);
+
+	/**
+	 * {@link Observer} getting notified when released from an allocation.
+	 * 
+	 * @param observer
+	 */
+	public void addReleaseFromListener(Observer observer);
 
 }

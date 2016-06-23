@@ -19,7 +19,7 @@ import vrpsim.core.model.VRPSimulationModelElementParameters;
 import vrpsim.core.model.structure.VRPSimulationModelStructureElementParameters;
 import vrpsim.core.model.structure.util.storage.CanStoreType;
 import vrpsim.core.model.structure.util.storage.Capacity;
-import vrpsim.core.model.structure.util.storage.DefaultStorage;
+import vrpsim.core.model.structure.util.storage.DefaultStorageManager;
 import vrpsim.core.model.structure.util.storage.IStorable;
 import vrpsim.core.model.structure.util.storage.IStorableGenerator;
 import vrpsim.core.model.structure.util.storage.StorableType;
@@ -37,18 +37,18 @@ import vrpsim.core.model.util.uncertainty.UncertainParamters;
  */
 public class SourceDepot extends DefaultDepot {
 
-	public SourceDepot(VRPSimulationModelElementParameters vrpSimulationModelElementParameters,
-			VRPSimulationModelStructureElementParameters vrpSimulationModelStructureElementParameters,
-			UncertainParamters arrivalParameters, DefaultStorage storage) {
+	public SourceDepot(final VRPSimulationModelElementParameters vrpSimulationModelElementParameters,
+			final VRPSimulationModelStructureElementParameters vrpSimulationModelStructureElementParameters,
+			UncertainParamters arrivalParameters, final DefaultStorageManager storageManager) {
 		super(vrpSimulationModelElementParameters, vrpSimulationModelStructureElementParameters, arrivalParameters,
-				storage);
+				storageManager);
 	}
 
 	@Override
 	public IStorable unload(StorableType storableType) throws StorageException {
 
 		try {
-			super.loadGeneratedIn(storableType.getCanStoreTypes().get(0), 1);
+			this.storageManager.loadGeneratedIn(storableType.getCanStoreTypes().get(0), 1);
 		} catch (VRPArithmeticException e) {
 			throw new StorageException(
 					"Can not load a created storable. Original exception: VRPArithmeticException with message: "
