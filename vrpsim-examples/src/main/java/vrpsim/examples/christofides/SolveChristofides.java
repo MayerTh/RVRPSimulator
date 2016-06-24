@@ -49,7 +49,7 @@ import de.terministic.serein.core.genome.mutation.RotateMutation;
 import de.terministic.serein.core.genome.mutation.ShiftMutation;
 import de.terministic.serein.core.genome.mutation.SwapMutation;
 import de.terministic.serein.core.termination.TerminationConditionGenerations;
-import vrpsim.core.model.util.exceptions.JobException;
+import vrpsim.core.model.util.exceptions.BehaviourException;
 import vrpsim.core.model.util.exceptions.NetworkException;
 import vrpsim.core.model.util.exceptions.StorageException;
 import vrpsim.core.model.util.exceptions.VRPArithmeticException;
@@ -65,7 +65,7 @@ public class SolveChristofides {
 	private static Logger logger = LoggerFactory.getLogger(SolveChristofides.class);
 
 	public static void main(String[] args) throws JAXBException, VRPArithmeticException, StorageException,
-			NetworkException, JobException, IOException, URISyntaxException {
+			NetworkException, BehaviourException, IOException, URISyntaxException {
 
 		LoggerContext lc = (LoggerContext) LoggerFactory.getILoggerFactory();
 		StatusPrinter.print(lc);

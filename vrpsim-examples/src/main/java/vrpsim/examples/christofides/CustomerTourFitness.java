@@ -36,7 +36,7 @@ import vrpsim.core.model.solution.SolutionManager;
 import vrpsim.core.model.structure.customer.ICustomer;
 import vrpsim.core.model.util.exceptions.EventException;
 import vrpsim.core.model.util.exceptions.InitializationException;
-import vrpsim.core.model.util.exceptions.JobException;
+import vrpsim.core.model.util.exceptions.BehaviourException;
 import vrpsim.core.model.util.exceptions.NetworkException;
 import vrpsim.core.model.util.exceptions.StorageException;
 import vrpsim.core.model.util.exceptions.VRPArithmeticException;
@@ -115,7 +115,7 @@ public class CustomerTourFitness extends AbstractFitnessFunction<CustomerTour> {
 			this.model.setSolutionManager(new SolutionManager((network, structure) -> behaviour));
 //			this.model.setBehaviour(behaviour);
 
-		} catch (NetworkException | JobException | VRPArithmeticException e) {
+		} catch (NetworkException | BehaviourException | VRPArithmeticException e) {
 			e.printStackTrace();
 			throw new RuntimeErrorException(new Error(e.getMessage()));
 		}
@@ -133,7 +133,7 @@ public class CustomerTourFitness extends AbstractFitnessFunction<CustomerTour> {
 	}
 
 	public Behaviour translateToSolution(CustomerTour customerTour)
-			throws NetworkException, JobException, VRPArithmeticException {
+			throws NetworkException, BehaviourException, VRPArithmeticException {
 		this.customerTourTranslator = new CustomerTourSolutionTranslator();
 		this.mainProgramm = new MainProgramm();
 		Behaviour solution = this.customerTourTranslator.translate(customerTour, this.model,

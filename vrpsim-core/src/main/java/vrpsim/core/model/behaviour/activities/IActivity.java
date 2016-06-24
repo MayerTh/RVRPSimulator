@@ -13,10 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package vrpsim.core.model.behaviour;
+package vrpsim.core.model.behaviour.activities;
 
+import vrpsim.core.model.behaviour.IVRPSimulationBehaviourElementCanAllocate;
 import vrpsim.core.model.behaviour.activities.util.ActivityDoActionResult;
 import vrpsim.core.model.behaviour.activities.util.ActivityPrepareActionResult;
+import vrpsim.core.model.behaviour.activities.util.IJob;
+import vrpsim.core.model.behaviour.tour.TourContext;
+import vrpsim.core.model.util.exceptions.BehaviourException;
 import vrpsim.core.model.util.exceptions.NetworkException;
 import vrpsim.core.model.util.exceptions.StorageException;
 import vrpsim.core.model.util.exceptions.VRPArithmeticException;
@@ -27,14 +31,20 @@ import vrpsim.core.simulator.IClock;
  * @author thomas.mayer@unibw.de
  *
  */
-public interface IActivity extends IVRPSimulationBehaviourElement {
+public interface IActivity extends IVRPSimulationBehaviourElementCanAllocate {
 
-	public ActivityPrepareActionResult prepareAction(IClock clock, TourContext context) throws VRPArithmeticException, NetworkException;
+	public ActivityPrepareActionResult prepareAction(IClock clock, TourContext context) throws VRPArithmeticException, NetworkException, BehaviourException;
 	
 	public ActivityDoActionResult doAction(IClock clock, TourContext context) throws StorageException, VRPArithmeticException;
 	
 	public IJob getJob();
 	
 	public String toString();
+	
+	public IActivity getSuccessor();
+	
+	public void setSuccessor(IActivity successor);
+	
+	public void validate(TourContext context) throws BehaviourException;
 	
 }

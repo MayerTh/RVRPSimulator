@@ -13,31 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package vrpsim.core.simulator;
+package vrpsim.core.model.util.exceptions;
 
 /**
- * @date 01.02.2016
+ * @date 23.02.2016
  * @author thomas.mayer@unibw.de
  *
  */
-public interface ITime extends Comparable<ITime> {
+public class BehaviourException extends Exception {
 
-	public ITime add(ITime time) throws ArithmeticException;
-
-	public ITime sub(ITime time) throws ArithmeticException;
-
-	public ITime createTimeFrom(Double number);
-
-	public ITime max(ITime time1, ITime time2) throws ArithmeticException;
-
-	public String getValue();
-
-	/**
-	 * Returns a {@link Double} value or <code>null</code> is no {@link Double}
-	 * can be generated out of {@link ITime} representation.
-	 * 
-	 * @return
-	 */
-	public Double getDoubleValue();
+	private static final long serialVersionUID = -3404525830636525929L;
+	
+	public BehaviourException(String msg) {
+		super(msg);
+	}
 
 }

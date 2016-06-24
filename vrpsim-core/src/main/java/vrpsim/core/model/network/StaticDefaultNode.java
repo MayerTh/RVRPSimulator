@@ -20,9 +20,9 @@ import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
-import vrpsim.core.model.IVRPSimulationModelElement;
 import vrpsim.core.model.VRPSimulationModelElementParameters;
-import vrpsim.core.model.behaviour.IJob;
+import vrpsim.core.model.behaviour.IVRPSimulationBehaviourElementCanAllocate;
+import vrpsim.core.model.behaviour.activities.util.ServiceTimeCalculationInformationContainer;
 import vrpsim.core.simulator.IClock;
 import vrpsim.core.simulator.ITime;
 
@@ -45,89 +45,44 @@ public class StaticDefaultNode extends Observable implements INode {
 		this.vrpSimulationModelElementParameters = vrpSimulationModelElementParameters;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see vrpsim.core.model.IVRPSimulationModelElement#
-	 * getVRPSimulationModelElementParameters()
-	 */
 	@Override
 	public VRPSimulationModelElementParameters getVRPSimulationModelElementParameters() {
 		return this.vrpSimulationModelElementParameters;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * vrpsim.core.model.IVRPSimulationModelElement#isNotAvailable(vrpsim.core.
-	 * simulator.IClock)
-	 */
+	
 	@Override
 	public boolean isAvailable(IClock clock) {
 		return true;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * vrpsim.core.model.IVRPSimulationModelElement#allocateBy(vrpsim.core.model
-	 * .structure.IVRPSimulationModelStructureElement)
-	 */
+	
 	@Override
-	public void allocateBy(IVRPSimulationModelElement element) {
+	public void allocateBy(IVRPSimulationBehaviourElementCanAllocate element) {
 		// not relevant for StativDefaultNode.
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * vrpsim.core.model.IVRPSimulationModelElement#freeFrom(vrpsim.core.model.
-	 * structure.IVRPSimulationModelStructureElement)
-	 */
+	
 	@Override
-	public void releaseFrom(IVRPSimulationModelElement element) {
+	public void releaseFrom(IVRPSimulationBehaviourElementCanAllocate element) {
 		// not relevant for StativDefaultNode.
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * vrpsim.core.model.IVRPSimulationModelElement#getServiceTime(vrpsim.core.
-	 * model.behaviour.activities.StorableExchangeJob,
-	 * vrpsim.core.simulator.IClock)
-	 */
 	@Override
-	public ITime getServiceTime(IJob job, IClock clock) {
+	public ITime getServiceTime(ServiceTimeCalculationInformationContainer conatiner, IClock clock) {
 		return clock.getCurrentSimulationTime().createTimeFrom(0.0);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see vrpsim.core.model.network.INode#getLocation()
-	 */
 	@Override
 	public Location getLocation() {
 		return this.location;
 	}
 
-	/* (non-Javadoc)
-	 * @see vrpsim.core.model.network.INode#getWays()
-	 */
 	@Override
 	public List<IWay> getWays() {
 		return this.ways;
 	}
 
-
-
-	/* (non-Javadoc)
-	 * @see vrpsim.core.model.network.INode#setWays(java.util.List)
-	 */
 	@Override
 	public void setWays(List<IWay> ways) {
 		this.ways = ways;

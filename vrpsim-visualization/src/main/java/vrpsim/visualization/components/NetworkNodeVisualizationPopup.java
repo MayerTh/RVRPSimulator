@@ -25,8 +25,8 @@ import javafx.scene.text.Text;
 import vrpsim.core.model.network.INode;
 import vrpsim.core.model.network.IVRPSimulationModelNetworkElement;
 import vrpsim.core.model.structure.IVRPSimulationModelStructureElement;
+import vrpsim.core.model.structure.IVRPSimulationModelStructureElementWithStorage;
 import vrpsim.core.model.structure.util.storage.CanStoreType;
-import vrpsim.core.model.structure.util.storage.DefaultStorageManager;
 import vrpsim.core.model.util.exceptions.VRPArithmeticException;
 import vrpsim.core.simulator.ITime;
 
@@ -54,8 +54,8 @@ public class NetworkNodeVisualizationPopup extends VisualizationPopup {
 			VBox.setMargin(header, new Insets(4, 0, 0, 2));
 			this.dataBox.getChildren().add(header);
 
-			if (element instanceof DefaultStorageManager) {
-				DefaultStorageManager sm = (DefaultStorageManager) element;
+			if (element instanceof IVRPSimulationModelStructureElementWithStorage) {
+				IVRPSimulationModelStructureElementWithStorage sm = (IVRPSimulationModelStructureElementWithStorage) element;
 				for (CanStoreType type : sm.getAllCanStoreTypes()) {
 
 					String currentCapa = sm.getCurrentCapacity(type).getValue() >= Double.MAX_VALUE ? "~"

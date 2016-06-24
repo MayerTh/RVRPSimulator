@@ -13,32 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package vrpsim.core.model.behaviour;
+package vrpsim.core.model.util.exceptions.detail;
 
-import java.util.List;
+import vrpsim.core.model.util.exceptions.BehaviourException;
 
-import vrpsim.core.model.behaviour.activities.util.ActivityDoActionResult;
-import vrpsim.core.model.events.IEventOwner;
+public class ActivityValidationException extends BehaviourException {
 
-/**
- * @date 24.02.2016
- * @author thomas.mayer@unibw.de
- *
- */
-public interface ITour extends IVRPSimulationBehaviourElement, IEventOwner {
+	private static final long serialVersionUID = -3622790228302130565L;
 
-	/**
-	 * Current {@link ITour} costs. See
-	 * {@link ActivityDoActionResult#getDoActionCosts()}.
-	 * 
-	 * @return
-	 */
-	public Double getCurrentTourCosts();
-
-	public List<IActivity> getOrderedActivties();
-
-	public boolean isPeriodic();
-
-	public TourContext getTourContext();
+	public ActivityValidationException(String msg) {
+		super(msg);
+	}
 
 }

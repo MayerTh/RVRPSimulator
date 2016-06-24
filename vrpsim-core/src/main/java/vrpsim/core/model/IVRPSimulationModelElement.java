@@ -17,7 +17,10 @@ package vrpsim.core.model;
 
 import java.util.Observer;
 
-import vrpsim.core.model.behaviour.IJob;
+import vrpsim.core.model.behaviour.IVRPSimulationBehaviourElement;
+import vrpsim.core.model.behaviour.IVRPSimulationBehaviourElementCanAllocate;
+import vrpsim.core.model.behaviour.activities.util.IJob;
+import vrpsim.core.model.behaviour.activities.util.ServiceTimeCalculationInformationContainer;
 import vrpsim.core.simulator.IClock;
 import vrpsim.core.simulator.ITime;
 
@@ -47,23 +50,23 @@ public interface IVRPSimulationModelElement extends IVRPSimulationElement {
 
 	/**
 	 * To interact with an {@link IVRPSimulationElement}, the element gets
-	 * allocated by the {@link IVRPSimulationElement} which would like to
-	 * interact with it.
+	 * allocated by the {@link IVRPSimulationBehaviourElement} which would like
+	 * to interact with it.
 	 * 
 	 * If an element gets allocated although it is not available, the element
 	 * has to handle it.
 	 * 
 	 * @param element
 	 */
-	public void allocateBy(IVRPSimulationModelElement element);
+	public void allocateBy(IVRPSimulationBehaviourElementCanAllocate element);
 
 	/**
 	 * After interaction the {@link IVRPSimulationElement} frees itself from the
-	 * {@link IVRPSimulationElement} interacted with.
+	 * {@link IVRPSimulationBehaviourElement} interacted with.
 	 * 
 	 * @param element
 	 */
-	public void releaseFrom(IVRPSimulationModelElement element);
+	public void releaseFrom(IVRPSimulationBehaviourElementCanAllocate element);
 
 	/**
 	 * Returns the service time depending on the {@link IJob} and the current
@@ -73,7 +76,7 @@ public interface IVRPSimulationModelElement extends IVRPSimulationElement {
 	 * @param clock
 	 * @return
 	 */
-	public ITime getServiceTime(IJob job, IClock clock);
+	public ITime getServiceTime(ServiceTimeCalculationInformationContainer container, IClock clock);
 
 	/**
 	 * {@link Observer} getting notified when released from an allocation.

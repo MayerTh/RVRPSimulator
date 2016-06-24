@@ -23,7 +23,7 @@ import vrpsim.core.model.VRPSimulationModel;
 import vrpsim.core.model.behaviour.Behaviour;
 import vrpsim.core.model.solution.SolutionManager;
 import vrpsim.core.model.util.exceptions.EventException;
-import vrpsim.core.model.util.exceptions.JobException;
+import vrpsim.core.model.util.exceptions.BehaviourException;
 import vrpsim.core.model.util.exceptions.NetworkException;
 import vrpsim.core.model.util.exceptions.StorageException;
 import vrpsim.core.model.util.exceptions.VRPArithmeticException;
@@ -36,7 +36,7 @@ public class Simple extends Visualisation {
 	private static int seed = 4321;
 	
 	public static void main(String[] args) throws JAXBException, VRPArithmeticException, StorageException,
-			NetworkException, JobException, EventException, FileNotFoundException {
+			NetworkException, BehaviourException, EventException, FileNotFoundException {
 
 		SimpleModelGenerator simpleModelGenerator = new SimpleModelGenerator();
 		

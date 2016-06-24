@@ -37,8 +37,8 @@ import javafx.scene.shape.Line;
 import javafx.scene.shape.Polygon;
 import vrpsim.core.model.IVRPSimulationModelElement;
 import vrpsim.core.model.VRPSimulationModel;
-import vrpsim.core.model.behaviour.ITour;
-import vrpsim.core.model.behaviour.TourContext;
+import vrpsim.core.model.behaviour.tour.ITour;
+import vrpsim.core.model.behaviour.tour.TourContext;
 import vrpsim.core.model.events.IEvent;
 import vrpsim.core.model.events.OrderEvent;
 import vrpsim.core.model.network.INode;
@@ -191,7 +191,7 @@ public class ModelViewController implements Observer {
 						endNNV = this.networkElementToVisualisation.get(context.getPlaceHistory().get(i + 1));
 					} else {
 						endNNV = this.networkElementToVisualisation
-								.get(this.vehiclesToNetworkElement.get(context.getCurrentVehicle()));
+								.get(this.vehiclesToNetworkElement.get(context.getVehicle()));
 					}
 					endX = endNNV.getLayoutX() + (endNNV.getBoundsInLocal().getWidth() / 2);
 					endY = endNNV.getLayoutY() + (endNNV.getBoundsInLocal().getHeight() / 2);
@@ -270,14 +270,14 @@ public class ModelViewController implements Observer {
 				// 2. Add vehicle to new network element.
 				// Update lists.
 				IVRPSimulationModelNetworkElement currentNetworkElementFromVehicleInTour = this.vehiclesToNetworkElement
-						.get(context.getCurrentVehicle());
+						.get(context.getVehicle());
 				this.networkElementToVisualisation.get(currentNetworkElementFromVehicleInTour)
-						.removeSimulationModelStructureElement(context.getCurrentVehicle(),
+						.removeSimulationModelStructureElement(context.getVehicle(),
 								simulationTimeOfLastEventOccurence);
 				IVRPSimulationModelNetworkElement newNetworkElementFromVehicleInTour = context.getCurrentPlace();
-				this.vehiclesToNetworkElement.put(context.getCurrentVehicle(), newNetworkElementFromVehicleInTour);
+				this.vehiclesToNetworkElement.put(context.getVehicle(), newNetworkElementFromVehicleInTour);
 				this.networkElementToVisualisation.get(newNetworkElementFromVehicleInTour)
-						.addSimulationModelStructureElement(context.getCurrentVehicle(),
+						.addSimulationModelStructureElement(context.getVehicle(),
 								simulationTimeOfLastEventOccurence);
 
 				// Update the elements changed during the tour execution (e.g.

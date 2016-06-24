@@ -17,8 +17,8 @@ package vrpsim.core.simulator;
 
 import java.util.List;
 
+import vrpsim.core.model.IVRPSimulationModelElement;
 import vrpsim.core.model.events.IEvent;
-import vrpsim.core.model.structure.IVRPSimulationModelStructureElement;
 
 /**
  * @date 23.02.2016
@@ -84,7 +84,7 @@ public class EventListService {
 	 * @param clock
 	 * @return
 	 */
-	public ITime getTimeTillOccurenceFor(IVRPSimulationModelStructureElement element, IClock clock) {
+	public ITime getTimeTillOccurenceFor(IVRPSimulationModelElement element, IClock clock) {
 		ITime timeTillOccurrence = null;
 		this.eventList.sort();
 		for (IEvent event : this.eventList.getEventList()) {

@@ -23,15 +23,17 @@ import java.util.Observer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import vrpsim.core.model.IVRPSimulationModelElement;
 import vrpsim.core.model.VRPSimulationModelElementParameters;
-import vrpsim.core.model.behaviour.IJob;
+import vrpsim.core.model.behaviour.IVRPSimulationBehaviourElementCanAllocate;
+import vrpsim.core.model.behaviour.activities.util.ServiceTimeCalculationInformationContainer;
 import vrpsim.core.model.events.IEvent;
 import vrpsim.core.model.events.IEventType;
 import vrpsim.core.model.events.UncertainEvent;
 import vrpsim.core.model.network.IVRPSimulationModelNetworkElement;
 import vrpsim.core.model.structure.VRPSimulationModelStructureElementParameters;
+import vrpsim.core.model.util.exceptions.BehaviourException;
 import vrpsim.core.model.util.exceptions.EventException;
+import vrpsim.core.model.util.exceptions.detail.ErrorDuringEventProcessingException;
 import vrpsim.core.model.util.exceptions.detail.RejectEventException;
 import vrpsim.core.model.util.uncertainty.UncertainParamters;
 import vrpsim.core.model.util.uncertainty.UncertainParamters.UncertainParameterContainer;
@@ -53,9 +55,11 @@ public class DefaultDriver extends Observable implements IDriver {
 
 	private final List<IEventType> eventTypes;
 	private final UncertainParamters breakdownParameters;
-
-	boolean available = true;
-
+	
+	protected boolean isBroken = false;
+	protected boolean isAvailable = true;
+	protected IVRPSimulationBehaviourElementCanAllocate isAllocatedBy;
+	
 	public DefaultDriver(final VRPSimulationModelElementParameters vrpSimulationModelElementParameters,
 			final VRPSimulationModelStructureElementParameters vrpSimulationModelStructureElementParameters,
 			final UncertainParamters breakdownParameters) {
@@ -73,12 +77,7 @@ public class DefaultDriver extends Observable implements IDriver {
 		});
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see vrpsim.core.model.util.events.IEventOwner#getOwnEvents(vrpsim.core.
-	 * simulator.IClock)
-	 */
+	@Override
 	public List<IEvent> getInitialEvents(IClock clock) {
 		// Create an breakdownevent for each container.
 		List<IEvent> events = new ArrayList<IEvent>();
@@ -88,13 +87,7 @@ public class DefaultDriver extends Observable implements IDriver {
 		return events;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * vrpsim.core.model.util.events.IEventOwner#processOwnEvent(vrpsim.core.
-	 * model.util.events.IEvent, vrpsim.core.simulator.IClock)
-	 */
+	@Override
 	public List<IEvent> processEvent(IEvent event, IClock clock, EventListService eventListAnalyzer)
 			throws EventException {
 
@@ -104,13 +97,44 @@ public class DefaultDriver extends Observable implements IDriver {
 		} else {
 
 			// Logic of breakdown.
-			this.available = !this.available;
+
+			if (!this.isBroken) {
+				// Currently not broken, have to change to broken.
+				if (this.isAllocatedBy != null) {
+					// Vehicle is allocated, means used with in a Tour.
+					// Inform the allocated by, that vehicle is now broken.
+					try {
+						this.isAllocatedBy.allocatedElementStateChanged(this);
+					} catch (BehaviourException e) {
+						throw new ErrorDuringEventProcessingException(
+								"DefaultDriver is allocated and internal state changed from unbroken to broken. The state changed is not propper handled by the allocating element. Original message: "
+										+ e.getMessage());
+					}
+				}
+
+				this.isBroken = true;
+			} else {
+				// Currently broken, have to change to not broken.
+				if (this.isAllocatedBy != null) {
+					// Vehicle is allocated, means used with in a Tour.
+					// Inform the allocated by, that vehicle is not broken
+					// anymore.
+					try {
+						this.isAllocatedBy.allocatedElementStateChanged(this);
+					} catch (BehaviourException e) {
+						throw new ErrorDuringEventProcessingException(
+								"DefaultDriver is allocated and internal state changed from broken to unbroken. The state changed is not propper handled by the allocating element. Original message: "
+										+ e.getMessage());
+					}
+				}
+				this.isBroken = false;
+			}
 
 			logger.debug("{} from type {} is out of order now? {}.", this.vrpSimulationModelElementParameters.getId(),
-					this.getClass().getSimpleName(), this.available);
+					this.getClass().getSimpleName(), this.isAvailable);
 		}
 
-		List<IEvent> events  = new ArrayList<>();
+		List<IEvent> events = new ArrayList<>();
 		events.add(createEvent(((UncertainEvent) event).getContainer(), clock));
 		return events;
 	}
@@ -122,74 +146,41 @@ public class DefaultDriver extends Observable implements IDriver {
 		return new UncertainEvent(this, this.getAllEventTypes().get(0), time, container);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see vrpsim.core.model.IVRPSimModelElement#isOutOfOrder()
-	 */
+	@Override
 	public boolean isAvailable(IClock clock) {
-		return this.available;
+		return isBroken ? !isBroken : this.isAvailable;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see vrpsim.core.model.vehicle.IVehicle#getBreakdownParameters()
-	 */
+	@Override
 	public UncertainParamters getBreakdownParameters() {
 		return this.breakdownParameters;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * vrpsim.core.model.IVRPSimModelElement#getVRPSimModelElementParameters()
-	 */
+	@Override
 	public VRPSimulationModelStructureElementParameters getVRPSimulationModelStructureElementParameters() {
 		return this.vrpSimulationModelStructureElementParameters;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see vrpsim.core.model.util.events.IEventOwner#getAllEventTypes()
-	 */
+	@Override
 	public List<IEventType> getAllEventTypes() {
 		return this.eventTypes;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see vrpsim.core.model.structure.IVRPSimulationModelStructureElement#
-	 * getServiceTime(vrpsim.core.model.behaviour.ActivityJob,
-	 * vrpsim.core.simulator.IClock)
-	 */
-	public ITime getServiceTime(IJob job, IClock clock) {
+	@Override
+	public ITime getServiceTime(ServiceTimeCalculationInformationContainer serviceTimeCalculationInformationContainer, IClock clock) {
 		return clock.getCurrentSimulationTime().createTimeFrom(0.0);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see vrpsim.core.model.structure.IVRPSimulationModelStructureElement#
-	 * allocateBy(vrpsim.core.model.structure.
-	 * IVRPSimulationModelStructureElement)
-	 */
-	public void allocateBy(IVRPSimulationModelElement element) {
-		this.available = false;
+	@Override
+	public void allocateBy(IVRPSimulationBehaviourElementCanAllocate element) {
+		this.isAvailable = false;
+		this.isAllocatedBy = element;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * vrpsim.core.model.structure.IVRPSimulationModelStructureElement#freeFrom(
-	 * vrpsim.core.model.structure.IVRPSimulationModelStructureElement)
-	 */
-	public void releaseFrom(IVRPSimulationModelElement element) {
-		this.available = true;
+	@Override
+	public void releaseFrom(IVRPSimulationBehaviourElementCanAllocate element) {
+		this.isAvailable = true;
+		this.isAllocatedBy = null;
 		this.setChanged();
 		this.notifyObservers();
 	}

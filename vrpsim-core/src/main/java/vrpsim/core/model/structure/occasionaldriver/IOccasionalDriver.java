@@ -17,7 +17,7 @@ package vrpsim.core.model.structure.occasionaldriver;
 
 import java.util.Observer;
 
-import vrpsim.core.model.behaviour.ITour;
+import vrpsim.core.model.behaviour.tour.ITour;
 import vrpsim.core.model.events.IEventOwner;
 import vrpsim.core.model.network.NetworkService;
 import vrpsim.core.model.solution.Order;

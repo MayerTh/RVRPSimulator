@@ -22,7 +22,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import vrpsim.core.model.VRPSimulationModelElementParameters;
-import vrpsim.core.model.behaviour.IJob;
+import vrpsim.core.model.behaviour.activities.util.ServiceTimeCalculationInformationContainer;
 import vrpsim.core.model.events.IEvent;
 import vrpsim.core.model.events.IEventType;
 import vrpsim.core.model.events.UncertainEvent;
@@ -39,7 +39,8 @@ import vrpsim.core.simulator.EventListService;
 import vrpsim.core.simulator.IClock;
 import vrpsim.core.simulator.ITime;
 
-public class DefaultNonDynamicCustomer extends AbstractVRPSimulationModelStructureElementWithStorage implements ICustomer {
+public class DefaultNonDynamicCustomer extends AbstractVRPSimulationModelStructureElementWithStorage
+		implements ICustomer {
 
 	private static Logger logger = LoggerFactory.getLogger(DefaultNonDynamicCustomer.class);
 
@@ -156,13 +157,8 @@ public class DefaultNonDynamicCustomer extends AbstractVRPSimulationModelStructu
 		return event;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see vrpsim.core.model.structure.IVRPSimulationModelStructureElement#
-	 * getServiceTime(vrpsim.core.model.behaviour.ActivityJob)
-	 */
-	public ITime getServiceTime(IJob job, IClock clock) {
+	@Override
+	public ITime getServiceTime(ServiceTimeCalculationInformationContainer container, IClock clock) {
 		return clock.getCurrentSimulationTime().createTimeFrom(0.0);
 	}
 

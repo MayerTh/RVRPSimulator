@@ -99,8 +99,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <interface id="11" language="java" name="vrpsim.core.model.behaviour.ITour" project="vrpsim-core" 
-    file="/vrpsim-core/src/main/java/vrpsim/core/model/behaviour/ITour.java" binary="false" corner="BOTTOM_RIGHT">    
+  <interface id="11" language="java" name="vrpsim.core.model.behaviour.tour.ITour" project="vrpsim-core" 
+    file="/vrpsim-core/src/main/java/vrpsim/core/model/behaviour/tour/ITour.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1387" y="1045"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      

@@ -1,11 +1,26 @@
+/**
+ * Copyright (C) 2016 Thomas Mayer (thomas.mayer@unibw.de)
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *         http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package vrpsim.core.model.structure;
 
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
-import vrpsim.core.model.IVRPSimulationModelElement;
 import vrpsim.core.model.VRPSimulationModelElementParameters;
+import vrpsim.core.model.behaviour.IVRPSimulationBehaviourElementCanAllocate;
 import vrpsim.core.model.network.IVRPSimulationModelNetworkElement;
 import vrpsim.core.model.structure.util.storage.CanStoreType;
 import vrpsim.core.model.structure.util.storage.Capacity;
@@ -25,7 +40,7 @@ public abstract class AbstractVRPSimulationModelStructureElementWithStorage exte
 
 	protected IVRPSimulationModelNetworkElement currentPlace;
 	protected boolean isAvailable = true;
-	protected IVRPSimulationModelElement isAllocatedBy;
+	protected IVRPSimulationBehaviourElementCanAllocate isAllocatedBy;
 
 	public AbstractVRPSimulationModelStructureElementWithStorage(
 			final VRPSimulationModelElementParameters vrpSimulationModelElementParameters,
@@ -33,8 +48,6 @@ public abstract class AbstractVRPSimulationModelStructureElementWithStorage exte
 			final DefaultStorageManager storageManager) {
 
 		this.storageManager = storageManager;
-
-		// super(storage);
 		this.currentPlace = vrpSimulationModelStructureElementParameters.getHome();
 		this.vrpSimulationModelElementParameters = vrpSimulationModelElementParameters;
 		this.vrpSimulationModelStructureElementParameters = vrpSimulationModelStructureElementParameters;
@@ -61,13 +74,13 @@ public abstract class AbstractVRPSimulationModelStructureElementWithStorage exte
 	}
 
 	@Override
-	public void allocateBy(IVRPSimulationModelElement element) {
+	public void allocateBy(IVRPSimulationBehaviourElementCanAllocate element) {
 		this.isAvailable = false;
 		this.isAllocatedBy = element;
 	}
 
 	@Override
-	public void releaseFrom(IVRPSimulationModelElement element) {
+	public void releaseFrom(IVRPSimulationBehaviourElementCanAllocate element) {
 		this.isAvailable = true;
 		this.isAllocatedBy = null;
 		this.setChanged();

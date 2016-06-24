@@ -13,19 +13,32 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package vrpsim.core.model.behaviour;
+package vrpsim.core.model.behaviour.tour;
 
-import vrpsim.core.model.network.IVRPSimulationModelNetworkElement;
-import vrpsim.core.model.structure.IVRPSimulationModelStructureElementWithStorageMovable;
+import vrpsim.core.model.behaviour.IVRPSimulationBehaviourElementCanAllocate;
+import vrpsim.core.model.behaviour.activities.IActivity;
+import vrpsim.core.model.behaviour.activities.util.ActivityDoActionResult;
+import vrpsim.core.model.events.IEventOwner;
 
 /**
- * @date 23.02.2016
+ * @date 24.02.2016
  * @author thomas.mayer@unibw.de
  *
  */
-public interface IJob extends IVRPSimulationBehaviourElement {
-	
-	public IVRPSimulationModelNetworkElement getPlaceOfJobExecution();
-	public IVRPSimulationModelStructureElementWithStorageMovable getInvolvedTransporter();
-	
+public interface ITour extends IVRPSimulationBehaviourElementCanAllocate, IEventOwner {
+
+	/**
+	 * Current {@link ITour} costs. See
+	 * {@link ActivityDoActionResult#getDoActionCosts()}.
+	 * 
+	 * @return
+	 */
+	public Double getCurrentTourCosts();
+
+	public IActivity getStartActivity();
+
+	public boolean isPeriodic();
+
+	public TourContext getTourContext();
+
 }

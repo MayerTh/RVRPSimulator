@@ -22,7 +22,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import vrpsim.core.model.VRPSimulationModelElementParameters;
-import vrpsim.core.model.behaviour.IJob;
+import vrpsim.core.model.behaviour.activities.util.ServiceTimeCalculationInformationContainer;
 import vrpsim.core.model.events.IEvent;
 import vrpsim.core.model.events.IEventType;
 import vrpsim.core.model.events.UncertainEvent;
@@ -30,7 +30,9 @@ import vrpsim.core.model.network.IVRPSimulationModelNetworkElement;
 import vrpsim.core.model.structure.AbstractVRPSimulationModelStructureElementWithStorage;
 import vrpsim.core.model.structure.VRPSimulationModelStructureElementParameters;
 import vrpsim.core.model.structure.util.storage.DefaultStorageManager;
+import vrpsim.core.model.util.exceptions.BehaviourException;
 import vrpsim.core.model.util.exceptions.EventException;
+import vrpsim.core.model.util.exceptions.detail.ErrorDuringEventProcessingException;
 import vrpsim.core.model.util.exceptions.detail.RejectEventException;
 import vrpsim.core.model.util.uncertainty.UncertainParamters;
 import vrpsim.core.model.util.uncertainty.UncertainParamters.UncertainParameterContainer;
@@ -71,12 +73,7 @@ public class DefaultVehicle extends AbstractVRPSimulationModelStructureElementWi
 		});
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see vrpsim.core.model.util.events.IEventOwner#getOwnEvents(vrpsim.core.
-	 * simulator.IClock)
-	 */
+	@Override
 	public List<IEvent> getInitialEvents(IClock clock) {
 		// Create an breakdownevent for each container.
 		List<IEvent> events = new ArrayList<IEvent>();
@@ -86,13 +83,7 @@ public class DefaultVehicle extends AbstractVRPSimulationModelStructureElementWi
 		return events;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * vrpsim.core.model.util.events.IEventOwner#processOwnEvent(vrpsim.core.
-	 * model.util.events.IEvent, vrpsim.core.simulator.IClock)
-	 */
+	@Override
 	public List<IEvent> processEvent(IEvent event, IClock clock, EventListService eventListAnalyzer)
 			throws EventException {
 
@@ -102,7 +93,38 @@ public class DefaultVehicle extends AbstractVRPSimulationModelStructureElementWi
 		} else {
 
 			// Logic of breakdown.
-			this.isBroken = !this.isBroken;
+
+			if (!this.isBroken) {
+				// Currently not broken, have to change to broken.
+				if (this.isAllocatedBy != null) {
+					// Vehicle is allocated, means used with in a Tour.
+					// Inform the allocated by, that vehicle is now broken.
+					try {
+						this.isAllocatedBy.allocatedElementStateChanged(this);
+					} catch (BehaviourException e) {
+						throw new ErrorDuringEventProcessingException(
+								"DefaultVehicle is allocated and internal state changed from unbroken to broken. The state changed is not propper handled by the allocating element. Original message: "
+										+ e.getMessage());
+					}
+				}
+
+				this.isBroken = true;
+			} else {
+				// Currently broken, have to change to not broken.
+				if (this.isAllocatedBy != null) {
+					// Vehicle is allocated, means used with in a Tour.
+					// Inform the allocated by, that vehicle is not broken
+					// anymore.
+					try {
+						this.isAllocatedBy.allocatedElementStateChanged(this);
+					} catch (BehaviourException e) {
+						throw new ErrorDuringEventProcessingException(
+								"DefaultVehicle is allocated and internal state changed from broken to unbroken. The state changed is not propper handled by the allocating element. Original message: "
+										+ e.getMessage());
+					}
+				}
+				this.isBroken = false;
+			}
 
 			logger.debug("{} from type {} is out of order now? {}.", this.vrpSimulationModelElementParameters.getId(),
 					this.getClass().getSimpleName(), this.isAvailable);
@@ -125,31 +147,19 @@ public class DefaultVehicle extends AbstractVRPSimulationModelStructureElementWi
 		return new UncertainEvent(this, this.getAllEventTypes().get(0), time, container);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see vrpsim.core.model.vehicle.IVehicle#getBreakdownParameters()
-	 */
+	@Override
 	public UncertainParamters getBreakdownParameters() {
 		return this.breakdownParameters;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see vrpsim.core.model.util.events.IEventOwner#getAllEventTypes()
-	 */
+	@Override
 	public List<IEventType> getAllEventTypes() {
 		return this.eventTypes;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see vrpsim.core.model.structure.IVRPSimulationModelStructureElement#
-	 * getServiceTime(vrpsim.core.model.behaviour.ActivityJob)
-	 */
-	public ITime getServiceTime(IJob job, IClock clock) {
+	@Override
+	public ITime getServiceTime(ServiceTimeCalculationInformationContainer serviceTimeCalculationInformationContainer,
+			IClock clock) {
 		return clock.getCurrentSimulationTime().createTimeFrom(0.0);
 	}
 

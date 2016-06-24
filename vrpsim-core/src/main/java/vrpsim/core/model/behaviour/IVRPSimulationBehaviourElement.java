@@ -23,5 +23,5 @@ import vrpsim.core.model.IVRPSimulationElement;
  *
  */
 public interface IVRPSimulationBehaviourElement extends IVRPSimulationElement {
-
+	
 }

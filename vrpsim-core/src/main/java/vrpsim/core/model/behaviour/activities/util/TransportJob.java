@@ -13,19 +13,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package vrpsim.core.model.util.exceptions;
+package vrpsim.core.model.behaviour.activities.util;
+
+import vrpsim.core.model.behaviour.activities.TransportActivity;
+import vrpsim.core.model.network.INode;
+import vrpsim.core.model.network.IVRPSimulationModelNetworkElement;
 
 /**
- * @date 23.02.2016
+ * Holds all information to execute an {@link TransportActivity}.
+ * 
+ * @date 22.02.2016
  * @author thomas.mayer@unibw.de
- *
  */
-public class JobException extends Exception {
+public class TransportJob implements IJob {
 
-	private static final long serialVersionUID = -3404525830636525929L;
-	
-	public JobException(String msg) {
-		super(msg);
+	private final IVRPSimulationModelNetworkElement transportTarget;
+
+	public TransportJob(IVRPSimulationModelNetworkElement transportTarget) {
+		this.transportTarget = (INode) transportTarget;
+	}
+
+	public IVRPSimulationModelNetworkElement getTransportTarget() {
+		return transportTarget;
 	}
 
 }

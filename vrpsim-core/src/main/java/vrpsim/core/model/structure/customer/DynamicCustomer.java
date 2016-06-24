@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import vrpsim.core.model.VRPSimulationModelElementParameters;
-import vrpsim.core.model.behaviour.IJob;
+import vrpsim.core.model.behaviour.activities.util.ServiceTimeCalculationInformationContainer;
 import vrpsim.core.model.events.IEvent;
 import vrpsim.core.model.events.IEventType;
 import vrpsim.core.model.events.OrderEvent;
@@ -92,7 +92,7 @@ public class DynamicCustomer extends AbstractVRPSimulationModelStructureElementW
 	}
 
 	@Override
-	public ITime getServiceTime(IJob job, IClock clock) {
+	public ITime getServiceTime(ServiceTimeCalculationInformationContainer container, IClock clock) {
 		return clock.getCurrentSimulationTime().createTimeFrom(0.0);
 	}
 

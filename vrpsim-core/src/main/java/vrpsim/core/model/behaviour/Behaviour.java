@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import vrpsim.core.model.IVRPSimulationElement;
+import vrpsim.core.model.behaviour.tour.ITour;
 
 /**
  * @date 23.02.2016

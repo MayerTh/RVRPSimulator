@@ -15,36 +15,24 @@
  */
 package vrpsim.core.model.behaviour.activities.util;
 
-import vrpsim.core.model.behaviour.IJob;
-import vrpsim.core.model.network.IVRPSimulationModelNetworkElement;
-import vrpsim.core.model.structure.IVRPSimulationModelStructureElementWithStorageMovable;
 import vrpsim.core.simulator.ITime;
 
+/**
+ * Holds all information to execute a {@link DelayTimeJob}.
+ * 
+ * @date 22.02.2016
+ * @author thomas.mayer@unibw.de
+ */
 public class DelayTimeJob implements IJob {
 
 	private final ITime delay;
-	private final IVRPSimulationModelNetworkElement placeOfDelay;
-	private final IVRPSimulationModelStructureElementWithStorageMovable delayedTransporter;
 
-	public DelayTimeJob(ITime delay, IVRPSimulationModelNetworkElement placeOfDelay,
-			IVRPSimulationModelStructureElementWithStorageMovable delayedTransporter) {
+	public DelayTimeJob(ITime delay) {
 		this.delay = delay;
-		this.placeOfDelay = placeOfDelay;
-		this.delayedTransporter = delayedTransporter;
-	}
-
-	@Override
-	public IVRPSimulationModelNetworkElement getPlaceOfJobExecution() {
-		return this.placeOfDelay;
 	}
 
 	public ITime getDelay() {
 		return this.delay;
-	}
-
-	@Override
-	public IVRPSimulationModelStructureElementWithStorageMovable getInvolvedTransporter() {
-		return this.delayedTransporter;
 	}
 
 }

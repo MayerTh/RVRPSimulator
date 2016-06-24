@@ -19,7 +19,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import vrpsim.core.model.VRPSimulationModelElementParameters;
-import vrpsim.core.model.behaviour.IJob;
+import vrpsim.core.model.behaviour.activities.util.ServiceTimeCalculationInformationContainer;
 import vrpsim.core.model.network.IVRPSimulationModelNetworkElement;
 import vrpsim.core.model.network.NetworkService;
 import vrpsim.core.model.solution.OrderBord;
@@ -60,7 +60,7 @@ public abstract class AbstractOccasionalDriver extends AbstractVRPSimulationMode
 	}
 
 	@Override
-	public ITime getServiceTime(IJob job, IClock clock) {
+	public ITime getServiceTime(ServiceTimeCalculationInformationContainer serviceTimeCalculationInformationContainer, IClock clock) {
 		return clock.getCurrentSimulationTime().createTimeFrom(0.0);
 	}
 	

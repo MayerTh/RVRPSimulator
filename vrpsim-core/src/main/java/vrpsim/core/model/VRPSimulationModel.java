@@ -18,7 +18,7 @@ package vrpsim.core.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import vrpsim.core.model.behaviour.ITour;
+import vrpsim.core.model.behaviour.tour.ITour;
 import vrpsim.core.model.network.Network;
 import vrpsim.core.model.solution.SolutionManager;
 import vrpsim.core.model.structure.Structure;

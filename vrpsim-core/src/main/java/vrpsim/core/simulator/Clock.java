@@ -57,32 +57,20 @@ public class Clock implements IClock {
 		public double getTimeDouble() {
 			return this.time;
 		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see java.lang.Comparable#compareTo(java.lang.Object)
-		 */
+		
+		@Override
 		public int compareTo(ITime time) {
 			this.checkTypeSafty(time);
 			return Double.compare(this.time, ((Time) time).getTimeDouble());
 		}
 
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see vrpsim.core.simulator.ITime#add(vrpsim.core.simulator.ITime)
-		 */
+		@Override
 		public ITime add(ITime time) throws ArithmeticException {
 			this.checkTypeSafty(time);
 			return new Time(this.time + ((Time) time).getTimeDouble());
 		}
 
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see vrpsim.core.simulator.ITime#createTimeFrom(java.lang.Double)
-		 */
+		@Override
 		public ITime createTimeFrom(Double number) {
 			return new Time(number);
 		}
@@ -94,22 +82,12 @@ public class Clock implements IClock {
 			}
 		}
 
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see vrpsim.core.simulator.ITime#sub(vrpsim.core.simulator.ITime)
-		 */
+		@Override
 		public ITime sub(ITime time) throws ArithmeticException {
 			this.checkTypeSafty(time);
 			return new Time(this.time - ((Time) time).getTimeDouble());
 		}
 
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see vrpsim.core.simulator.ITime#max(vrpsim.core.simulator.ITime,
-		 * vrpsim.core.simulator.ITime)
-		 */
 		@Override
 		public ITime max(ITime time1, ITime time2) throws ArithmeticException {
 			this.checkTypeSafty(time1);
@@ -120,6 +98,12 @@ public class Clock implements IClock {
 		@Override
 		public String getValue() {
 			return Double.toString(time);
+		}
+		
+
+		@Override
+		public Double getDoubleValue() {
+			return time;
 		}
 
 	}

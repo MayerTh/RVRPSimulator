@@ -15,7 +15,7 @@
  */
 package vrpsim.core.model.behaviour.activities.util;
 
-import vrpsim.core.model.structure.IVRPSimulationModelStructureElement;
+import vrpsim.core.model.IVRPSimulationModelElement;
 import vrpsim.core.simulator.ITime;
 
 /**
@@ -26,15 +26,17 @@ import vrpsim.core.simulator.ITime;
 public class ActivityPrepareActionResult {
 
 	private final boolean prepareActionSuccessful;
-	
-	private IVRPSimulationModelStructureElement responsibleElement;
+	private final String msg;
+
+	private IVRPSimulationModelElement responsibleElement;
 	private ITime timeTillDoAction;
 
-	public ActivityPrepareActionResult(boolean prepareActionSuccessful) {
+	public ActivityPrepareActionResult(boolean prepareActionSuccessful, String msg) {
 		this.prepareActionSuccessful = prepareActionSuccessful;
+		this.msg = msg;
 	}
 
-	public void setResponsibleElement(IVRPSimulationModelStructureElement responsibleElement) {
+	public void setResponsibleElement(IVRPSimulationModelElement responsibleElement) {
 		this.responsibleElement = responsibleElement;
 	}
 
@@ -46,12 +48,16 @@ public class ActivityPrepareActionResult {
 		return prepareActionSuccessful;
 	}
 
-	public IVRPSimulationModelStructureElement getResponsibleElement() {
+	public IVRPSimulationModelElement getResponsibleElement() {
 		return responsibleElement;
 	}
 
 	public ITime getTimeTillDoAction() {
 		return timeTillDoAction;
+	}
+
+	public String getMsg() {
+		return this.msg;
 	}
 
 }

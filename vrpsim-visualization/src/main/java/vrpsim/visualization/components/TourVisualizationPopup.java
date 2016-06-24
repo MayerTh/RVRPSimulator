@@ -20,11 +20,11 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
-import vrpsim.core.model.behaviour.ITour;
+import vrpsim.core.model.behaviour.tour.ITour;
 import vrpsim.core.model.network.INode;
 import vrpsim.core.model.network.IVRPSimulationModelNetworkElement;
+import vrpsim.core.model.structure.IVRPSimulationModelStructureElementWithStorage;
 import vrpsim.core.model.structure.util.storage.CanStoreType;
-import vrpsim.core.model.structure.util.storage.DefaultStorageManager;
 import vrpsim.core.model.util.exceptions.VRPArithmeticException;
 import vrpsim.core.simulator.ITime;
 
@@ -32,7 +32,7 @@ public class TourVisualizationPopup extends VisualizationPopup {
 
 	public TourVisualizationPopup(ITour tour, ITime simulationTimeOfLastEventOccurence) throws VRPArithmeticException {
 		String title = "Tour from vehicle "
-				+ tour.getTourContext().getCurrentVehicle().getVRPSimulationModelElementParameters().getId();
+				+ tour.getTourContext().getVehicle().getVRPSimulationModelElementParameters().getId();
 		buildPopup(title, 225);
 		update(tour, simulationTimeOfLastEventOccurence);
 	}
@@ -40,7 +40,7 @@ public class TourVisualizationPopup extends VisualizationPopup {
 	public void update(ITour tour, ITime simulationTimeOfLastEventOccurence) throws VRPArithmeticException {
 		this.dataBox.getChildren().clear();
 		String title = "Tour from vehicle "
-				+ tour.getTourContext().getCurrentVehicle().getVRPSimulationModelElementParameters().getId();
+				+ tour.getTourContext().getVehicle().getVRPSimulationModelElementParameters().getId();
 		changeTitel(title);
 
 		// Simulation time
@@ -65,13 +65,13 @@ public class TourVisualizationPopup extends VisualizationPopup {
 
 		// vehicle
 		Text vehicle = new Text(
-				tour.getTourContext().getCurrentVehicle().getVRPSimulationModelElementParameters().getId());
+				tour.getTourContext().getVehicle().getVRPSimulationModelElementParameters().getId());
 		vehicle.setFont(Font.font("Arial", FontWeight.BOLD, 12));
 		VBox.setMargin(vehicle, new Insets(4, 0, 0, 2));
 		this.dataBox.getChildren().add(vehicle);
 
-		if (tour.getTourContext().getCurrentVehicle() instanceof DefaultStorageManager) {
-			DefaultStorageManager sm = (DefaultStorageManager) tour.getTourContext().getCurrentVehicle();
+		if (tour.getTourContext().getVehicle() instanceof IVRPSimulationModelStructureElementWithStorage) {
+			IVRPSimulationModelStructureElementWithStorage sm = (IVRPSimulationModelStructureElementWithStorage) tour.getTourContext().getVehicle();
 			for (CanStoreType type : sm.getAllCanStoreTypes()) {
 				Text text = new Text(type.getId() + " " + sm.getCurrentCapacity(type).getValue() + "/"
 						+ (sm.getCurrentCapacity(type).getValue() + sm.getFreeCapacity(type).getValue()));
@@ -100,7 +100,7 @@ public class TourVisualizationPopup extends VisualizationPopup {
 		this.dataBox.getChildren().add(driver);
 
 		Text driverValue = new Text(
-				tour.getTourContext().getCurrentDriver().getVRPSimulationModelElementParameters().getId());
+				tour.getTourContext().getDriver().getVRPSimulationModelElementParameters().getId());
 		VBox.setMargin(driverValue, new Insets(0, 0, 0, 12));
 		this.dataBox.getChildren().add(driverValue);
 

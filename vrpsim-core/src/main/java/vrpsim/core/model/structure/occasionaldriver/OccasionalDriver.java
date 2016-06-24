@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.Observable;
 
 import vrpsim.core.model.VRPSimulationModelElementParameters;
-import vrpsim.core.model.behaviour.ITour;
+import vrpsim.core.model.behaviour.tour.ITour;
 import vrpsim.core.model.events.IEvent;
 import vrpsim.core.model.events.IEventType;
 import vrpsim.core.model.solution.Order;

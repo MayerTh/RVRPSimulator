@@ -22,7 +22,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import vrpsim.core.model.VRPSimulationModelElementParameters;
-import vrpsim.core.model.behaviour.IJob;
+import vrpsim.core.model.behaviour.activities.util.ServiceTimeCalculationInformationContainer;
 import vrpsim.core.model.events.IEvent;
 import vrpsim.core.model.events.IEventType;
 import vrpsim.core.model.events.UncertainEvent;
@@ -150,14 +150,9 @@ public class DefaultDepot extends AbstractVRPSimulationModelStructureElementWith
 		return event;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see vrpsim.core.model.structure.IVRPSimulationModelStructureElement#
-	 * getServiceTime(vrpsim.core.model.behaviour.ActivityJob,
-	 * vrpsim.core.simulator.IClock)
-	 */
-	public ITime getServiceTime(IJob job, IClock clock) {
+	@Override
+	public ITime getServiceTime(ServiceTimeCalculationInformationContainer serviceTimeCalculationInformationContainer,
+			IClock clock) {
 		return clock.getCurrentSimulationTime().createTimeFrom(0.0);
 	}
 

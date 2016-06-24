@@ -18,9 +18,9 @@ package vrpsim.core.model.network;
 import java.util.Observable;
 import java.util.Observer;
 
-import vrpsim.core.model.IVRPSimulationModelElement;
 import vrpsim.core.model.VRPSimulationModelElementParameters;
-import vrpsim.core.model.behaviour.IJob;
+import vrpsim.core.model.behaviour.IVRPSimulationBehaviourElementCanAllocate;
+import vrpsim.core.model.behaviour.activities.util.ServiceTimeCalculationInformationContainer;
 import vrpsim.core.model.util.distances.IDistanceFunction;
 import vrpsim.core.model.util.distances.ITimeFunction;
 import vrpsim.core.simulator.IClock;
@@ -58,103 +58,48 @@ public class DefaultWay extends Observable implements IWay {
 		this.vrpSimulationModelElementParameters = vrpSimulationModelElementParameters;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see vrpsim.core.model.IVRPSimulationModelElement#
-	 * getVRPSimulationModelElementParameters()
-	 */
 	@Override
 	public VRPSimulationModelElementParameters getVRPSimulationModelElementParameters() {
 		return this.vrpSimulationModelElementParameters;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * vrpsim.core.model.IVRPSimulationModelElement#isNotAvailable(vrpsim.core.
-	 * simulator.IClock)
-	 */
 	@Override
 	public boolean isAvailable(IClock clock) {
 		return true;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * vrpsim.core.model.IVRPSimulationModelElement#allocateBy(vrpsim.core.model
-	 * .structure.IVRPSimulationModelStructureElement)
-	 */
 	@Override
-	public void allocateBy(IVRPSimulationModelElement element) {
+	public void allocateBy(IVRPSimulationBehaviourElementCanAllocate element) {
 		// not relevant for StaticDefaultWay.
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * vrpsim.core.model.IVRPSimulationModelElement#freeFrom(vrpsim.core.model.
-	 * structure.IVRPSimulationModelStructureElement)
-	 */
 	@Override
-	public void releaseFrom(IVRPSimulationModelElement element) {
+	public void releaseFrom(IVRPSimulationBehaviourElementCanAllocate element) {
 		// not relevant for StaticDefaultWay.
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * vrpsim.core.model.IVRPSimulationModelElement#getServiceTime(vrpsim.core.
-	 * model.behaviour.activities.StorableExchangeJob,
-	 * vrpsim.core.simulator.IClock)
-	 */
 	@Override
-	public ITime getServiceTime(IJob job, IClock clock) {
+	public ITime getServiceTime(ServiceTimeCalculationInformationContainer container, IClock clock) {
 		return clock.getCurrentSimulationTime().createTimeFrom(
 				this.travelTimeFunction.getTravelTime(this.source.getLocation(), this.destination.getLocation(),
-						this.distanceFunction, this.getMaxSpeed(), job.getInvolvedTransporter(), clock));
+						this.distanceFunction, this.getMaxSpeed(), container.getVehicle(), clock));
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see vrpsim.core.model.network.IWay#getSource()
-	 */
 	@Override
 	public INode getSource() {
 		return this.source;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see vrpsim.core.model.network.IWay#getTarget()
-	 */
 	@Override
 	public INode getTarget() {
 		return this.destination;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see vrpsim.core.model.network.IWay#getDistance()
-	 */
 	@Override
 	public Double getDistance() {
 		return this.distance;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see vrpsim.core.model.network.IWay#getDistanceFunction()
-	 */
 	@Override
 	public IDistanceFunction getDistanceFunction() {
 		return this.distanceFunction;

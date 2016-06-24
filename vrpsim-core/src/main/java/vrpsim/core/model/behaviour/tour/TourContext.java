@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package vrpsim.core.model.behaviour;
+package vrpsim.core.model.behaviour.tour;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,9 +33,8 @@ public class TourContext {
 
 	private final ITime activityStart;
 
-	private IVehicle currentVehicle;
-	private IDriver currentDriver;
-	private IVRPSimulationModelNetworkElement currentPlace;
+	private final IVehicle vehicle;
+	private final IDriver driver;
 	private List<IVRPSimulationModelElement> elementsUpdated;
 
 	private List<IVRPSimulationModelNetworkElement> placeHistory;
@@ -47,9 +46,8 @@ public class TourContext {
 	public TourContext(ITime activityStart, IVehicle vehicle, IDriver driver) {
 		super();
 		this.activityStart = activityStart;
-		this.currentVehicle = vehicle;
-		this.currentDriver = driver;
-		this.currentPlace = this.currentVehicle.getVRPSimulationModelStructureElementParameters().getHome();
+		this.vehicle = vehicle;
+		this.driver = driver;
 		this.placeHistory = new ArrayList<>();
 		this.elementsUpdated = new ArrayList<>();
 	}
@@ -64,32 +62,24 @@ public class TourContext {
 	}
 
 	public IVRPSimulationModelNetworkElement getCurrentPlace() {
-		return currentPlace;
+		return this.vehicle.getCurrentPlace();
 	}
 
 	public void setCurrentPlace(IVRPSimulationModelNetworkElement currentPlace) {
-		this.placeHistory.add(this.currentPlace);
-		this.currentPlace = currentPlace;
+		this.placeHistory.add(this.vehicle.getCurrentPlace());
+		this.vehicle.setCurrentPlace(currentPlace);
 	}
 
-	public IVehicle getCurrentVehicle() {
-		return currentVehicle;
+	public IVehicle getVehicle() {
+		return vehicle;
 	}
 
-	public void setCurrentVehicle(IVehicle currentVehicle) {
-		this.currentVehicle = currentVehicle;
-	}
-
-	public IDriver getCurrentDriver() {
-		return currentDriver;
-	}
-
-	public void setCurrentDriver(IDriver currentDriver) {
-		this.currentDriver = currentDriver;
+	public IDriver getDriver() {
+		return driver;
 	}
 
 	/**
-	 * Returns the elements updated and delets them.
+	 * Returns the elements updated and deletes them.
 	 * 
 	 * @return
 	 */

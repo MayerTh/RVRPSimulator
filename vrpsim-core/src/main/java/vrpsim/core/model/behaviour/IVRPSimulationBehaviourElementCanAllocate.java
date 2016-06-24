@@ -13,31 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package vrpsim.core.simulator;
+package vrpsim.core.model.behaviour;
 
-/**
- * @date 01.02.2016
- * @author thomas.mayer@unibw.de
- *
- */
-public interface ITime extends Comparable<ITime> {
+import vrpsim.core.model.IVRPSimulationModelElement;
+import vrpsim.core.model.util.exceptions.BehaviourException;
 
-	public ITime add(ITime time) throws ArithmeticException;
-
-	public ITime sub(ITime time) throws ArithmeticException;
-
-	public ITime createTimeFrom(Double number);
-
-	public ITime max(ITime time1, ITime time2) throws ArithmeticException;
-
-	public String getValue();
+public interface IVRPSimulationBehaviourElementCanAllocate extends IVRPSimulationBehaviourElement {
 
 	/**
-	 * Returns a {@link Double} value or <code>null</code> is no {@link Double}
-	 * can be generated out of {@link ITime} representation.
+	 * If an {@link IVRPSimulationModelElement} is allocated by an
+	 * {@link IVRPSimulationBehaviourElementCanAllocate}, the
+	 * {@link IVRPSimulationBehaviourElementCanAllocate} has to get informed
+	 * about the state change.
 	 * 
-	 * @return
+	 * @param element
 	 */
-	public Double getDoubleValue();
+	public void allocatedElementStateChanged(IVRPSimulationModelElement element) throws BehaviourException;
 
 }
