@@ -22,6 +22,7 @@
 		<groupId>de.terministic</groupId>
 		<artifactId>vrpsim-parent</artifactId>
 		<version>0.0.1</version>
+		<relativePath>../vrpsim-parent</relativePath>
 	</parent>
 	<artifactId>vrpsim-core</artifactId>
 </project>
