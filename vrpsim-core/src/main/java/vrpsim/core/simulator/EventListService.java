@@ -18,7 +18,9 @@ package vrpsim.core.simulator;
 import java.util.List;
 
 import vrpsim.core.model.IVRPSimulationModelElement;
+import vrpsim.core.model.behaviour.tour.ITour;
 import vrpsim.core.model.events.IEvent;
+import vrpsim.core.model.events.IEventOwner;
 
 /**
  * @date 23.02.2016
@@ -31,6 +33,19 @@ public class EventListService {
 
 	public EventListService() {
 		this.eventList = new EventList();
+	}
+
+	/**
+	 * Introduces an {@link ITour} into the simulation process. Asks after
+	 * initial events {@link IEventOwner#getInitialEvents(IClock)} and add them
+	 * to the event list {@link EventListService#addEvents(IClock, List)}.
+	 * 
+	 * @param clock
+	 * @param tour
+	 */
+	public void introduceTour(IClock clock, ITour tour) {
+		List<IEvent> events = tour.getInitialEvents(clock);
+		this.addEvents(clock, events);
 	}
 
 	/**

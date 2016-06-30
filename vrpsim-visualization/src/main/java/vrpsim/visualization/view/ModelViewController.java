@@ -19,7 +19,6 @@
 package vrpsim.visualization.view;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Observable;
@@ -178,7 +177,7 @@ public class ModelViewController implements Observer {
 		if (!this.tourContexts.isEmpty()) {
 			for (TourContext context : this.tourContexts.keySet()) {
 				int lineCounter = 0;
-				for (int i = context.getPlaceHistory().size()-1; i >= 0; i--) {
+				for (int i = context.getPlaceHistory().size() - 1; i >= 0; i--) {
 					NetworkNodeVisualization startNNV = this.networkElementToVisualisation
 							.get(context.getPlaceHistory().get(i));
 					double startX = startNNV.getLayoutX() + (startNNV.getBoundsInLocal().getWidth() / 2);
@@ -187,7 +186,7 @@ public class ModelViewController implements Observer {
 					double endX = 0;
 					double endY = 0;
 					NetworkNodeVisualization endNNV = null;
-					if (i < context.getPlaceHistory().size()-1) {
+					if (i < context.getPlaceHistory().size() - 1) {
 						endNNV = this.networkElementToVisualisation.get(context.getPlaceHistory().get(i + 1));
 					} else {
 						endNNV = this.networkElementToVisualisation
@@ -201,11 +200,13 @@ public class ModelViewController implements Observer {
 					this.pane.getChildren().add(line);
 
 					Vector<Double> solutionVector = MathUtil.calculateArrowVector(startX, startY, endX, endY, 30);
-					Polygon polygon = new Polygon(endX, endY, solutionVector.get(0), solutionVector.get(1), solutionVector.get(2), solutionVector.get(3));
+					Polygon polygon = new Polygon(endX, endY, solutionVector.get(0), solutionVector.get(1),
+							solutionVector.get(2), solutionVector.get(3));
 					this.pane.getChildren().add(polygon);
-					
+
 					lineCounter++;
-					if(lineCounter >= 7) break;
+					if (lineCounter >= 15)
+						break;
 				}
 			}
 		}
@@ -277,8 +278,7 @@ public class ModelViewController implements Observer {
 				IVRPSimulationModelNetworkElement newNetworkElementFromVehicleInTour = context.getCurrentPlace();
 				this.vehiclesToNetworkElement.put(context.getVehicle(), newNetworkElementFromVehicleInTour);
 				this.networkElementToVisualisation.get(newNetworkElementFromVehicleInTour)
-						.addSimulationModelStructureElement(context.getVehicle(),
-								simulationTimeOfLastEventOccurence);
+						.addSimulationModelStructureElement(context.getVehicle(), simulationTimeOfLastEventOccurence);
 
 				// Update the elements changed during the tour execution (e.g.
 				// exchange).

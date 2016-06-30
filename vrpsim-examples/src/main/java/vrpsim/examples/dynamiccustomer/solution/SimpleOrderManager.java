@@ -15,8 +15,6 @@
  */
 package vrpsim.examples.dynamiccustomer.solution;
 
-import vrpsim.core.model.behaviour.tour.Tour;
-import vrpsim.core.model.behaviour.tour.TourContext;
 import vrpsim.core.model.events.OrderEvent;
 import vrpsim.core.model.solution.AbstractOrderManager;
 import vrpsim.core.model.solution.Order;
