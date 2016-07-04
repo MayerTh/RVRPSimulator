@@ -1,6 +1,4 @@
 # RVRPSimulator
-
-## About
 RVRPSimulator is a [discrete event simulator] (https://en.wikipedia.org/wiki/Discrete_event_simulation) for the domain of vehicle routing. It provides a simulation model, which supports modelling of various vehicle routing problem instances (also known as multi-constraint or rich vehicle routing problems). The RVRPSimulator Model is classified after a recent Rich Vehicle Routing Problem taxonomy from [Lahyani et al. (2015)] (https://www.researchgate.net/publication/267308629_Rich_vehicle_routing_problems_From_a_taxonomy_to_a_definition). 
 Another big benefit of the RVRPSimulator model is the support of **dynamic** and **stochastic** vehicle routing problems. Details about the classification are coming soon. 
 
@@ -9,6 +7,7 @@ Beside the simulation model, RVRPSimulator provides the simulation engine (with 
 **But why we may need to simulate vehicle routing problem solutions?** The answer is easy: real world routing problems are stochastic in nature and some of them are even dynamic. So how good is my static routing solution if the customer demands, travelling times (and many more) are varying? And how good is my developed dispatching strategy for dynamic demands? Simulation can answer these questions.
 
 Following figure shows how to integrate RVRPSimulator into the VRP solution finding and evaluating process. 
+
 ![RVRPSimulator integrated into the VRP solution finding process] (https://raw.githubusercontent.com/MayerTh/RVRPSimulator/master/vrpsim-core/abstract-model/abstract_model.png)
 
 ## Documentation
