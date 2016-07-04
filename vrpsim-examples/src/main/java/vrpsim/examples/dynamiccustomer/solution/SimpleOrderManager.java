@@ -37,13 +37,14 @@ public class SimpleOrderManager extends AbstractOrderManager {
 
 	@Override
 	public void handleOrderEvent(OrderEvent orderEvent, IClock simulationClock) {
-		
-//		this.structureService.
-//		TourContext tourContext = new TourContext(simulationClock.getCurrentSimulationTime()
-//				, vehicle, driver);
-//		
-//		Tour tour = new Tour();
-		
+
+		// this.structureService.
+		// TourContext tourContext = new
+		// TourContext(simulationClock.getCurrentSimulationTime()
+		// , vehicle, driver);
+		//
+		// Tour tour = new Tour();
+
 	}
 
 }

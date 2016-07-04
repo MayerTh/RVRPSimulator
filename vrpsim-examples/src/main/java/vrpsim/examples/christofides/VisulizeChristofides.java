@@ -41,7 +41,7 @@ import vrpsim.visualization.Visualisation;
 
 public class VisulizeChristofides extends Visualisation {
 
-	private static String workWith = "CMT08";
+	private static String workWith = "CMT12";
 
 	public static void main(String[] args) throws JAXBException, VRPArithmeticException, StorageException,
 			NetworkException, BehaviourException, EventException, FileNotFoundException {
