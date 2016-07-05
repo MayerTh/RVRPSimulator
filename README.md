@@ -6,8 +6,7 @@ Beside the simulation model, RVRPSimulator provides the simulation engine (with 
 
 **But why we need to simulate vehicle routing problem solutions?** The answer is easy: real world routing problems are stochastic in nature and some of them are even dynamic. So how good is my static routing solution if the customer demands, travelling times (and many more) are varying? And how good is my developed dispatching strategy for dynamic demands? Simulation can answer these questions. Following figure shows how to integrate RVRPSimulator into the VRP solution finding and evaluating process. RVRPSimulator provides powerful interfaces to connect different optimization algorithms regarding solving VRP's or managing dynamic VRP's. 
 
-<div style="align: center">
-![RVRPSimulator integrated into the VRP solution finding process] (https://raw.githubusercontent.com/MayerTh/RVRPSimulator/master/vrpsim-core/abstract-model/abstract_model.png)
+<div style="align: center"><img src="https://raw.githubusercontent.com/MayerTh/RVRPSimulator/master/vrpsim-core/abstract-model/abstract_model.png" alt="RVRPSimulator integrated into the VRP solution finding process"/>
 </div>
 
 ## Documentation
