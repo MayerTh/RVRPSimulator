@@ -47,7 +47,7 @@
 		<module>../vrpsim-core</module>
 		<module>../vrpsim-util</module>
 		<module>../vrpsim-visualization</module>
-		<module>../vrpsim-examples</module>
+		<!-- <module>../vrpsim-examples</module> -->
 	</modules>
 
 	<build>
