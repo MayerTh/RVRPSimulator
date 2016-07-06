@@ -26,7 +26,7 @@ import vrpsim.core.model.network.INode;
 import vrpsim.core.model.network.IWay;
 import vrpsim.core.model.network.Location;
 import vrpsim.core.model.network.Network;
-import vrpsim.core.model.network.StaticDefaultNode;
+import vrpsim.core.model.network.DefaultNode;
 import vrpsim.core.model.network.DefaultWay;
 import vrpsim.core.model.structure.Structure;
 import vrpsim.core.model.structure.VRPSimulationModelStructureElementParameters;
@@ -197,7 +197,7 @@ public class SimpleModelGenerator {
 			VRPSimulationModelElementParameters vrpSimulationModelElementParameters = new VRPSimulationModelElementParameters(
 					"node" + String.valueOf(i), 0);
 			Location location = new Location(random.nextInt(numberNodes), random.nextInt(numberNodes), 0);
-			INode node = new StaticDefaultNode(vrpSimulationModelElementParameters, location);
+			INode node = new DefaultNode(vrpSimulationModelElementParameters, location);
 			nodes.add(node);
 		}
 

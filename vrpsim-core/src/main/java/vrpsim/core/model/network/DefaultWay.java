@@ -45,7 +45,7 @@ public class DefaultWay extends Observable implements IWay {
 
 	public DefaultWay(final VRPSimulationModelElementParameters vrpSimulationModelElementParameters,
 			final ITimeFunction travelTimeFunction, final INode source, final INode target,
-			final IDistanceFunction distanceFunction, Double maxSpeed) {
+			final IDistanceFunction distanceFunction, final Double maxSpeed) {
 
 		this.travelTimeFunction = travelTimeFunction;
 		this.source = source;
@@ -76,6 +76,8 @@ public class DefaultWay extends Observable implements IWay {
 	@Override
 	public void releaseFrom(IVRPSimulationBehaviourElementCanAllocate element) {
 		// not relevant for StaticDefaultWay.
+		this.setChanged();
+		this.notifyObservers(element);
 	}
 
 	@Override
@@ -117,7 +119,7 @@ public class DefaultWay extends Observable implements IWay {
 
 	@Override
 	public void addReleaseFromListener(Observer observer) {
-		// not relevant for StaticDefaultWay.
+		this.addObserver(observer);
 	}
 
 }

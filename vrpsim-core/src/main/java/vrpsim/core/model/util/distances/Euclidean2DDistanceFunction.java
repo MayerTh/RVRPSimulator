@@ -24,9 +24,6 @@ import vrpsim.core.model.network.Location;
  */
 public class Euclidean2DDistanceFunction implements IDistanceFunction {
 
-	/* (non-Javadoc)
-	 * @see vrpsim.core.model.util.distances.IDistanceFuntion#getDistance(vrpsim.core.model.network.Location, vrpsim.core.model.network.Location)
-	 */
 	@Override
 	public Double getDistance(Location location1, Location location2) {
 		double a = Math.abs(location1.getX() - location2.getX());

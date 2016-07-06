@@ -38,7 +38,7 @@ import vrpsim.core.model.network.INode;
 import vrpsim.core.model.network.IWay;
 import vrpsim.core.model.network.Location;
 import vrpsim.core.model.network.Network;
-import vrpsim.core.model.network.StaticDefaultNode;
+import vrpsim.core.model.network.DefaultNode;
 import vrpsim.core.model.network.DefaultWay;
 import vrpsim.core.model.structure.Structure;
 import vrpsim.core.model.structure.VRPSimulationModelStructureElementParameters;
@@ -249,7 +249,7 @@ public class VRPREPImporter {
 			Location location = new Location(node.getCx(), node.getCy(), node.getCz());
 			VRPSimulationModelElementParameters vrpSimulationModelElementParameters = new VRPSimulationModelElementParameters(
 					"NODE-" + node.getId().toString(), 0);
-			INode simNode = new StaticDefaultNode(vrpSimulationModelElementParameters, location);
+			INode simNode = new DefaultNode(vrpSimulationModelElementParameters, location);
 			nodes.add(simNode);
 			logger.debug("StaticDefaultNode build {}", simNode.getVRPSimulationModelElementParameters().getId());
 		}

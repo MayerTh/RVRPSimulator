@@ -31,14 +31,14 @@ import vrpsim.core.simulator.ITime;
  * @author thomas.mayer@unibw.de
  *
  */
-public class StaticDefaultNode extends Observable implements INode {
+public class DefaultNode extends Observable implements INode {
 
 	private final Location location;
 	private final VRPSimulationModelElementParameters vrpSimulationModelElementParameters;
 
 	private List<IWay> ways;
 
-	public StaticDefaultNode(final VRPSimulationModelElementParameters vrpSimulationModelElementParameters,
+	public DefaultNode(final VRPSimulationModelElementParameters vrpSimulationModelElementParameters,
 			final Location location) {
 		this.location = location;
 		this.ways = new ArrayList<IWay>();
@@ -65,7 +65,8 @@ public class StaticDefaultNode extends Observable implements INode {
 	
 	@Override
 	public void releaseFrom(IVRPSimulationBehaviourElementCanAllocate element) {
-		// not relevant for StativDefaultNode.
+		this.setChanged();
+		this.notifyObservers(element);
 	}
 
 	@Override
@@ -90,7 +91,7 @@ public class StaticDefaultNode extends Observable implements INode {
 
 	@Override
 	public void addReleaseFromListener(Observer observer) {
-		// not relevant for StativDefaultNode.
+		this.addObserver(observer);
 	}
 
 }
