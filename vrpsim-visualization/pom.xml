@@ -34,4 +34,25 @@
   	</dependency>
   </dependencies>
   
+  <build>
+  	<resources>
+            <resource>
+                <directory>src/main/java/vrpsim/visualization/view/</directory>
+                <targetPath>vrpsim/visualization/view/</targetPath>
+                <includes>
+                    <include>*.fxml</include>
+                </includes>
+            </resource>
+            <resource>
+                <directory>src/main/resources/</directory>
+                <targetPath></targetPath>
+                <includes>
+                    <include>*.png</include>
+                    <include>*.xml</include>
+                    <include>*.gif</include>
+                </includes>
+            </resource>
+        </resources>
+  </build>
+  
 </project>
