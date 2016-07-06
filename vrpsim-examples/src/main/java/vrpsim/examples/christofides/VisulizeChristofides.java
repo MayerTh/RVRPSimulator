@@ -33,6 +33,7 @@ import vrpsim.core.model.util.exceptions.NetworkException;
 import vrpsim.core.model.util.exceptions.StorageException;
 import vrpsim.core.model.util.exceptions.VRPArithmeticException;
 import vrpsim.core.simulator.IClock;
+import vrpsim.core.simulator.ITime;
 import vrpsim.core.simulator.MainProgramm;
 import vrpsim.examples.simple.SimpleBehaviorGenerator;
 import vrpsim.examples.support.CustomerTour;
@@ -48,7 +49,8 @@ public class VisulizeChristofides extends Visualisation {
 
 		MainProgramm mainProgramm = new MainProgramm();
 		IClock clock = mainProgramm.getSimulationClock();
-
+		ITime simulationEndTime = clock.getCurrentSimulationTime().createTimeFrom(100.0);
+		
 		VRPREPImporter importer = new VRPREPImporter("Storage A", "Item A", "Capacity", 100.0, 15000.0, 10000, 1);
 		VRPSimulationModel model = importer.getSimulationModelWithoutSolutionFromVRPREPModel(
 				Paths.get(new File("Christofides1979/" + workWith + ".xml").toURI()));
@@ -63,7 +65,7 @@ public class VisulizeChristofides extends Visualisation {
 		
 		model.setSolutionManager(new SolutionManager((network, structure) -> behaviour));
 
-		init(mainProgramm, model, 100.0);
+		init(mainProgramm, model, simulationEndTime);
 		launch(args);
 	}
 

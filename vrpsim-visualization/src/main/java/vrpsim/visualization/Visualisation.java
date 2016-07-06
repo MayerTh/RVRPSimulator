@@ -25,6 +25,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import vrpsim.core.model.VRPSimulationModel;
 import vrpsim.core.model.util.exceptions.InitializationException;
+import vrpsim.core.simulator.ITime;
 import vrpsim.core.simulator.MainProgramm;
 import vrpsim.visualization.view.ModelViewController;
 import vrpsim.visualization.view.RootLayoutController;
@@ -35,12 +36,12 @@ public class Visualisation extends Application {
 	private BorderPane rootLayout;
 
 	private RootLayoutController rootLayoutController;
-	
+
 	private static VRPSimulationModel model;
 	private static MainProgramm mainProgram;
-	private static double simulationEndTime;
+	private static ITime simulationEndTime;
 
-	public static void init(MainProgramm mainProgram, VRPSimulationModel simulationModel, double simulationEndTime) {
+	public static void init(MainProgramm mainProgram, VRPSimulationModel simulationModel, ITime simulationEndTime) {
 		Visualisation.mainProgram = mainProgram;
 		Visualisation.model = simulationModel;
 		Visualisation.simulationEndTime = simulationEndTime;
@@ -48,11 +49,21 @@ public class Visualisation extends Application {
 
 	@Override
 	public void start(Stage primaryStage) {
-		this.primaryStage = primaryStage;
-		this.primaryStage.setTitle("vrpsim - visualization");
 
-		this.initRootLayout();
-		this.showModelView();
+		if (Visualisation.mainProgram == null || Visualisation.model == null
+				|| Visualisation.simulationEndTime == null) {
+
+			System.out.println(
+					"vrpsim.visualization.Visualisation has to be initialized by calling void init(MainProgramm mainProgram, VRPSimulationModel simulationModel, ITime simulationEndTime).");
+
+		} else {
+
+			this.primaryStage = primaryStage;
+			this.primaryStage.setTitle("vrpsim - visualization");
+
+			this.initRootLayout();
+			this.showModelView();
+		}
 	}
 
 	public void initRootLayout() {
@@ -63,8 +74,8 @@ public class Visualisation extends Application {
 			rootLayout = (BorderPane) loader.load();
 
 			this.rootLayoutController = loader.getController();
-			this.rootLayoutController.init(mainProgram, model, simulationEndTime);
-			
+			this.rootLayoutController.init(mainProgram, model, simulationEndTime.getDoubleValue());
+
 			// Show the scene containing the root layout.
 			Scene scene = new Scene(rootLayout);
 			primaryStage.setScene(scene);

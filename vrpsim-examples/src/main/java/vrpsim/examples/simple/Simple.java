@@ -28,6 +28,7 @@ import vrpsim.core.model.util.exceptions.NetworkException;
 import vrpsim.core.model.util.exceptions.StorageException;
 import vrpsim.core.model.util.exceptions.VRPArithmeticException;
 import vrpsim.core.simulator.IClock;
+import vrpsim.core.simulator.ITime;
 import vrpsim.core.simulator.MainProgramm;
 import vrpsim.visualization.Visualisation;
 
@@ -42,14 +43,15 @@ public class Simple extends Visualisation {
 		
 		MainProgramm mainProgramm = new MainProgramm();
 		IClock clock = mainProgramm.getSimulationClock();
-
+		ITime simulationEndTime = clock.getCurrentSimulationTime().createTimeFrom(100.0);
+		
 		VRPSimulationModel model = simpleModelGenerator.generateSimpleModel(seed);
 
 		SimpleBehaviorGenerator simpleBehaviorGenerator = new SimpleBehaviorGenerator();
 		Behaviour behaviour = simpleBehaviorGenerator.createRandomBehaviour(model, clock);
 		model.setSolutionManager(new SolutionManager((structure, network) -> behaviour));
 
-		init(mainProgramm, model, 100.0);
+		init(mainProgramm, model, simulationEndTime);
 		launch(args);
 	}
 

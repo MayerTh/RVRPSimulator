@@ -23,6 +23,8 @@ import vrpsim.core.model.network.Network;
 import vrpsim.core.model.structure.Structure;
 import vrpsim.core.model.util.exceptions.StorageException;
 import vrpsim.core.model.util.exceptions.VRPArithmeticException;
+import vrpsim.core.simulator.IClock;
+import vrpsim.core.simulator.ITime;
 import vrpsim.core.simulator.MainProgramm;
 import vrpsim.util.model.generator.GeneratorConfigurationInitializationException;
 import vrpsim.util.model.generator.network.RandomNetworkGenerator;
@@ -44,10 +46,7 @@ public class DynamicCustomer extends Visualisation {
 
 		RandomStructureGeneratorConfiguration structureConfig = new RandomStructureGeneratorConfiguration();
 		structureConfig.setNetwork(network.getNetworkService()).setNumberOfStaticCustomers(0)
-				.setNumberOfDynamicCustomers(5)
-				.setNumberOfVehicles(5)
-				.setNumberOfSourceDepot(1)
-				.setNumberOfDriver(5)
+				.setNumberOfDynamicCustomers(5).setNumberOfVehicles(5).setNumberOfSourceDepot(1).setNumberOfDriver(5)
 				.setNumberOfDefaultDepot(0);
 
 		Structure structure = new RandomStructureGenerator().generatreRandomStructure(random, structureConfig);
@@ -55,10 +54,12 @@ public class DynamicCustomer extends Visualisation {
 				"thomas.mayer@unibw.de");
 
 		MainProgramm mainProgramm = new MainProgramm();
-
+		IClock clock = mainProgramm.getSimulationClock();
+		ITime simulationEndTime = clock.getCurrentSimulationTime().createTimeFrom(432000.0); // 300 days
+		
 		VRPSimulationModel model = new VRPSimulationModel(vrpSimulationModelParameters, structure, network);
 
-		init(mainProgramm, model, 432000.0); // 300 days
+		init(mainProgramm, model,simulationEndTime);
 		launch(args);
 
 	}
