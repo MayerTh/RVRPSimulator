@@ -17,9 +17,11 @@ package vrpsim.core.model.network;
 
 import java.util.Random;
 
+import vrpsim.core.model.IVRPSimulationElement;
+
 /**
- * Service for the {@link Network}. Provides all helper functions, like
- * shortest way from node to node.
+ * Service for the {@link Network}. Provides all helper functions, like shortest
+ * way from node to node.
  * 
  * @author mayert
  *
@@ -31,7 +33,7 @@ public class NetworkService {
 	public NetworkService(Network network) {
 		this.network = network;
 	}
-	
+
 	/**
 	 * Returns a random {@link INode} of the {@link Network}.
 	 * 
@@ -40,6 +42,27 @@ public class NetworkService {
 	 */
 	public INode getRandomINode(Random random) {
 		return this.network.getNodes().get(random.nextInt(this.network.getNodes().size()));
+	}
+
+	/**
+	 * Returns an IVRPSimulationModelNetworkElement by given Id or null if an
+	 * element with this ides does not exists.
+	 * 
+	 * @param id
+	 * @return
+	 */
+	public IVRPSimulationModelNetworkElement getNetworkElement(String id) {
+		IVRPSimulationModelNetworkElement elementToReturn = null;
+		for (IVRPSimulationElement element : this.network.getAllSimulationElements()) {
+			if (element instanceof IVRPSimulationModelNetworkElement) {
+				if (((IVRPSimulationModelNetworkElement) element).getVRPSimulationModelElementParameters().getId()
+						.equals(id)) {
+					elementToReturn = (IVRPSimulationModelNetworkElement) element;
+					break;
+				}
+			}
+		}
+		return elementToReturn;
 	}
 
 }
