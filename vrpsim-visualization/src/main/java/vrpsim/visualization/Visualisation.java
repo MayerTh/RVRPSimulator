@@ -17,6 +17,9 @@ package vrpsim.visualization;
 
 import java.io.IOException;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -31,6 +34,8 @@ import vrpsim.visualization.view.ModelViewController;
 import vrpsim.visualization.view.RootLayoutController;
 
 public class Visualisation extends Application {
+
+	private static Logger logger = LoggerFactory.getLogger(Visualisation.class);
 
 	private Stage primaryStage;
 	private BorderPane rootLayout;
@@ -53,8 +58,12 @@ public class Visualisation extends Application {
 		if (Visualisation.mainProgram == null || Visualisation.model == null
 				|| Visualisation.simulationEndTime == null) {
 
-			System.out.println(
-					"vrpsim.visualization.Visualisation has to be initialized by calling void init(MainProgramm mainProgram, VRPSimulationModel simulationModel, ITime simulationEndTime).");
+			String log = "vrpsim.visualization.Visualisation has to be initialized by "
+					+ "calling void init(MainProgramm mainProgram, VRPSimulationModel "
+					+ "simulationModel, ITime simulationEndTime).";
+			
+			logger.error(log);
+			System.out.println(log);
 
 		} else {
 
