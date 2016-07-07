@@ -107,7 +107,7 @@ public class SimpleModelGenerator {
 			CanStoreParameters compartmentParameters = new CanStoreParameters(canStoreType,
 					new Capacity(capacityUnit, customerCapacity), new LIFOLoadingPolicy(), new StorableGenerator(this.storableParameters));
 			ICanStore compartment = new Compartment(compartmentParameters);
-			DefaultStorageManager storageManager = new DefaultStorageManager(new DefaultStorage(canStoreType, compartment));
+			DefaultStorageManager storageManager = new DefaultStorageManager(new DefaultStorage(compartment));
 
 			IStorableGenerator storableGenerator = new StorableGenerator(this.storableParameters);
 			ICustomer customer = new DefaultNonDynamicCustomer(vrpSimulationModelElementParameters,
@@ -136,7 +136,7 @@ public class SimpleModelGenerator {
 			CanStoreParameters compartmentParameters = new CanStoreParameters(canStoreType,
 					new Capacity(capacityUnit, depotCapacity), new LIFOLoadingPolicy(), new StorableGenerator(this.storableParameters));
 			ICanStore compartment = new Compartment(compartmentParameters);
-			DefaultStorageManager storageManager = new DefaultStorageManager(new DefaultStorage(canStoreType, compartment));
+			DefaultStorageManager storageManager = new DefaultStorageManager(new DefaultStorage(compartment));
 
 			IStorableGenerator storableGenerator = new StorableGenerator(this.storableParameters);
 			IDepot depot = new DefaultDepot(vrpSimulationModelElementParameters,
@@ -164,7 +164,7 @@ public class SimpleModelGenerator {
 			CanStoreParameters compartmentParameters = new CanStoreParameters(canStoreType,
 					new Capacity(capacityUnit, vehicleCapacity), new LIFOLoadingPolicy(), new StorableGenerator(this.storableParameters));
 			ICanStore compartment = new Compartment(compartmentParameters);
-			DefaultStorageManager storageManager = new DefaultStorageManager(new DefaultStorage(canStoreType, compartment));
+			DefaultStorageManager storageManager = new DefaultStorageManager(new DefaultStorage(compartment));
 
 			IVehicle vehicle = new DefaultVehicle(vrpSimulationModelElementParameters,
 					vrpSimulationModelStructureElementParameters, new UncertainParamters(), storageManager, 80.0);

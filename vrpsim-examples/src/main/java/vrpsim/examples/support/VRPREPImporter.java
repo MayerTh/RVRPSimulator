@@ -157,7 +157,7 @@ public class VRPREPImporter {
 			CanStoreParameters compartmentParameters = new CanStoreParameters(canStoreType,
 					new Capacity(capacityUnit, vehicleCapacity), new LIFOLoadingPolicy(), new StorableGenerator(this.storableParameters));
 			ICanStore compartment = new Compartment(compartmentParameters);
-			DefaultStorageManager storageManager = new DefaultStorageManager(new DefaultStorage(canStoreType, compartment));
+			DefaultStorageManager storageManager = new DefaultStorageManager(new DefaultStorage(compartment));
 
 			VRPSimulationModelElementParameters elementParameters = new VRPSimulationModelElementParameters(
 					"VEHICLE-" + i, 0);
@@ -188,7 +188,7 @@ public class VRPREPImporter {
 				new Capacity(capacityUnit, this.maxCustomerStorageCapacity), new LIFOLoadingPolicy(),
 				storableGenerator);
 		ICanStore compartment = new Compartment(compartmentParameters);
-		DefaultStorageManager storageManager = new DefaultStorageManager(new DefaultStorage(canStoreType, compartment));
+		DefaultStorageManager storageManager = new DefaultStorageManager(new DefaultStorage(compartment));
 
 		IDepot depot = new DefaultDepot(elementParameters, structureElementParameters, arrivalParameters, storageManager);
 
@@ -230,7 +230,7 @@ public class VRPREPImporter {
 					new Capacity(capacityUnit, this.maxCustomerStorageCapacity), new LIFOLoadingPolicy(),
 					new StorableGenerator(this.storableParameters));
 			ICanStore compartment = new Compartment(compartmentParameters);
-			DefaultStorageManager storageManager = new DefaultStorageManager(new DefaultStorage(canStoreType, compartment));
+			DefaultStorageManager storageManager = new DefaultStorageManager(new DefaultStorage(compartment));
 
 			DefaultNonDynamicCustomer dndc = new DefaultNonDynamicCustomer(elementParameters,
 					structureElementParameters, consumptionParameters, storageManager);

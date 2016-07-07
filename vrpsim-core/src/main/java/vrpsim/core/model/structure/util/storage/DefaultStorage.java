@@ -27,9 +27,9 @@ public class DefaultStorage {
 		this.canStores = canStores;
 	}
 
-	public DefaultStorage(CanStoreType canStoreType, ICanStore canStore) {
+	public DefaultStorage(ICanStore canStore) {
 		this.canStores = new HashMap<CanStoreType, ICanStore>();
-		this.canStores.put(canStoreType, canStore);
+		this.canStores.put(canStore.getCanStoreParameters().getCanStoreType(), canStore);
 	}
 
 	public HashMap<CanStoreType, ICanStore> getCanStores() {
