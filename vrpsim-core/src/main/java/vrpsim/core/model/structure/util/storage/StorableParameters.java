@@ -16,6 +16,8 @@
 package vrpsim.core.model.structure.util.storage;
 
 /**
+ * Parameters of an {@link IStorable}.
+ * 
  * @date 02.02.2016
  * @author thomas.mayer@unibw.de
  *

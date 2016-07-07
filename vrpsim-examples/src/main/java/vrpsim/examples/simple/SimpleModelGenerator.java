@@ -61,11 +61,12 @@ import vrpsim.core.model.util.uncertainty.UncertainParamters;
 
 public class SimpleModelGenerator {
 
-	private final String capacityUnit = "piece";
 	private final CanStoreType canStoreType = new CanStoreType("carton");
 	private final StorableType storableType = new StorableType("pizza", canStoreType);
 
+	private final String capacityUnit = "piece";
 	private final Capacity singleCapacity = new Capacity(capacityUnit, 1.0);
+	
 	private final StorableParameters storableParameters = new StorableParameters(1, singleCapacity, storableType);
 
 	public VRPSimulationModel generateSimpleModel(int seed) throws VRPArithmeticException, StorageException {

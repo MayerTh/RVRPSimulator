@@ -39,12 +39,11 @@ public class Simple extends Visualisation {
 	public static void main(String[] args) throws JAXBException, VRPArithmeticException, StorageException,
 			NetworkException, BehaviourException, EventException, FileNotFoundException {
 
-		SimpleModelGenerator simpleModelGenerator = new SimpleModelGenerator();
-		
 		MainProgramm mainProgramm = new MainProgramm();
 		IClock clock = mainProgramm.getSimulationClock();
 		ITime simulationEndTime = clock.getCurrentSimulationTime().createTimeFrom(100.0);
 		
+		SimpleModelGenerator simpleModelGenerator = new SimpleModelGenerator();
 		VRPSimulationModel model = simpleModelGenerator.generateSimpleModel(seed);
 
 		SimpleBehaviorGenerator simpleBehaviorGenerator = new SimpleBehaviorGenerator();
