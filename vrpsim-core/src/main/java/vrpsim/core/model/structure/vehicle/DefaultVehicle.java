@@ -78,7 +78,7 @@ public class DefaultVehicle extends AbstractVRPSimulationModelStructureElementWi
 		// Create an breakdownevent for each container.
 		List<IEvent> events = new ArrayList<IEvent>();
 		for (UncertainParamters.UncertainParameterContainer container : this.breakdownParameters.getParameter()) {
-			events.add(createEvent(container, clock));
+			events.add(createEvent(container, clock, true));
 		}
 		return events;
 	}
@@ -131,7 +131,9 @@ public class DefaultVehicle extends AbstractVRPSimulationModelStructureElementWi
 		}
 
 		List<IEvent> events = new ArrayList<>();
-		events.add(createEvent(((UncertainEvent) event).getContainer(), clock));
+		if (((UncertainEvent) event).getContainer().isCyclic()) {
+			events.add(createEvent(((UncertainEvent) event).getContainer(), clock, false));
+		}
 		return events;
 	}
 
@@ -140,9 +142,9 @@ public class DefaultVehicle extends AbstractVRPSimulationModelStructureElementWi
 		return isBroken ? !isBroken : super.isAvailable(clock);
 	}
 
-	private IEvent createEvent(UncertainParameterContainer container, IClock clock) {
-		Double timeFrom = this.isAvailable(clock) ? container.getNumber().getNumber()
-				: container.getCycle().getNumber();
+	private IEvent createEvent(UncertainParameterContainer container, IClock clock, boolean isInitialEvent) {
+		double t = isInitialEvent ? container.getStart().getNumber() : container.getCycle().getNumber();
+		double timeFrom = this.isAvailable(clock) ? container.getNumber().getNumber() : t;
 		ITime time = clock.getCurrentSimulationTime().createTimeFrom(timeFrom);
 		return new UncertainEvent(this, this.getAllEventTypes().get(0), time, container);
 	}

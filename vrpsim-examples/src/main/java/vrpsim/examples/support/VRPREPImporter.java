@@ -223,7 +223,7 @@ public class VRPREPImporter {
 
 			UncertainParameterContainer consumparameterContainer = new UncertainParameterContainer(storableParameters,
 					new DeterministicDistributionFunction(amount),
-					new DeterministicDistributionFunction(consumptionCycleTime));
+					new DeterministicDistributionFunction(consumptionCycleTime), new DeterministicDistributionFunction(consumptionCycleTime));
 			UncertainParamters consumptionParameters = new UncertainParamters(consumparameterContainer);
 
 			CanStoreParameters compartmentParameters = new CanStoreParameters(canStoreType,

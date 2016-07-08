@@ -55,11 +55,11 @@ public class DefaultDriver extends Observable implements IDriver {
 
 	private final List<IEventType> eventTypes;
 	private final UncertainParamters breakdownParameters;
-	
+
 	protected boolean isBroken = false;
 	protected boolean isAvailable = true;
 	protected IVRPSimulationBehaviourElementCanAllocate isAllocatedBy;
-	
+
 	public DefaultDriver(final VRPSimulationModelElementParameters vrpSimulationModelElementParameters,
 			final VRPSimulationModelStructureElementParameters vrpSimulationModelStructureElementParameters,
 			final UncertainParamters breakdownParameters) {
@@ -82,7 +82,7 @@ public class DefaultDriver extends Observable implements IDriver {
 		// Create an breakdownevent for each container.
 		List<IEvent> events = new ArrayList<IEvent>();
 		for (UncertainParamters.UncertainParameterContainer container : this.breakdownParameters.getParameter()) {
-			events.add(createEvent(container, clock));
+			events.add(createEvent(container, clock, true));
 		}
 		return events;
 	}
@@ -135,13 +135,15 @@ public class DefaultDriver extends Observable implements IDriver {
 		}
 
 		List<IEvent> events = new ArrayList<>();
-		events.add(createEvent(((UncertainEvent) event).getContainer(), clock));
+		if (((UncertainEvent) event).getContainer().isCyclic()) {
+			events.add(createEvent(((UncertainEvent) event).getContainer(), clock, false));
+		}
 		return events;
 	}
 
-	private IEvent createEvent(UncertainParameterContainer container, IClock clock) {
-		Double timeFrom = this.isAvailable(clock) ? container.getNumber().getNumber()
-				: container.getCycle().getNumber();
+	private IEvent createEvent(UncertainParameterContainer container, IClock clock, boolean isInitialEvent) {
+		double t = isInitialEvent ? container.getStart().getNumber() : container.getCycle().getNumber();
+		double timeFrom = this.isAvailable(clock) ? container.getNumber().getNumber() : t;
 		ITime time = clock.getCurrentSimulationTime().createTimeFrom(timeFrom);
 		return new UncertainEvent(this, this.getAllEventTypes().get(0), time, container);
 	}
@@ -167,7 +169,8 @@ public class DefaultDriver extends Observable implements IDriver {
 	}
 
 	@Override
-	public ITime getServiceTime(ServiceTimeCalculationInformationContainer serviceTimeCalculationInformationContainer, IClock clock) {
+	public ITime getServiceTime(ServiceTimeCalculationInformationContainer serviceTimeCalculationInformationContainer,
+			IClock clock) {
 		return clock.getCurrentSimulationTime().createTimeFrom(0.0);
 	}
 

@@ -66,7 +66,7 @@ public class SimpleModelGenerator {
 
 	private final String capacityUnit = "piece";
 	private final Capacity singleCapacity = new Capacity(capacityUnit, 1.0);
-	
+
 	private final StorableParameters storableParameters = new StorableParameters(1, singleCapacity, storableType);
 
 	public VRPSimulationModel generateSimpleModel(int seed) throws VRPArithmeticException, StorageException {
@@ -105,7 +105,8 @@ public class SimpleModelGenerator {
 					home);
 
 			CanStoreParameters compartmentParameters = new CanStoreParameters(canStoreType,
-					new Capacity(capacityUnit, customerCapacity), new LIFOLoadingPolicy(), new StorableGenerator(this.storableParameters));
+					new Capacity(capacityUnit, customerCapacity), new LIFOLoadingPolicy(),
+					new StorableGenerator(this.storableParameters));
 			ICanStore compartment = new Compartment(compartmentParameters);
 			DefaultStorageManager storageManager = new DefaultStorageManager(new DefaultStorage(compartment));
 
@@ -113,7 +114,8 @@ public class SimpleModelGenerator {
 			ICustomer customer = new DefaultNonDynamicCustomer(vrpSimulationModelElementParameters,
 					vrpSimulationModelStructureElementParameters,
 					new UncertainParamters(new UncertainParamters.UncertainParameterContainer(storableParameters,
-							new DeterministicDistributionFunction(10.0), new DeterministicDistributionFunction(100.0))),
+							new DeterministicDistributionFunction(10.0), new DeterministicDistributionFunction(100.0),
+							new DeterministicDistributionFunction(100.0))),
 					storageManager);
 			for (int s = 1; s <= numberItemsInsideCustomer; s++) {
 				IStorable storable = storableGenerator.generateStorable(this.storableParameters);
@@ -134,7 +136,8 @@ public class SimpleModelGenerator {
 					home);
 
 			CanStoreParameters compartmentParameters = new CanStoreParameters(canStoreType,
-					new Capacity(capacityUnit, depotCapacity), new LIFOLoadingPolicy(), new StorableGenerator(this.storableParameters));
+					new Capacity(capacityUnit, depotCapacity), new LIFOLoadingPolicy(),
+					new StorableGenerator(this.storableParameters));
 			ICanStore compartment = new Compartment(compartmentParameters);
 			DefaultStorageManager storageManager = new DefaultStorageManager(new DefaultStorage(compartment));
 
@@ -162,7 +165,8 @@ public class SimpleModelGenerator {
 					home);
 
 			CanStoreParameters compartmentParameters = new CanStoreParameters(canStoreType,
-					new Capacity(capacityUnit, vehicleCapacity), new LIFOLoadingPolicy(), new StorableGenerator(this.storableParameters));
+					new Capacity(capacityUnit, vehicleCapacity), new LIFOLoadingPolicy(),
+					new StorableGenerator(this.storableParameters));
 			ICanStore compartment = new Compartment(compartmentParameters);
 			DefaultStorageManager storageManager = new DefaultStorageManager(new DefaultStorage(compartment));
 
@@ -210,8 +214,8 @@ public class SimpleModelGenerator {
 								+ node2.getVRPSimulationModelElementParameters().getId(),
 						0);
 
-				IWay way = new DefaultWay(vrpSimulationModelElementParameters, new ZeroTravelTimeFunction(),
-						node1, node2, new Euclidean2DDistanceFunction(), 100.0);
+				IWay way = new DefaultWay(vrpSimulationModelElementParameters, new ZeroTravelTimeFunction(), node1,
+						node2, new Euclidean2DDistanceFunction(), 100.0);
 				ways.add(way);
 			}
 			node1.setWays(ways);

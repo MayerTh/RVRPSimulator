@@ -56,11 +56,32 @@ public class UncertainParamters {
 	public static class UncertainParameterContainer {
 
 		private final StorableParameters storableParameters;
+		private final IDistributionFunction start;
 		private final IDistributionFunction number;
 		private final IDistributionFunction cycle;
+		private final boolean isCyclic;
 
 		private final IDistributionFunction earliestDueDate;
 		private final IDistributionFunction latestDueDate;
+
+		/**
+		 * Creates an {@link UncertainParameterContainer} which is not cyclic
+		 * and where {@link UncertainParameterContainer#getCycle()},
+		 * {@link UncertainParameterContainer#getEarliestDueDate()} and
+		 * {@link UncertainParameterContainer#getLatestDueDate()} returns null.
+		 * 
+		 * @param storableParameters
+		 *            - defining the storable which are consumed/ordered/...
+		 * @param number
+		 *            - amount of storables which are consumed/ordered/...
+		 * @param start
+		 *            - the start when the defined amount the first time are
+		 *            consumed/ordered/...
+		 */
+		public UncertainParameterContainer(StorableParameters storableParameters, IDistributionFunction number,
+				IDistributionFunction start) {
+			this(storableParameters, number, start, null, null, null);
+		}
 
 		/**
 		 * Creates an {@link UncertainParameterContainer} where
@@ -69,23 +90,29 @@ public class UncertainParamters {
 		 * 
 		 * @param storableParameters
 		 *            - defining the storable which are consumed/ordered/...
-		 * @param cunsumptionNumber
+		 * @param number
 		 *            - amount of storables which are consumed/ordered/...
-		 * @param cunsumptionCycle
+		 * @param start
+		 *            - the start when the defined amount the first time are
+		 *            consumed/ordered/...
+		 * @param cycle
 		 *            - cycle where defined amount of defined storables are
 		 *            consumed/ordered/...
 		 */
-		public UncertainParameterContainer(StorableParameters storableParameters,
-				IDistributionFunction cunsumptionNumber, IDistributionFunction cunsumptionCycle) {
-			this(storableParameters, cunsumptionNumber, cunsumptionCycle, null, null);
+		public UncertainParameterContainer(StorableParameters storableParameters, IDistributionFunction number,
+				IDistributionFunction start, IDistributionFunction cycle) {
+			this(storableParameters, number, start, cycle, null, null);
 		}
 
 		/**
 		 * @param storableParameters
 		 *            - defining the storable which are consumed/ordered/...
-		 * @param cunsumptionNumber
+		 * @param number
 		 *            - amount of storables which are consumed/ordered/...
-		 * @param cunsumptionCycle
+		 * @param start
+		 *            - the start when the defined amount the first time are
+		 *            consumed/ordered/...
+		 * @param cycle
 		 *            - cycle when defined amount of defined storables are
 		 *            consumed/ordered/...
 		 * @param earliestDueDate
@@ -95,11 +122,13 @@ public class UncertainParamters {
 		 *            - latest delivery of the order, after order is created,
 		 *            see {@link UncertainParameterContainer#getCycle()}
 		 */
-		public UncertainParameterContainer(StorableParameters storableParameters,
-				IDistributionFunction cunsumptionNumber, IDistributionFunction cunsumptionCycle,
-				IDistributionFunction earliestDueDate, IDistributionFunction latestDueDate) {
-			this.number = cunsumptionNumber;
-			this.cycle = cunsumptionCycle;
+		public UncertainParameterContainer(StorableParameters storableParameters, IDistributionFunction number,
+				IDistributionFunction start, IDistributionFunction cycle, IDistributionFunction earliestDueDate,
+				IDistributionFunction latestDueDate) {
+			this.start = start;
+			this.number = number;
+			this.cycle = cycle;
+			this.isCyclic = (this.cycle != null);
 			this.storableParameters = storableParameters;
 			this.earliestDueDate = earliestDueDate;
 			this.latestDueDate = latestDueDate;
@@ -150,10 +179,32 @@ public class UncertainParamters {
 		 * Returns the cycle when defined amount of defined storables are
 		 * consumed/ordered/...
 		 * 
+		 * Can return null.
+		 * 
 		 * @return
 		 */
 		public IDistributionFunction getCycle() {
 			return cycle;
+		}
+
+		/**
+		 * Returns the start when the defined amount the first time are
+		 * consumed/ordered/...
+		 * 
+		 * @return
+		 */
+		public IDistributionFunction getStart() {
+			return start;
+		}
+
+		/**
+		 * Returns true if the container is cyclic, means if a value for
+		 * {@link UncertainParameterContainer#getCycle()} is defined.
+		 * 
+		 * @return
+		 */
+		public boolean isCyclic() {
+			return isCyclic;
 		}
 
 	}

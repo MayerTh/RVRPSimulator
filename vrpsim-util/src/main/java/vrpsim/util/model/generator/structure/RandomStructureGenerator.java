@@ -261,6 +261,8 @@ public class RandomStructureGenerator {
 							new DeterministicDistributionFunction(
 									random.nextInt(maxAmount.intValue() - minAmount.intValue()) + minAmount),
 							new DeterministicDistributionFunction(
+									random.nextInt(maxCycle.intValue() - minCycle.intValue()) + minCycle),
+							new DeterministicDistributionFunction(
 									random.nextInt(maxCycle.intValue() - minCycle.intValue()) + minCycle))),
 					storageManager);
 
@@ -294,6 +296,8 @@ public class RandomStructureGenerator {
 							randomStructureGeneratorConfiguration.getStorableParameters(),
 							new DeterministicDistributionFunction(
 									random.nextInt(maxAmount.intValue() - minAmount.intValue()) + minAmount),
+							new DeterministicDistributionFunction(
+									random.nextInt(maxCycle.intValue() - minCycle.intValue()) + minCycle), 
 							new DeterministicDistributionFunction(
 									random.nextInt(maxCycle.intValue() - minCycle.intValue()) + minCycle)));
 

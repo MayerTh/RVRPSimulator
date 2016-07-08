@@ -79,7 +79,7 @@ public class DefaultDepot extends AbstractVRPSimulationModelStructureElementWith
 		// Create an event for each storable type consumed by the consumer.
 		List<IEvent> events = new ArrayList<IEvent>();
 		for (UncertainParamters.UncertainParameterContainer container : this.arrivalParameters.getParameter()) {
-			events.add(createEvent(container, clock));
+			events.add(createEvent(container, clock, true));
 		}
 		return events;
 
@@ -121,7 +121,9 @@ public class DefaultDepot extends AbstractVRPSimulationModelStructureElementWith
 
 			this.storageManager.printDebugInformationForStorage(this.vrpSimulationModelElementParameters.getId());
 			List<IEvent> events = new ArrayList<>();
-			events.add(createEvent(cEvent.getContainer(), clock));
+			if (cEvent.getContainer().isCyclic()) {
+				events.add(createEvent(cEvent.getContainer(), clock, false));
+			}
 			return events;
 		}
 	}
@@ -144,9 +146,11 @@ public class DefaultDepot extends AbstractVRPSimulationModelStructureElementWith
 		return this.eventTypes;
 	}
 
-	private IEvent createEvent(UncertainParamters.UncertainParameterContainer container, IClock clock) {
+	private IEvent createEvent(UncertainParamters.UncertainParameterContainer container, IClock clock,
+			boolean isInitialEvent) {
+		double t = isInitialEvent ? container.getStart().getNumber() : container.getCycle().getNumber();
 		UncertainEvent event = new UncertainEvent(this, this.eventTypes.get(0),
-				clock.getCurrentSimulationTime().createTimeFrom(container.getCycle().getNumber()), container);
+				clock.getCurrentSimulationTime().createTimeFrom(t), container);
 		return event;
 	}
 

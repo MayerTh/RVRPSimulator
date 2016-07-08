@@ -68,7 +68,7 @@ public class DynamicCustomer extends AbstractVRPSimulationModelStructureElementW
 	public List<IEvent> getInitialEvents(IClock clock) {
 		List<IEvent> initialEvents = new ArrayList<>();
 		for (UncertainParamters.UncertainParameterContainer container : this.orderParameters.getParameter()) {
-			initialEvents.add(createTRIGGERING_ORDER_EVENT(container, clock));
+			initialEvents.add(createTRIGGERING_ORDER_EVENT(container, clock, true));
 		}
 		return initialEvents;
 	}
@@ -84,7 +84,9 @@ public class DynamicCustomer extends AbstractVRPSimulationModelStructureElementW
 			// A new Order event and a new trigger order event has to be
 			// created.
 			events = new ArrayList<>();
-			events.add(createTRIGGERING_ORDER_EVENT(uncertainEvent.getContainer(), clock));
+			if (uncertainEvent.getContainer().isCyclic()) {
+				events.add(createTRIGGERING_ORDER_EVENT(uncertainEvent.getContainer(), clock, false));
+			}
 			events.add(createORDER_EVENT(uncertainEvent.getContainer(), clock));
 		}
 
@@ -101,10 +103,11 @@ public class DynamicCustomer extends AbstractVRPSimulationModelStructureElementW
 		return this.orderParameters;
 	}
 
-	private IEvent createTRIGGERING_ORDER_EVENT(UncertainParamters.UncertainParameterContainer container,
-			IClock clock) {
+	private IEvent createTRIGGERING_ORDER_EVENT(UncertainParamters.UncertainParameterContainer container, IClock clock,
+			boolean isInitialEvent) {
+		double t = isInitialEvent ? container.getStart().getNumber() : container.getCycle().getNumber();
 		return new UncertainEvent(this, () -> IEventType.TRIGGERING_ORDER_EVENT,
-				clock.getCurrentSimulationTime().createTimeFrom(container.getCycle().getNumber()), container);
+				clock.getCurrentSimulationTime().createTimeFrom(t), container);
 	}
 
 	private IEvent createORDER_EVENT(UncertainParameterContainer container, IClock clock) throws EventException {
