@@ -34,7 +34,7 @@ import vrpsim.visualization.Visualisation;
 
 public class Simple extends Visualisation {
 
-	private static int seed = 4321;
+	private static int seed = 12345;
 	
 	public static void main(String[] args) throws JAXBException, VRPArithmeticException, StorageException,
 			NetworkException, BehaviourException, EventException, FileNotFoundException {

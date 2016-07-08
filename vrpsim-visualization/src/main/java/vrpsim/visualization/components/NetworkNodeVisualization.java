@@ -67,6 +67,8 @@ public class NetworkNodeVisualization extends Parent {
 		this.structuralElements = structuralElements;
 		angle = 2 * Math.PI / numberToPlace;
 		update(simulationTimeOfLastEventOccurence);
+		
+		System.out.println(this.structuralElements);
 	}
 
 	private void update(ITime simulationTimeOfLastEventOccurence) {

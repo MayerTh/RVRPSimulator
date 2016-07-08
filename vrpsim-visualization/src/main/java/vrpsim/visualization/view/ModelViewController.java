@@ -43,6 +43,7 @@ import vrpsim.core.model.events.OrderEvent;
 import vrpsim.core.model.network.INode;
 import vrpsim.core.model.network.IVRPSimulationModelNetworkElement;
 import vrpsim.core.model.structure.IVRPSimulationModelStructureElement;
+import vrpsim.core.model.structure.driver.IDriver;
 import vrpsim.core.model.structure.vehicle.IVehicle;
 import vrpsim.core.model.util.exceptions.VRPArithmeticException;
 import vrpsim.core.simulator.Clock;
@@ -77,6 +78,8 @@ public class ModelViewController implements Observer {
 	// Shape connecting to network element and vice versa.
 	private HashMap<Node, OriginLocation> fxNodesOriginLocation = new HashMap<>();
 	private HashMap<IVehicle, IVRPSimulationModelNetworkElement> vehiclesToNetworkElement = new HashMap<>();
+	private HashMap<IDriver, IVRPSimulationModelNetworkElement> driversToNetworkElement = new HashMap<>();
+//	private HashMap<IOccasionalDriver, IVRPSimulationModelNetworkElement> occasionalDriversToNetworkElement = new HashMap<>();
 	private HashMap<IVRPSimulationModelNetworkElement, NetworkNodeVisualization> networkElementToVisualisation = new HashMap<>();
 	private HashMap<IVRPSimulationModelStructureElement, NetworkNodeVisualization> structuralElementToVisualisation = new HashMap<>();
 
@@ -92,6 +95,14 @@ public class ModelViewController implements Observer {
 			this.vehiclesToNetworkElement.put(vehicle,
 					vehicle.getVRPSimulationModelStructureElementParameters().getHome());
 		}
+		for (IDriver driver : this.visualisationModel.getDrivers()) {
+			this.driversToNetworkElement.put(driver,
+					driver.getVRPSimulationModelStructureElementParameters().getHome());
+		}
+//		for (IOccasionalDriver oDriver : this.visualisationModel.getOccassionalDrivers()) {
+//			this.occasionalDriversToNetworkElement.put(oDriver,
+//					oDriver.getVRPSimulationModelStructureElementParameters().getHome());
+//		}
 
 		this.pane.setOnScroll((event) -> {
 			transformationManager.mouseWheelMoved(event);
@@ -150,6 +161,14 @@ public class ModelViewController implements Observer {
 				this.networkElementToVisualisation.get(this.vehiclesToNetworkElement.get(vehicle))
 						.addSimulationModelStructureElement(vehicle, new Clock.Time(0.0));
 			}
+			for (IDriver driver : this.driversToNetworkElement.keySet()) {
+				this.networkElementToVisualisation.get(this.driversToNetworkElement.get(driver))
+						.addSimulationModelStructureElement(driver, new Clock.Time(0.0));
+			}
+//			for (IOccasionalDriver oDriver : this.occasionalDriversToNetworkElement.keySet()) {
+//				this.networkElementToVisualisation.get(this.occasionalDriversToNetworkElement.get(oDriver))
+//						.addSimulationModelStructureElement(oDriver, new Clock.Time(0.0));
+//			}
 
 			this.pane.getChildren().addAll(newNodes);
 		}
@@ -279,6 +298,18 @@ public class ModelViewController implements Observer {
 				this.vehiclesToNetworkElement.put(context.getVehicle(), newNetworkElementFromVehicleInTour);
 				this.networkElementToVisualisation.get(newNetworkElementFromVehicleInTour)
 						.addSimulationModelStructureElement(context.getVehicle(), simulationTimeOfLastEventOccurence);
+				
+				// 1. Remove the driver from network element visualization.
+				// 2. Add vehicle to new network element.
+				// Update lists.
+				IVRPSimulationModelNetworkElement currentNetworkElementFromDriverInTour = this.driversToNetworkElement
+						.get(context.getDriver());
+				this.networkElementToVisualisation.get(currentNetworkElementFromDriverInTour)
+						.removeSimulationModelStructureElement(context.getDriver(),
+								simulationTimeOfLastEventOccurence);
+				this.driversToNetworkElement.put(context.getDriver(), newNetworkElementFromVehicleInTour);
+				this.networkElementToVisualisation.get(newNetworkElementFromVehicleInTour)
+						.addSimulationModelStructureElement(context.getDriver(), simulationTimeOfLastEventOccurence);
 
 				// Update the elements changed during the tour execution (e.g.
 				// exchange).

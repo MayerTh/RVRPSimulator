@@ -25,6 +25,7 @@ import vrpsim.core.model.network.INode;
 import vrpsim.core.model.network.Location;
 import vrpsim.core.model.structure.IVRPSimulationModelStructureElement;
 import vrpsim.core.model.structure.driver.IDriver;
+import vrpsim.core.model.structure.occasionaldriver.IOccasionalDriver;
 import vrpsim.core.model.structure.vehicle.IVehicle;
 
 public class VRPVisualizationModel {
@@ -37,6 +38,7 @@ public class VRPVisualizationModel {
 	
 	private HashSet<IVehicle> vehicles = new HashSet<>();
 	private HashSet<IDriver> drivers = new HashSet<>();
+	private HashSet<IOccasionalDriver> occassionalDrivers = new HashSet<>();
 
 	// Max/Min Lat/Lon
 	private double minXLon = Double.MAX_VALUE;
@@ -73,6 +75,10 @@ public class VRPVisualizationModel {
 		return drivers;
 	}
 	
+	public HashSet<IOccasionalDriver> getOccassionalDrivers() {
+		return occassionalDrivers;
+	}
+	
 	public HashMap<INode, HashSet<IVRPSimulationModelStructureElement>> getNetwork() {
 		return network;
 	}
@@ -88,6 +94,7 @@ public class VRPVisualizationModel {
 			structureElements.addAll(this.simulationModel.getStructure().getDepots());
 			structureElements.addAll(this.simulationModel.getStructure().getVehicles());
 			structureElements.addAll(this.simulationModel.getStructure().getDrivers());
+			structureElements.addAll(this.simulationModel.getStructure().getOccasionalDrivers());
 
 			for (INode node : this.simulationModel.getNetwork().getNodes()) {
 				Location location = node.getLocation();
@@ -107,12 +114,14 @@ public class VRPVisualizationModel {
 				HashSet<IVRPSimulationModelStructureElement> structure = new HashSet<>();
 				for (IVRPSimulationModelStructureElement se : structureElements) {
 					if (se.getVRPSimulationModelStructureElementParameters().getHome().equals(node)
-							&& !(se instanceof IVehicle) && !(se instanceof IDriver)) {
+							&& !(se instanceof IVehicle) && !(se instanceof IDriver) && !(se instanceof IOccasionalDriver)) {
 						structure.add(se);
 					} else if (se instanceof IVehicle) {
 						vehicles.add((IVehicle)se);
 					} else if (se instanceof IDriver) {
 						drivers.add((IDriver)se);
+					} else if (se instanceof IOccasionalDriver) {
+						occassionalDrivers.add((IOccasionalDriver)se);
 					}
 				}
 				this.network.put(node, structure);
