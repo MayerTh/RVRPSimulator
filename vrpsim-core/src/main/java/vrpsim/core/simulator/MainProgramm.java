@@ -33,7 +33,6 @@ import vrpsim.core.model.events.IEventType;
 import vrpsim.core.model.events.IForeignEventListener;
 import vrpsim.core.model.util.exceptions.EventException;
 import vrpsim.core.model.util.exceptions.InitializationException;
-import vrpsim.core.simulator.Clock.Time;
 
 /**
  * @date 03.02.2016
@@ -159,14 +158,13 @@ public class MainProgramm extends Observable {
 
 	public IEvent runStep() throws EventException {
 
-		logger.info("Simulation time: {}", ((Time) this.clock.getCurrentSimulationTime()).getTimeDouble());
-
 		IEvent currentEvent = this.eventListInterface.getAndRemoveNextEvent();
 		this.clock.setSimulationTime(currentEvent.getSimulationTimeOfOccurence());
+		logger.info("Current simulation time: {}", this.clock.getCurrentSimulationTime().getValue());
 
 		logger.debug("Event (type=" + currentEvent.getType().getType() + ") from "
-				+ currentEvent.getOwner().getClass().getSimpleName() + " executed and " + this.countObservers()
-				+ " observers notified.");
+				+ currentEvent.getOwner().getClass().getSimpleName() + " will be executed and " + this.countObservers()
+				+ " observers will be notified.");
 
 		// Inform all foreign event listeners.
 		if (this.foreignEventListeners.containsKey(currentEvent.getType())) {
