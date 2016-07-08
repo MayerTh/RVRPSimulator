@@ -28,7 +28,7 @@ import vrpsim.core.model.events.IEventType;
 import vrpsim.core.model.events.UncertainEvent;
 import vrpsim.core.model.structure.AbstractVRPSimulationModelStructureElementWithStorage;
 import vrpsim.core.model.structure.VRPSimulationModelStructureElementParameters;
-import vrpsim.core.model.structure.customer.DefaultNonDynamicCustomer;
+import vrpsim.core.model.structure.customer.DefaultCustomer;
 import vrpsim.core.model.structure.util.storage.CanStoreType;
 import vrpsim.core.model.structure.util.storage.DefaultStorageManager;
 import vrpsim.core.model.util.exceptions.EventException;
@@ -48,7 +48,7 @@ import vrpsim.core.simulator.ITime;
  */
 public class DefaultDepot extends AbstractVRPSimulationModelStructureElementWithStorage implements IDepot {
 
-	private static Logger logger = LoggerFactory.getLogger(DefaultNonDynamicCustomer.class);
+	private static Logger logger = LoggerFactory.getLogger(DefaultCustomer.class);
 
 	private final List<IEventType> eventTypes;
 	private final UncertainParamters arrivalParameters;

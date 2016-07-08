@@ -30,7 +30,7 @@ import vrpsim.core.model.network.DefaultNode;
 import vrpsim.core.model.network.DefaultWay;
 import vrpsim.core.model.structure.Structure;
 import vrpsim.core.model.structure.VRPSimulationModelStructureElementParameters;
-import vrpsim.core.model.structure.customer.DefaultNonDynamicCustomer;
+import vrpsim.core.model.structure.customer.DefaultCustomer;
 import vrpsim.core.model.structure.customer.ICustomer;
 import vrpsim.core.model.structure.depot.DefaultDepot;
 import vrpsim.core.model.structure.depot.IDepot;
@@ -111,7 +111,7 @@ public class SimpleModelGenerator {
 			DefaultStorageManager storageManager = new DefaultStorageManager(new DefaultStorage(compartment));
 
 			IStorableGenerator storableGenerator = new StorableGenerator(this.storableParameters);
-			ICustomer customer = new DefaultNonDynamicCustomer(vrpSimulationModelElementParameters,
+			ICustomer customer = new DefaultCustomer(vrpSimulationModelElementParameters,
 					vrpSimulationModelStructureElementParameters,
 					new UncertainParamters(new UncertainParamters.UncertainParameterContainer(storableParameters,
 							new DeterministicDistributionFunction(10.0), new DeterministicDistributionFunction(100.0),

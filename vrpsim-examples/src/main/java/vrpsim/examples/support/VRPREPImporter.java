@@ -42,7 +42,7 @@ import vrpsim.core.model.network.DefaultNode;
 import vrpsim.core.model.network.DefaultWay;
 import vrpsim.core.model.structure.Structure;
 import vrpsim.core.model.structure.VRPSimulationModelStructureElementParameters;
-import vrpsim.core.model.structure.customer.DefaultNonDynamicCustomer;
+import vrpsim.core.model.structure.customer.DefaultCustomer;
 import vrpsim.core.model.structure.customer.ICustomer;
 import vrpsim.core.model.structure.depot.DefaultDepot;
 import vrpsim.core.model.structure.depot.IDepot;
@@ -232,7 +232,7 @@ public class VRPREPImporter {
 			ICanStore compartment = new Compartment(compartmentParameters);
 			DefaultStorageManager storageManager = new DefaultStorageManager(new DefaultStorage(compartment));
 
-			DefaultNonDynamicCustomer dndc = new DefaultNonDynamicCustomer(elementParameters,
+			DefaultCustomer dndc = new DefaultCustomer(elementParameters,
 					structureElementParameters, consumptionParameters, storageManager);
 			customers.add(dndc);
 			logger.debug("Parameterized customer build {}.", dndc.getVRPSimulationModelElementParameters().getId());

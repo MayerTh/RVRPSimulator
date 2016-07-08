@@ -39,15 +39,15 @@ import vrpsim.core.simulator.EventListService;
 import vrpsim.core.simulator.IClock;
 import vrpsim.core.simulator.ITime;
 
-public class DefaultNonDynamicCustomer extends AbstractVRPSimulationModelStructureElementWithStorage
+public class DefaultCustomer extends AbstractVRPSimulationModelStructureElementWithStorage
 		implements ICustomer {
 
-	private static Logger logger = LoggerFactory.getLogger(DefaultNonDynamicCustomer.class);
+	private static Logger logger = LoggerFactory.getLogger(DefaultCustomer.class);
 
 	private final UncertainParamters consumptionParameters;
 	private final List<IEventType> eventTypes;
 
-	public DefaultNonDynamicCustomer(final VRPSimulationModelElementParameters vrpSimulationModelElementParameters,
+	public DefaultCustomer(final VRPSimulationModelElementParameters vrpSimulationModelElementParameters,
 			final VRPSimulationModelStructureElementParameters vrpSimulationModelStructureElementParameters,
 			final UncertainParamters consumptionParameters, final DefaultStorageManager storageManager) {
 

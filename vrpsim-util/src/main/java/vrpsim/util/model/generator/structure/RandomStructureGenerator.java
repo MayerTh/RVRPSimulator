@@ -23,7 +23,7 @@ import vrpsim.core.model.VRPSimulationModelElementParameters;
 import vrpsim.core.model.network.INode;
 import vrpsim.core.model.structure.Structure;
 import vrpsim.core.model.structure.VRPSimulationModelStructureElementParameters;
-import vrpsim.core.model.structure.customer.DefaultNonDynamicCustomer;
+import vrpsim.core.model.structure.customer.DefaultCustomer;
 import vrpsim.core.model.structure.customer.DynamicCustomer;
 import vrpsim.core.model.structure.customer.ICustomer;
 import vrpsim.core.model.structure.depot.DefaultDepot;
@@ -254,7 +254,7 @@ public class RandomStructureGenerator {
 			Double minCycle = randomStructureGeneratorConfiguration.getMinConsumptionCycleOfStaticCustomer();
 			Double maxCycle = randomStructureGeneratorConfiguration.getMaxConsumptionCycleOfStaticCustomer();
 
-			ICustomer customer = new DefaultNonDynamicCustomer(vrpSimulationModelElementParameters,
+			ICustomer customer = new DefaultCustomer(vrpSimulationModelElementParameters,
 					vrpSimulationModelStructureElementParameters,
 					new UncertainParamters(new UncertainParamters.UncertainParameterContainer(
 							randomStructureGeneratorConfiguration.getStorableParameters(),

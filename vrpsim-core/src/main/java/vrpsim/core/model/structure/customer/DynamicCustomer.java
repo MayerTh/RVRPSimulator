@@ -36,7 +36,7 @@ import vrpsim.core.simulator.IClock;
 import vrpsim.core.simulator.ITime;
 
 /**
- * {@link DefaultNonDynamicCustomer} creates periodical orders.
+ * {@link DefaultCustomer} creates periodical orders.
  * 
  * @author mayert
  */
