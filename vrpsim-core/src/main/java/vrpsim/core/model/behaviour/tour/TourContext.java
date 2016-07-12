@@ -43,9 +43,9 @@ public class TourContext {
 		return activityStart;
 	}
 
-	public TourContext(ITime activityStart, IVehicle vehicle, IDriver driver) {
+	public TourContext(ITime activityStartTime, IVehicle vehicle, IDriver driver) {
 		super();
-		this.activityStart = activityStart;
+		this.activityStart = activityStartTime;
 		this.vehicle = vehicle;
 		this.driver = driver;
 		this.placeHistory = new ArrayList<>();

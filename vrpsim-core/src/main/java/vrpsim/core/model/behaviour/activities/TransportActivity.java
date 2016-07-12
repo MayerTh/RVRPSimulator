@@ -66,10 +66,11 @@ public class TransportActivity implements IActivity {
 				context.getVehicle().getVRPSimulationModelElementParameters().getId(),
 				context.getCurrentPlace().getVRPSimulationModelElementParameters().getId(),
 				job.getTransportTarget().getVRPSimulationModelElementParameters().getId());
-		
+
 		this.validate(context);
 		for (IWay way : ((INode) context.getCurrentPlace()).getWays()) {
-			if (way.getTarget().equals(job.getTransportTarget())) {
+			if (way.getTarget().getVRPSimulationModelElementParameters().getId()
+					.equals(job.getTransportTarget().getVRPSimulationModelElementParameters().getId())) {
 				this.usedWay = way;
 				break;
 			}
@@ -109,7 +110,7 @@ public class TransportActivity implements IActivity {
 			this.usedWay.releaseFrom(this);
 			this.usedWay = null;
 		}
-		
+
 		context.setCurrentPlace(this.job.getTransportTarget());
 		logger.debug("Transport executed. New current place set to {}.",
 				context.getCurrentPlace().getVRPSimulationModelElementParameters().getId());

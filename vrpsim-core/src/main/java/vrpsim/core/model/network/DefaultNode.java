@@ -94,4 +94,9 @@ public class DefaultNode extends Observable implements INode {
 		this.addObserver(observer);
 	}
 
+	@Override
+	public void addWay(IWay way) {
+		this.ways.add(way);
+	}
+
 }

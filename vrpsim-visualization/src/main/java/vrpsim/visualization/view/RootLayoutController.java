@@ -142,7 +142,7 @@ public class RootLayoutController extends Observable {
 					}
 				});
 				task.setOnFailed(stateEvent -> {
-					Exception e = (Exception) task.getException();
+					Throwable e = task.getException();
 					logger.error("Run step execution failed due to not catched exception: {}.", e.getClass());
 					String stackTrace = "";
 					for (StackTraceElement ste : e.getStackTrace()) {

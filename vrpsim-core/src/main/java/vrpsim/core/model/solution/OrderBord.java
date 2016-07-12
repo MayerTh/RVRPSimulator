@@ -15,6 +15,7 @@
  */
 package vrpsim.core.model.solution;
 
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Observable;
 import java.util.Set;
@@ -36,6 +37,12 @@ public class OrderBord extends Observable {
 		this.owner = owner;
 	}
 
+	/**
+	 * Publish an order, all modeled {@link IOccasionalDriver} are informed
+	 * about the published orders.
+	 * 
+	 * @param order
+	 */
 	public void publishOrder(Order order) {
 		this.orders.add(order);
 
@@ -74,6 +81,16 @@ public class OrderBord extends Observable {
 			result = false;
 		}
 		return result;
+	}
+
+	/**
+	 * Returns a set of all {@link Order} currently not confirmed (means not
+	 * taken by any {@link IOccasionalDriver}).
+	 * 
+	 * @return
+	 */
+	public Set<Order> readAllUnconfirmedOrders() {
+		return Collections.unmodifiableSet(this.orders);
 	}
 
 }

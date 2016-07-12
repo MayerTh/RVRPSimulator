@@ -47,7 +47,7 @@ public class StorableGenerator implements IStorableGenerator {
 
 	@Override
 	public StorableParameters getDefaultStorableparameters() {
-		return this.getDefaultStorableparameters();
+		return this.defaultStorableParameters;
 	}
 
 }

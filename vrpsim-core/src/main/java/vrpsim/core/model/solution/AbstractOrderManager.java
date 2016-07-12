@@ -26,32 +26,35 @@ import vrpsim.core.model.events.IEvent;
 import vrpsim.core.model.events.IEventType;
 import vrpsim.core.model.events.OrderEvent;
 import vrpsim.core.model.network.NetworkService;
+import vrpsim.core.model.structure.IVRPSimulationModelStructureElement;
 import vrpsim.core.model.structure.StructureService;
-import vrpsim.core.model.structure.vehicle.IVehicle;
+import vrpsim.core.model.structure.customer.DynamicCustomer;
+import vrpsim.core.model.structure.customer.ICustomer;
+import vrpsim.core.model.structure.occasionaldriver.IOccasionalDriver;
 import vrpsim.core.model.util.exceptions.detail.RejectEventException;
 import vrpsim.core.simulator.EventListService;
 import vrpsim.core.simulator.IClock;
-import vrpsim.core.simulator.ITime;
 
 public abstract class AbstractOrderManager implements IDynamicBehaviourProvider {
 
 	protected final static Logger logger = LoggerFactory.getLogger(AbstractOrderManager.class);
+
 	protected final OrderBord orderBord;
-	
+
 	protected StructureService structureService;
 	protected NetworkService networkService;
 	protected BehaviourService behaviourService;
 	protected EventListService eventListService;
-	
+
 	public AbstractOrderManager() {
 		this.orderBord = new OrderBord(this);
 	}
-	
+
 	@Override
 	public OrderBord getOrderBord() {
 		return this.orderBord;
 	}
-	
+
 	@Override
 	public Set<IEventType> registerForEventTypes(Set<IEventType> availableEventTypes) {
 		Set<IEventType> eventTypes = new HashSet<>();
@@ -71,8 +74,8 @@ public abstract class AbstractOrderManager implements IDynamicBehaviourProvider 
 	}
 
 	@Override
-	public void initialize(EventListService eventListService, StructureService structureService, NetworkService networkService,
-			BehaviourService behaviourService) {
+	public void initialize(EventListService eventListService, StructureService structureService,
+			NetworkService networkService, BehaviourService behaviourService) {
 		this.eventListService = eventListService;
 		this.structureService = structureService;
 		this.networkService = networkService;
@@ -80,18 +83,38 @@ public abstract class AbstractOrderManager implements IDynamicBehaviourProvider 
 	}
 
 	/**
-	 * Handles the {@link OrderEvent}. An implementation of
-	 * {@link AbstractOrderManager} has to offer all {@link Order} within
-	 * {@link OrderEvent} to all occasional drivers.
+	 * Handles the {@link OrderEvent} created from dynamic parts of the vehicle
+	 * routing problem. Currently {@link DynamicCustomer}, an implementation of
+	 * {@link ICustomer} creates {@link OrderEvent}. An implementation of
+	 * {@link AbstractOrderManager} functions as dispatcher within the system.
+	 * An implementation of {@link AbstractOrderManager} has the following
+	 * possibilities to handle and {@link OrderEvent}:
 	 * 
-	 * If no occasional driver is interested, the implementation can adjust the
-	 * costs offered for the order. See
-	 * {@link Order#setAdditionalCost(OrderCost)}. If still no occasional driver
-	 * is interested, the implementation has to satisfy the {@link Order}
-	 * through an own {@link IVehicle}.
+	 * - Simply ignore it.
 	 * 
-	 * Note: consider the simulation time {@link ITime}, an occasional driver
-	 * may not be interested in the order at current simulation.
+	 * - Publishing it at the {@link OrderBord}, after adding the following
+	 * parameters to the {@link Order}:
+	 * {@link Order#setProvider(vrpsim.core.model.structure.IVRPSimulationModelStructureElementWithStorage)}
+	 * (where to pick up the ordered stuff?)
+	 * {@link Order#setAdditionalCost(OrderCost)} (What the Dispatcher (
+	 * {@link AbstractOrderManager}) is willing to pay for delivering the
+	 * order.) The {@link AbstractOrderManager} gets informed through
+	 * {@link IDynamicBehaviourProvider#handleNotTakenOrder(Order)}, if an
+	 * published {@link Order} will not be handled from an
+	 * {@link IOccasionalDriver} (or any thing else who can access the
+	 * {@link OrderBord}). -> the parameters can now be readjusted, and the
+	 * {@link Order} can be published again for example, or the own fleet can be
+	 * used for delivery (see the next point).
+	 * 
+	 * - Use the own fleet to deliver the order. Therefore access to the
+	 * network, structure and event list is provided by
+	 * {@link AbstractOrderManager#networkService},
+	 * {@link AbstractOrderManager#structureService},
+	 * {@link AbstractOrderManager#behaviourService}, and
+	 * {@link AbstractOrderManager#eventListService}. Different other
+	 * conveniences are implemented, see for example
+	 * {@link IVRPSimulationModelStructureElement#addReleaseFromListener(java.util.Observer)}
+	 * , {@link IVRPSimulationModelStructureElement#isAvailable(IClock)}, ...
 	 * 
 	 * @param orderEvent
 	 * @param simulationClock
