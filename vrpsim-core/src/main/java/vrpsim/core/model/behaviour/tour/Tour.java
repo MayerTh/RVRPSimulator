@@ -56,7 +56,7 @@ public class Tour implements ITour {
 
 	private boolean areRessoucresAllocatedAlready = false;
 
-	public Tour(TourContext context, IActivity startActivity) throws NetworkException {
+	public Tour(TourContext context, IActivity startActivity) {
 
 		this.context = context;
 		this.startActivity = startActivity;
@@ -167,12 +167,7 @@ public class Tour implements ITour {
 					this.costList.add(new Double(this.currentTourCosts));
 					this.currentTourCosts = 0.0;
 
-					if (this.isPeriodic()) {
-						newEvent = createEvent(clock.getCurrentSimulationTime().createTimeFrom(0.0), startActivity,
-								false);
-					} else {
-						release();
-					}
+					release();
 
 				} else {
 					this.currentTourCosts += result.getDoActionCosts();
@@ -220,11 +215,6 @@ public class Tour implements ITour {
 	@Override
 	public IActivity getStartActivity() {
 		return this.startActivity;
-	}
-
-	@Override
-	public boolean isPeriodic() {
-		return false;
 	}
 
 	@Override

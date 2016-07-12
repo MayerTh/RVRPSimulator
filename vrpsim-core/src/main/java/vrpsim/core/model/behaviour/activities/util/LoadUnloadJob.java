@@ -19,7 +19,6 @@ import vrpsim.core.model.behaviour.activities.LoadActivity;
 import vrpsim.core.model.behaviour.activities.UnloadActivity;
 import vrpsim.core.model.structure.IVRPSimulationModelStructureElementWithStorage;
 import vrpsim.core.model.structure.util.storage.StorableParameters;
-import vrpsim.core.model.util.exceptions.BehaviourException;
 
 /**
  * Holds all information to execute an {@link LoadActivity} and
@@ -35,7 +34,7 @@ public class LoadUnloadJob implements IJob {
 	private final IVRPSimulationModelStructureElementWithStorage loadingPartner;
 
 	public LoadUnloadJob(StorableParameters storeableParameters, Integer number,
-			IVRPSimulationModelStructureElementWithStorage loadingPartner) throws BehaviourException {
+			IVRPSimulationModelStructureElementWithStorage loadingPartner) {
 		this.number = number;
 		this.storeableParameters = storeableParameters;
 		this.loadingPartner = loadingPartner;

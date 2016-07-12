@@ -37,8 +37,6 @@ public interface ITour extends IVRPSimulationBehaviourElementCanAllocate, IEvent
 
 	public IActivity getStartActivity();
 
-	public boolean isPeriodic();
-
 	public TourContext getTourContext();
 
 }

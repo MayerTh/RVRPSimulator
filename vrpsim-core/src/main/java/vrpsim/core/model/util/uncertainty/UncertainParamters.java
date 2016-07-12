@@ -28,24 +28,18 @@ import vrpsim.core.model.structure.util.storage.StorableParameters;
  */
 public class UncertainParamters {
 
-	/**
-	 * 
-	 */
 	private final HashSet<UncertainParameterContainer> consumparameter;
 
 	public UncertainParamters(HashSet<UncertainParameterContainer> consumparameter) {
-		super();
 		this.consumparameter = consumparameter;
 	}
 
 	public UncertainParamters(UncertainParameterContainer consumparameterContainer) {
-		super();
 		this.consumparameter = new HashSet<UncertainParamters.UncertainParameterContainer>();
 		this.consumparameter.add(consumparameterContainer);
 	}
 
 	public UncertainParamters() {
-		super();
 		this.consumparameter = new HashSet<UncertainParamters.UncertainParameterContainer>();
 	}
 
@@ -78,8 +72,8 @@ public class UncertainParamters {
 		 *            - the start when the defined amount the first time are
 		 *            consumed/ordered/...
 		 */
-		public UncertainParameterContainer(StorableParameters storableParameters, IDistributionFunction number,
-				IDistributionFunction start) {
+		public UncertainParameterContainer(final StorableParameters storableParameters,
+				final IDistributionFunction number, final IDistributionFunction start) {
 			this(storableParameters, number, start, null, null, null);
 		}
 
@@ -99,8 +93,9 @@ public class UncertainParamters {
 		 *            - cycle where defined amount of defined storables are
 		 *            consumed/ordered/...
 		 */
-		public UncertainParameterContainer(StorableParameters storableParameters, IDistributionFunction number,
-				IDistributionFunction start, IDistributionFunction cycle) {
+		public UncertainParameterContainer(final StorableParameters storableParameters,
+				final IDistributionFunction number, final IDistributionFunction start,
+				final IDistributionFunction cycle) {
 			this(storableParameters, number, start, cycle, null, null);
 		}
 
@@ -122,9 +117,10 @@ public class UncertainParamters {
 		 *            - latest delivery of the order, after order is created,
 		 *            see {@link UncertainParameterContainer#getCycle()}
 		 */
-		public UncertainParameterContainer(StorableParameters storableParameters, IDistributionFunction number,
-				IDistributionFunction start, IDistributionFunction cycle, IDistributionFunction earliestDueDate,
-				IDistributionFunction latestDueDate) {
+		public UncertainParameterContainer(final StorableParameters storableParameters,
+				final IDistributionFunction number, final IDistributionFunction start,
+				final IDistributionFunction cycle, final IDistributionFunction earliestDueDate,
+				final IDistributionFunction latestDueDate) {
 			this.start = start;
 			this.number = number;
 			this.cycle = cycle;
