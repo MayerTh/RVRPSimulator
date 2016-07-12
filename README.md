@@ -13,6 +13,7 @@ You can access the full documentation in the [wiki] (https://github.com/MayerTh/
 
 ## Open issues and features
 * Recording of simulation statistic for evaluation
+* Implementing order state machine
 * Pre-implemented dynamic or static optimization algorithms
 * Integration of existing static optimizer (e.g. [jsprit] (https://github.com/graphhopper/jsprit))
 * ...
