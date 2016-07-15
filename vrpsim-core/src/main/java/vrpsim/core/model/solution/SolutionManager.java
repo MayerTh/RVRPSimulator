@@ -81,10 +81,12 @@ public class SolutionManager implements IVRPSimulationSolutionElement {
 		elements.addAll(this.staticBehaviour.getAllSimulationElements());
 
 		if (this.dynamicBehaviourProvider != null) {
-			logger.info("Behavior Provider initialized, no IDynamicBehaviourProvider exists.");
-			this.dynamicBehaviourProvider.initialize(eventListService, structureService,
-					networkService, staticBehaviour.getBehaviourService());
+			this.dynamicBehaviourProvider.initialize(eventListService, structureService, networkService,
+					staticBehaviour.getBehaviourService());
 			elements.add(this.dynamicBehaviourProvider);
+			logger.info("Behavior Provider initialized.");
+		} else {
+			logger.info("Behavior Provider initialized, no IDynamicBehaviourProvider exists.");
 		}
 		return elements;
 	}

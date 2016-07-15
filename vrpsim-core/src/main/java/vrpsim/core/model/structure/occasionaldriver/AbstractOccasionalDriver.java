@@ -19,19 +19,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import vrpsim.core.model.VRPSimulationModelElementParameters;
-import vrpsim.core.model.behaviour.activities.util.ServiceTimeCalculationInformationContainer;
-import vrpsim.core.model.network.IVRPSimulationModelNetworkElement;
 import vrpsim.core.model.network.NetworkService;
-import vrpsim.core.model.solution.OrderBord;
+import vrpsim.core.model.solution.PublicOrderPlatform;
 import vrpsim.core.model.structure.AbstractVRPSimulationModelStructureElementWithStorage;
 import vrpsim.core.model.structure.StructureService;
 import vrpsim.core.model.structure.VRPSimulationModelStructureElementParameters;
 import vrpsim.core.model.structure.util.storage.DefaultStorageManager;
 import vrpsim.core.simulator.EventListService;
-import vrpsim.core.simulator.IClock;
-import vrpsim.core.simulator.ITime;
 
-public abstract class AbstractOccasionalDriver extends AbstractVRPSimulationModelStructureElementWithStorage implements IOccasionalDriver {
+public abstract class AbstractOccasionalDriver extends AbstractVRPSimulationModelStructureElementWithStorage implements IOccasionalDriver{
 
 	protected Logger logger = LoggerFactory.getLogger(AbstractOccasionalDriver.class);
 
@@ -47,7 +43,7 @@ public abstract class AbstractOccasionalDriver extends AbstractVRPSimulationMode
 	}
 
 	@Override
-	public void registerToObserve(OrderBord orderBorad) {
+	public void registerToObserve(PublicOrderPlatform orderBorad) {
 		orderBorad.addObserver(this);
 	}
 
@@ -57,16 +53,6 @@ public abstract class AbstractOccasionalDriver extends AbstractVRPSimulationMode
 		this.eventListService = eventListInterface;
 		this.networkService = networkService;
 		this.structureService = structureService;
-	}
-
-	@Override
-	public ITime getServiceTime(ServiceTimeCalculationInformationContainer serviceTimeCalculationInformationContainer, IClock clock) {
-		return clock.getCurrentSimulationTime().createTimeFrom(0.0);
-	}
-	
-	@Override
-	public void setCurrentPlace(IVRPSimulationModelNetworkElement networkElement) {
-		this.currentPlace = networkElement;
 	}
 
 }

@@ -19,16 +19,19 @@ import java.util.List;
 import java.util.Observable;
 
 import vrpsim.core.model.VRPSimulationModelElementParameters;
+import vrpsim.core.model.behaviour.activities.util.ServiceTimeCalculationInformationContainer;
 import vrpsim.core.model.behaviour.tour.ITour;
 import vrpsim.core.model.events.IEvent;
 import vrpsim.core.model.events.IEventType;
+import vrpsim.core.model.network.IVRPSimulationModelNetworkElement;
 import vrpsim.core.model.solution.Order;
-import vrpsim.core.model.solution.OrderBord;
+import vrpsim.core.model.solution.PublicOrderPlatform;
 import vrpsim.core.model.structure.VRPSimulationModelStructureElementParameters;
 import vrpsim.core.model.structure.util.storage.DefaultStorageManager;
 import vrpsim.core.model.util.exceptions.EventException;
 import vrpsim.core.simulator.EventListService;
 import vrpsim.core.simulator.IClock;
+import vrpsim.core.simulator.ITime;
 
 public class OccasionalDriver extends AbstractOccasionalDriver {
 
@@ -61,11 +64,6 @@ public class OccasionalDriver extends AbstractOccasionalDriver {
 	}
 
 	@Override
-	public ITour getMyDailyBehaviour() {
-		return myDailyBehaviour;
-	}
-
-	@Override
 	public Double getAverageSpeed() {
 		return this.averageSpeed;
 	}
@@ -76,12 +74,24 @@ public class OccasionalDriver extends AbstractOccasionalDriver {
 
 		// TODO Simulation time?
 
-		OrderBord orderBord = (OrderBord) o;
+		PublicOrderPlatform orderBord = (PublicOrderPlatform) o;
 		if (orderBord.confirmOrder((Order) arg, this)) {
 			// TODO
 
 		}
 
+	}
+
+	@Override
+	public void setCurrentPlace(IVRPSimulationModelNetworkElement networkElement) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public ITime getServiceTime(ServiceTimeCalculationInformationContainer container, IClock clock) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

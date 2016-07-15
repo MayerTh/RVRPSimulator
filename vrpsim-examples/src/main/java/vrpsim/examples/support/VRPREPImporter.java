@@ -42,7 +42,7 @@ import vrpsim.core.model.network.DefaultNode;
 import vrpsim.core.model.network.DefaultWay;
 import vrpsim.core.model.structure.Structure;
 import vrpsim.core.model.structure.VRPSimulationModelStructureElementParameters;
-import vrpsim.core.model.structure.customer.DefaultCustomer;
+import vrpsim.core.model.structure.customer.StaticCustomerWithConsumption;
 import vrpsim.core.model.structure.customer.ICustomer;
 import vrpsim.core.model.structure.depot.DefaultDepot;
 import vrpsim.core.model.structure.depot.IDepot;
@@ -221,9 +221,10 @@ public class VRPREPImporter {
 			VRPSimulationModelStructureElementParameters structureElementParameters = new VRPSimulationModelStructureElementParameters(
 					getNode(nodeId, nodes));
 
-			UncertainParameterContainer consumparameterContainer = new UncertainParameterContainer(storableParameters,
-					new DeterministicDistributionFunction(amount),
-					new DeterministicDistributionFunction(consumptionCycleTime), new DeterministicDistributionFunction(consumptionCycleTime));
+			
+			UncertainParameterContainer consumparameterContainer = new UncertainParamters.UncertainParameterContainer(
+					storableParameters, new DeterministicDistributionFunction(amount),
+					new DeterministicDistributionFunction(0.0), new DeterministicDistributionFunction(consumptionCycleTime), true);
 			UncertainParamters consumptionParameters = new UncertainParamters(consumparameterContainer);
 
 			CanStoreParameters compartmentParameters = new CanStoreParameters(canStoreType,
@@ -232,7 +233,7 @@ public class VRPREPImporter {
 			ICanStore compartment = new Compartment(compartmentParameters);
 			DefaultStorageManager storageManager = new DefaultStorageManager(new DefaultStorage(compartment));
 
-			DefaultCustomer dndc = new DefaultCustomer(elementParameters,
+			StaticCustomerWithConsumption dndc = new StaticCustomerWithConsumption(elementParameters,
 					structureElementParameters, consumptionParameters, storageManager);
 			customers.add(dndc);
 			logger.debug("Parameterized customer build {}.", dndc.getVRPSimulationModelElementParameters().getId());

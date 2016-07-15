@@ -94,12 +94,12 @@ public abstract class AbstractVRPSimulationModelStructureElementWithStorage exte
 
 	@Override
 	public void load(IStorable storable) throws VRPArithmeticException, StorageException {
-		this.storageManager.load(storable);
+		this.storageManager.load(storable, this.vrpSimulationModelElementParameters.getId());
 	}
 
 	@Override
 	public IStorable unload(StorableType storableType) throws StorageException {
-		return this.storageManager.unload(storableType);
+		return this.storageManager.unload(storableType, this.vrpSimulationModelElementParameters.getId());
 	}
 
 	@Override

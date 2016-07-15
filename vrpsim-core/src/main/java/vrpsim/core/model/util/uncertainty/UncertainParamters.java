@@ -53,7 +53,7 @@ public class UncertainParamters {
 		private final IDistributionFunction start;
 		private final IDistributionFunction number;
 		private final IDistributionFunction cycle;
-		private final boolean isCyclic;
+		private boolean isCyclic;
 
 		private final IDistributionFunction earliestDueDate;
 		private final IDistributionFunction latestDueDate;
@@ -97,6 +97,26 @@ public class UncertainParamters {
 				final IDistributionFunction number, final IDistributionFunction start,
 				final IDistributionFunction cycle) {
 			this(storableParameters, number, start, cycle, null, null);
+		}
+		
+
+		/**
+		 * @param storableParameters
+		 *            - defining the storable which are consumed/ordered/...
+		 * @param number
+		 *            - amount of storables which are consumed/ordered/...
+		 * @param earliestDueDate
+		 *            - earliest delivery of the order, after order is created,
+		 *            see {@link UncertainParameterContainer#getCycle()}
+		 * @param latestDueDate
+		 *            - latest delivery of the order, after order is created,
+		 *            see {@link UncertainParameterContainer#getCycle()}
+		 */
+		public UncertainParameterContainer(final StorableParameters storableParameters,
+				final IDistributionFunction number, final IDistributionFunction earliestDueDate,
+				final IDistributionFunction latestDueDate, final boolean isCyclic) {
+			this(storableParameters, number, null, null, earliestDueDate, latestDueDate);
+			this.isCyclic = isCyclic;
 		}
 
 		/**

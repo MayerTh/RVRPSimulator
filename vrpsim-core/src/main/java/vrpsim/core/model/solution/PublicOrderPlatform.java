@@ -24,16 +24,16 @@ import vrpsim.core.model.structure.occasionaldriver.IOccasionalDriver;
 import vrpsim.core.model.structure.occasionaldriver.OccasionalDriver;
 
 /**
- * 
+ * The {@link PublicOrderPlatform} can be understood as board, where orders can be published for public
  * 
  * @author mayert
  */
-public class OrderBord extends Observable {
+public class PublicOrderPlatform extends Observable {
 
 	private final IDynamicBehaviourProvider owner;
 	private Set<Order> orders = new HashSet<>();
 
-	public OrderBord(IDynamicBehaviourProvider owner) {
+	public PublicOrderPlatform(IDynamicBehaviourProvider owner) {
 		this.owner = owner;
 	}
 

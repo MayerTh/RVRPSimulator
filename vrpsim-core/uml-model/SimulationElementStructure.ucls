@@ -46,7 +46,7 @@
     project="vrpsim-core" 
     file="/vrpsim-core/src/main/java/vrpsim/core/model/structure/IVRPSimulationModelStructureElementWithStorage.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="972" y="461"/>    
+    <position height="-1" width="-1" x="1136" y="515"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -56,7 +56,7 @@
   <interface id="6" language="java" name="vrpsim.core.model.structure.customer.ICustomer" project="vrpsim-core" 
     file="/vrpsim-core/src/main/java/vrpsim/core/model/structure/customer/ICustomer.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1035" y="711"/>    
+    <position height="-1" width="-1" x="1448" y="642"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -65,7 +65,7 @@
   </interface>  
   <interface id="7" language="java" name="vrpsim.core.model.structure.depot.IDepot" project="vrpsim-core" 
     file="/vrpsim-core/src/main/java/vrpsim/core/model/structure/depot/IDepot.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1468" y="558"/>    
+    <position height="-1" width="-1" x="1455" y="484"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -75,7 +75,7 @@
   <interface id="8" language="java" name="vrpsim.core.model.structure.driver.IDriver" project="vrpsim-core" 
     file="/vrpsim-core/src/main/java/vrpsim/core/model/structure/driver/IDriver.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="618" y="444"/>    
+    <position height="-1" width="-1" x="592" y="396"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -85,7 +85,7 @@
   <interface id="9" language="java" name="vrpsim.core.model.structure.vehicle.IVehicle" project="vrpsim-core" 
     file="/vrpsim-core/src/main/java/vrpsim/core/model/structure/vehicle/IVehicle.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1061" y="868"/>    
+    <position height="-1" width="-1" x="743" y="633"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -150,81 +150,70 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <interface id="16" language="java" name="vrpsim.core.model.structure.occasionaldriver.IOccasionalDriver" 
-    project="vrpsim-core" 
-    file="/vrpsim-core/src/main/java/vrpsim/core/model/structure/occasionaldriver/IOccasionalDriver.java" binary="false" 
-    corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1435" y="861"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
-    </display>  
-  </interface>  
-  <interface id="17" language="java" name="vrpsim.core.model.solution.IVRPSimulationSolutionElement" 
+  <interface id="16" language="java" name="vrpsim.core.model.solution.IVRPSimulationSolutionElement" 
     project="vrpsim-core" 
     file="/vrpsim-core/src/main/java/vrpsim/core/model/solution/IVRPSimulationSolutionElement.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="-107" y="30"/>    
+    <position height="-1" width="-1" x="-305" y="30"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <interface id="18" language="java" name="vrpsim.core.model.solution.IDynamicBehaviourProvider" project="vrpsim-core" 
+  <interface id="17" language="java" name="vrpsim.core.model.solution.IDynamicBehaviourProvider" project="vrpsim-core" 
     file="/vrpsim-core/src/main/java/vrpsim/core/model/solution/IDynamicBehaviourProvider.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="-406" y="173"/>    
+    <position height="-1" width="-1" x="-626" y="168"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <interface id="19" language="java" name="vrpsim.core.model.solution.IStaticBehaviourProvider" project="vrpsim-core" 
+  <interface id="18" language="java" name="vrpsim.core.model.solution.IStaticBehaviourProvider" project="vrpsim-core" 
     file="/vrpsim-core/src/main/java/vrpsim/core/model/solution/IStaticBehaviourProvider.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="45" y="167"/>    
+    <position height="-1" width="-1" x="-165" y="196"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <class id="20" language="java" name="vrpsim.core.model.solution.SolutionManager" project="vrpsim-core" 
+  <class id="19" language="java" name="vrpsim.core.model.solution.SolutionManager" project="vrpsim-core" 
     file="/vrpsim-core/src/main/java/vrpsim/core/model/solution/SolutionManager.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="-206" y="414"/>    
+    <position height="-1" width="-1" x="-426" y="409"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <interface id="21" language="java" 
+  <interface id="20" language="java" 
     name="vrpsim.core.model.structure.IVRPSimulationModelStructureElementWithStorageMovable" project="vrpsim-core" 
     file="/vrpsim-core/src/main/java/vrpsim/core/model/structure/IVRPSimulationModelStructureElementWithStorageMovable.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1388" y="700"/>    
+    <position height="-1" width="-1" x="740" y="518"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <class id="22" language="java" 
+  <class id="21" language="java" 
     name="vrpsim.core.model.structure.AbstractVRPSimulationModelStructureElementWithStorage" project="vrpsim-core" 
     file="/vrpsim-core/src/main/java/vrpsim/core/model/structure/AbstractVRPSimulationModelStructureElementWithStorage.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="243" width="467" x="435" y="637"/>    
+    <position height="243" width="467" x="686" y="709"/>    
     <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <interface id="23" language="java" name="vrpsim.core.model.behaviour.IVRPSimulationBehaviourElementCanAllocate" 
+  <interface id="22" language="java" name="vrpsim.core.model.behaviour.IVRPSimulationBehaviourElementCanAllocate" 
     project="vrpsim-core" 
     file="/vrpsim-core/src/main/java/vrpsim/core/model/behaviour/IVRPSimulationBehaviourElementCanAllocate.java" 
     binary="false" corner="BOTTOM_RIGHT">    
@@ -235,40 +224,58 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <generalization id="24">    
-    <end type="SOURCE" refId="19"/>    
-    <end type="TARGET" refId="17"/>  
-  </generalization>  
+  <interface id="23" language="java" name="vrpsim.core.model.solution.IAmInterestedInPubishedOrders" 
+    project="vrpsim-core" 
+    file="/vrpsim-core/src/main/java/vrpsim/core/model/solution/IAmInterestedInPubishedOrders.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="209" y="197"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <interface id="24" language="java" name="vrpsim.core.model.structure.occasionaldriver.IOccasionalDriver" 
+    project="vrpsim-core" 
+    file="/vrpsim-core/src/main/java/vrpsim/core/model/structure/occasionaldriver/IOccasionalDriver.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="430" y="513"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
   <generalization id="25">    
-    <end type="SOURCE" refId="18"/>    
-    <end type="TARGET" refId="17"/>  
+    <end type="SOURCE" refId="17"/>    
+    <end type="TARGET" refId="16"/>  
   </generalization>  
   <generalization id="26">    
-    <end type="SOURCE" refId="7"/>    
-    <end type="TARGET" refId="5"/>  
-  </generalization>  
-  <realization id="27">    
-    <end type="SOURCE" refId="22"/>    
-    <end type="TARGET" refId="5"/>  
-  </realization>  
-  <association id="28">    
-    <end type="SOURCE" refId="20" navigable="false">      
-      <attribute id="29" name="dynamicBehaviourProvider">        
-        <position height="0" width="0" x="-652" y="404"/>      
-      </attribute>      
-      <multiplicity id="30" minimum="0" maximum="1">        
-        <position height="0" width="0" x="-652" y="404"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="18" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <generalization id="31">    
     <end type="SOURCE" refId="8"/>    
     <end type="TARGET" refId="4"/>  
   </generalization>  
+  <association id="27">    
+    <end type="SOURCE" refId="19" navigable="false">      
+      <attribute id="28" name="dynamicBehaviourProvider">        
+        <position height="0" width="0" x="-872" y="399"/>      
+      </attribute>      
+      <multiplicity id="29" minimum="0" maximum="1">        
+        <position height="0" width="0" x="-872" y="399"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="17" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="30">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="2"/>  
+  </generalization>  
+  <generalization id="31">    
+    <end type="SOURCE" refId="11"/>    
+    <end type="TARGET" refId="3"/>  
+  </generalization>  
   <association id="32">    
-    <end type="SOURCE" refId="22" navigable="false">      
+    <end type="SOURCE" refId="21" navigable="false">      
       <attribute id="33" name="currentPlace">        
         <position height="0" width="0" x="0" y="0"/>      
       </attribute>      
@@ -280,88 +287,100 @@
     <display labels="true" multiplicity="true"/>  
   </association>  
   <generalization id="35">    
-    <end type="SOURCE" refId="13"/>    
-    <end type="TARGET" refId="1"/>  
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="20"/>  
   </generalization>  
   <generalization id="36">    
-    <end type="SOURCE" refId="4"/>    
-    <end type="TARGET" refId="2"/>  
-  </generalization>  
-  <generalization id="37">    
-    <end type="SOURCE" refId="11"/>    
-    <end type="TARGET" refId="3"/>  
-  </generalization>  
-  <generalization id="38">    
-    <end type="SOURCE" refId="6"/>    
-    <end type="TARGET" refId="5"/>  
-  </generalization>  
-  <generalization id="39">    
-    <end type="SOURCE" refId="2"/>    
-    <end type="TARGET" refId="1"/>  
-  </generalization>  
-  <generalization id="40">    
     <end type="SOURCE" refId="5"/>    
     <end type="TARGET" refId="4"/>  
   </generalization>  
-  <generalization id="41">    
-    <end type="SOURCE" refId="23"/>    
-    <end type="TARGET" refId="13"/>  
-  </generalization>  
-  <generalization id="42">    
-    <end type="SOURCE" refId="17"/>    
-    <end type="TARGET" refId="1"/>  
-  </generalization>  
-  <generalization id="43">    
-    <end type="SOURCE" refId="3"/>    
-    <end type="TARGET" refId="2"/>  
-  </generalization>  
-  <generalization id="44">    
-    <end type="SOURCE" refId="12"/>    
-    <end type="TARGET" refId="23"/>  
-  </generalization>  
-  <association id="45">    
-    <end type="SOURCE" refId="20" navigable="false">      
-      <attribute id="46" name="staticBehaviourProvider">        
-        <position height="0" width="0" x="-136" y="12"/>      
-      </attribute>      
-      <multiplicity id="47" minimum="0" maximum="1">        
-        <position height="0" width="0" x="-136" y="12"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="19" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <generalization id="48">    
-    <end type="SOURCE" refId="14"/>    
-    <end type="TARGET" refId="13"/>  
-  </generalization>  
-  <realization id="49">    
-    <end type="SOURCE" refId="20"/>    
-    <end type="TARGET" refId="17"/>  
-  </realization>  
-  <generalization id="50">    
-    <end type="SOURCE" refId="9"/>    
-    <end type="TARGET" refId="21"/>  
-  </generalization>  
-  <dependency id="51">    
+  <dependency id="37">    
     <end type="SOURCE" refId="11"/>    
     <end type="TARGET" refId="10"/>  
   </dependency>  
-  <generalization id="52">    
-    <end type="SOURCE" refId="16"/>    
-    <end type="TARGET" refId="21"/>  
+  <generalization id="38">    
+    <end type="SOURCE" refId="23"/>    
+    <end type="TARGET" refId="16"/>  
   </generalization>  
-  <generalization id="53">    
-    <end type="SOURCE" refId="21"/>    
+  <generalization id="39">    
+    <end type="SOURCE" refId="20"/>    
     <end type="TARGET" refId="5"/>  
   </generalization>  
-  <generalization id="54">    
+  <generalization id="40">    
+    <end type="SOURCE" refId="13"/>    
+    <end type="TARGET" refId="1"/>  
+  </generalization>  
+  <generalization id="41">    
+    <end type="SOURCE" refId="12"/>    
+    <end type="TARGET" refId="22"/>  
+  </generalization>  
+  <generalization id="42">    
     <end type="SOURCE" refId="15"/>    
+    <end type="TARGET" refId="22"/>  
+  </generalization>  
+  <generalization id="43">    
+    <end type="SOURCE" refId="18"/>    
+    <end type="TARGET" refId="16"/>  
+  </generalization>  
+  <generalization id="44">    
+    <end type="SOURCE" refId="7"/>    
+    <end type="TARGET" refId="5"/>  
+  </generalization>  
+  <generalization id="45">    
+    <end type="SOURCE" refId="24"/>    
     <end type="TARGET" refId="23"/>  
   </generalization>  
+  <realization id="46">    
+    <end type="SOURCE" refId="21"/>    
+    <end type="TARGET" refId="5"/>  
+  </realization>  
+  <generalization id="47">    
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="2"/>  
+  </generalization>  
+  <association id="48">    
+    <end type="SOURCE" refId="19" navigable="false">      
+      <attribute id="49" name="staticBehaviourProvider">        
+        <position height="0" width="0" x="-346" y="41"/>      
+      </attribute>      
+      <multiplicity id="50" minimum="0" maximum="1">        
+        <position height="0" width="0" x="-346" y="41"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="18" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <realization id="51">    
+    <end type="SOURCE" refId="19"/>    
+    <end type="TARGET" refId="16"/>  
+  </realization>  
+  <generalization id="52">    
+    <end type="SOURCE" refId="22"/>    
+    <end type="TARGET" refId="13"/>  
+  </generalization>  
+  <generalization id="53">    
+    <end type="SOURCE" refId="24"/>    
+    <end type="TARGET" refId="20"/>  
+  </generalization>  
+  <generalization id="54">    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="5"/>  
+  </generalization>  
   <generalization id="55">    
+    <end type="SOURCE" refId="14"/>    
+    <end type="TARGET" refId="13"/>  
+  </generalization>  
+  <generalization id="56">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="1"/>  
+  </generalization>  
+  <generalization id="57">    
     <end type="SOURCE" refId="10"/>    
     <end type="TARGET" refId="3"/>  
+  </generalization>  
+  <generalization id="58">    
+    <end type="SOURCE" refId="16"/>    
+    <end type="TARGET" refId="1"/>  
   </generalization>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
     sort-features="false" accessors="true" visibility="true">    

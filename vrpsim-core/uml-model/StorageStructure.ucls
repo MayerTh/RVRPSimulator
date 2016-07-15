@@ -22,18 +22,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <class id="3" language="java" name="vrpsim.core.model.structure.customer.DefaultNonDynamicCustomer" 
-    project="vrpsim-core" 
-    file="/vrpsim-core/src/main/java/vrpsim/core/model/structure/customer/DefaultNonDynamicCustomer.java" binary="false" 
-    corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="991" y="526"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
-    </display>  
-  </class>  
-  <interface id="4" language="java" name="vrpsim.core.model.structure.depot.IDepot" project="vrpsim-core" 
+  <interface id="3" language="java" name="vrpsim.core.model.structure.depot.IDepot" project="vrpsim-core" 
     file="/vrpsim-core/src/main/java/vrpsim/core/model/structure/depot/IDepot.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1598" y="299"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -42,7 +31,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <class id="5" language="java" name="vrpsim.core.model.structure.depot.DefaultDepot" project="vrpsim-core" 
+  <class id="4" language="java" name="vrpsim.core.model.structure.depot.DefaultDepot" project="vrpsim-core" 
     file="/vrpsim-core/src/main/java/vrpsim/core/model/structure/depot/DefaultDepot.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1793" y="529"/>    
@@ -52,7 +41,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="6" language="java" name="vrpsim.core.model.structure.vehicle.DefaultVehicle" project="vrpsim-core" 
+  <class id="5" language="java" name="vrpsim.core.model.structure.vehicle.DefaultVehicle" project="vrpsim-core" 
     file="/vrpsim-core/src/main/java/vrpsim/core/model/structure/vehicle/DefaultVehicle.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="166" y="569"/>    
@@ -62,7 +51,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <interface id="7" language="java" name="vrpsim.core.model.structure.vehicle.IVehicle" project="vrpsim-core" 
+  <interface id="6" language="java" name="vrpsim.core.model.structure.vehicle.IVehicle" project="vrpsim-core" 
     file="/vrpsim-core/src/main/java/vrpsim/core/model/structure/vehicle/IVehicle.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="221" y="313"/>    
@@ -72,7 +61,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <class id="8" language="java" name="vrpsim.core.model.structure.util.storage.Compartment" project="vrpsim-core" 
+  <class id="7" language="java" name="vrpsim.core.model.structure.util.storage.Compartment" project="vrpsim-core" 
     file="/vrpsim-core/src/main/java/vrpsim/core/model/structure/util/storage/Compartment.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="568" y="1611"/>    
@@ -82,7 +71,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <interface id="9" language="java" name="vrpsim.core.model.structure.util.storage.ICanStore" project="vrpsim-core" 
+  <interface id="8" language="java" name="vrpsim.core.model.structure.util.storage.ICanStore" project="vrpsim-core" 
     file="/vrpsim-core/src/main/java/vrpsim/core/model/structure/util/storage/ICanStore.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="766" y="1327"/>    
@@ -92,7 +81,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <class id="10" language="java" name="vrpsim.core.model.structure.util.storage.Pallet" project="vrpsim-core" 
+  <class id="9" language="java" name="vrpsim.core.model.structure.util.storage.Pallet" project="vrpsim-core" 
     file="/vrpsim-core/src/main/java/vrpsim/core/model/structure/util/storage/Pallet.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="864" y="1630"/>    
@@ -102,7 +91,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <interface id="11" language="java" name="vrpsim.core.model.structure.util.storage.IStorable" project="vrpsim-core" 
+  <interface id="10" language="java" name="vrpsim.core.model.structure.util.storage.IStorable" project="vrpsim-core" 
     file="/vrpsim-core/src/main/java/vrpsim/core/model/structure/util/storage/IStorable.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1200" y="1415"/>    
@@ -112,7 +101,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <class id="12" language="java" name="vrpsim.core.model.structure.util.storage.Good" project="vrpsim-core" 
+  <class id="11" language="java" name="vrpsim.core.model.structure.util.storage.Good" project="vrpsim-core" 
     file="/vrpsim-core/src/main/java/vrpsim/core/model/structure/util/storage/Good.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1201" y="1591"/>    
@@ -122,7 +111,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <interface id="13" language="java" name="vrpsim.core.model.util.policies.ILoadingPolicy" project="vrpsim-core" 
+  <interface id="12" language="java" name="vrpsim.core.model.util.policies.ILoadingPolicy" project="vrpsim-core" 
     file="/vrpsim-core/src/main/java/vrpsim/core/model/util/policies/ILoadingPolicy.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1453" y="2006"/>    
@@ -132,7 +121,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <class id="14" language="java" name="vrpsim.core.model.util.policies.LIFOLoadingPolicy" project="vrpsim-core" 
+  <class id="13" language="java" name="vrpsim.core.model.util.policies.LIFOLoadingPolicy" project="vrpsim-core" 
     file="/vrpsim-core/src/main/java/vrpsim/core/model/util/policies/LIFOLoadingPolicy.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1455" y="1590"/>    
@@ -142,7 +131,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="15" language="java" name="vrpsim.core.model.structure.util.storage.CanStoreParameters" 
+  <class id="14" language="java" name="vrpsim.core.model.structure.util.storage.CanStoreParameters" 
     project="vrpsim-core" 
     file="/vrpsim-core/src/main/java/vrpsim/core/model/structure/util/storage/CanStoreParameters.java" binary="false" 
     corner="BOTTOM_RIGHT">    
@@ -153,7 +142,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="16" language="java" name="vrpsim.core.model.structure.util.storage.DefaultStorageManager" 
+  <class id="15" language="java" name="vrpsim.core.model.structure.util.storage.DefaultStorageManager" 
     project="vrpsim-core" 
     file="/vrpsim-core/src/main/java/vrpsim/core/model/structure/util/storage/DefaultStorageManager.java" binary="false" 
     corner="BOTTOM_RIGHT">    
@@ -164,7 +153,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="17" language="java" name="vrpsim.core.model.structure.util.storage.DefaultStorage" project="vrpsim-core" 
+  <class id="16" language="java" name="vrpsim.core.model.structure.util.storage.DefaultStorage" project="vrpsim-core" 
     file="/vrpsim-core/src/main/java/vrpsim/core/model/structure/util/storage/DefaultStorage.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="260" y="1329"/>    
@@ -174,7 +163,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="18" language="java" name="vrpsim.core.model.structure.util.storage.StorableParameters" 
+  <class id="17" language="java" name="vrpsim.core.model.structure.util.storage.StorableParameters" 
     project="vrpsim-core" 
     file="/vrpsim-core/src/main/java/vrpsim/core/model/structure/util/storage/StorableParameters.java" binary="false" 
     corner="BOTTOM_RIGHT">    
@@ -185,7 +174,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="19" language="java" name="vrpsim.core.model.structure.util.storage.CanStoreType" project="vrpsim-core" 
+  <class id="18" language="java" name="vrpsim.core.model.structure.util.storage.CanStoreType" project="vrpsim-core" 
     file="/vrpsim-core/src/main/java/vrpsim/core/model/structure/util/storage/CanStoreType.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="777" y="2189"/>    
@@ -195,7 +184,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="20" language="java" name="vrpsim.core.model.structure.util.storage.StorableType" project="vrpsim-core" 
+  <class id="19" language="java" name="vrpsim.core.model.structure.util.storage.StorableType" project="vrpsim-core" 
     file="/vrpsim-core/src/main/java/vrpsim/core/model/structure/util/storage/StorableType.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1148" y="2191"/>    
@@ -205,7 +194,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <interface id="21" language="java" name="vrpsim.core.model.structure.occasionaldriver.IOccasionalDriver" 
+  <interface id="20" language="java" name="vrpsim.core.model.structure.occasionaldriver.IOccasionalDriver" 
     project="vrpsim-core" 
     file="/vrpsim-core/src/main/java/vrpsim/core/model/structure/occasionaldriver/IOccasionalDriver.java" binary="false" 
     corner="BOTTOM_RIGHT">    
@@ -216,7 +205,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <class id="22" language="java" name="vrpsim.core.model.structure.occasionaldriver.AbstractOccasionalDriver" 
+  <class id="21" language="java" name="vrpsim.core.model.structure.occasionaldriver.AbstractOccasionalDriver" 
     project="vrpsim-core" 
     file="/vrpsim-core/src/main/java/vrpsim/core/model/structure/occasionaldriver/AbstractOccasionalDriver.java" 
     binary="false" corner="BOTTOM_RIGHT">    
@@ -227,7 +216,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="23" language="java" name="vrpsim.core.model.structure.occasionaldriver.OccasionalDriver" 
+  <class id="22" language="java" name="vrpsim.core.model.structure.occasionaldriver.OccasionalDriver" 
     project="vrpsim-core" 
     file="/vrpsim-core/src/main/java/vrpsim/core/model/structure/occasionaldriver/OccasionalDriver.java" binary="false" 
     corner="BOTTOM_RIGHT">    
@@ -238,7 +227,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <interface id="24" language="java" 
+  <interface id="23" language="java" 
     name="vrpsim.core.model.structure.IVRPSimulationModelStructureElementWithStorageMovable" project="vrpsim-core" 
     file="/vrpsim-core/src/main/java/vrpsim/core/model/structure/IVRPSimulationModelStructureElementWithStorageMovable.java" 
     binary="false" corner="BOTTOM_RIGHT">    
@@ -249,7 +238,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <class id="25" language="java" 
+  <class id="24" language="java" 
     name="vrpsim.core.model.structure.AbstractVRPSimulationModelStructureElementWithStorage" project="vrpsim-core" 
     file="/vrpsim-core/src/main/java/vrpsim/core/model/structure/AbstractVRPSimulationModelStructureElementWithStorage.java" 
     binary="false" corner="BOTTOM_RIGHT">    
@@ -260,120 +249,128 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <generalization id="26">    
-    <end type="SOURCE" refId="3"/>    
-    <end type="TARGET" refId="25"/>  
-  </generalization>  
-  <association id="27">    
-    <end type="SOURCE" refId="10" navigable="false">      
-      <attribute id="28" name="storableParameters">        
+  <association id="25">    
+    <end type="SOURCE" refId="7" navigable="false">      
+      <attribute id="26" name="canStoreParameters">        
+        <position height="0" width="0" x="-220" y="587"/>      
+      </attribute>      
+      <multiplicity id="27" minimum="0" maximum="1">        
+        <position height="0" width="0" x="-220" y="587"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="14" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="28">    
+    <end type="SOURCE" refId="14" navigable="false">      
+      <attribute id="29" name="canStoreType">        
         <position height="0" width="0" x="-216" y="444"/>      
       </attribute>      
-      <multiplicity id="29" minimum="0" maximum="1">        
+      <multiplicity id="30" minimum="0" maximum="1">        
         <position height="0" width="0" x="-216" y="444"/>      
       </multiplicity>    
     </end>    
     <end type="TARGET" refId="18" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <generalization id="30">    
-    <end type="SOURCE" refId="2"/>    
-    <end type="TARGET" refId="1"/>  
-  </generalization>  
   <association id="31">    
-    <end type="SOURCE" refId="15" navigable="false">      
-      <attribute id="32" name="canStoreType">        
-        <position height="0" width="0" x="-216" y="444"/>      
+    <end type="SOURCE" refId="24" navigable="false">      
+      <attribute id="32" name="storageManager">        
+        <position height="0" width="0" x="0" y="0"/>      
       </attribute>      
       <multiplicity id="33" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="15" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="34">    
+    <end type="SOURCE" refId="16"/>    
+    <end type="TARGET" refId="8"/>  
+  </dependency>  
+  <realization id="35">    
+    <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="6"/>  
+  </realization>  
+  <generalization id="36">    
+    <end type="SOURCE" refId="22"/>    
+    <end type="TARGET" refId="21"/>  
+  </generalization>  
+  <realization id="37">    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="8"/>  
+  </realization>  
+  <association id="38">    
+    <end type="SOURCE" refId="17" navigable="false">      
+      <attribute id="39" name="storableType">        
+        <position height="0" width="0" x="-216" y="444"/>      
+      </attribute>      
+      <multiplicity id="40" minimum="0" maximum="1">        
         <position height="0" width="0" x="-216" y="444"/>      
       </multiplicity>    
     </end>    
     <end type="TARGET" refId="19" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <dependency id="34">    
-    <end type="SOURCE" refId="17"/>    
-    <end type="TARGET" refId="9"/>  
-  </dependency>  
-  <association id="35">    
-    <end type="SOURCE" refId="25" navigable="false">      
-      <attribute id="36" name="storageManager"/>      
-      <multiplicity id="37" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="16" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <realization id="38">    
-    <end type="SOURCE" refId="8"/>    
-    <end type="TARGET" refId="9"/>  
-  </realization>  
-  <generalization id="39">    
-    <end type="SOURCE" refId="22"/>    
-    <end type="TARGET" refId="25"/>  
-  </generalization>  
-  <association id="40">    
-    <end type="SOURCE" refId="12" navigable="false">      
-      <attribute id="41" name="storableParameters">        
-        <position height="0" width="0" x="-216" y="444"/>      
-      </attribute>      
-      <multiplicity id="42" minimum="0" maximum="1">        
-        <position height="0" width="0" x="-216" y="444"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="18" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <realization id="43">    
-    <end type="SOURCE" refId="14"/>    
-    <end type="TARGET" refId="13"/>  
-  </realization>  
-  <realization id="44">    
-    <end type="SOURCE" refId="5"/>    
-    <end type="TARGET" refId="4"/>  
-  </realization>  
-  <realization id="45">    
-    <end type="SOURCE" refId="25"/>    
-    <end type="TARGET" refId="1"/>  
-  </realization>  
-  <generalization id="46">    
-    <end type="SOURCE" refId="4"/>    
-    <end type="TARGET" refId="1"/>  
-  </generalization>  
-  <generalization id="47">    
-    <end type="SOURCE" refId="7"/>    
-    <end type="TARGET" refId="24"/>  
-  </generalization>  
-  <association id="48">    
-    <end type="SOURCE" refId="10" navigable="false">      
-      <attribute id="49" name="canStoreParameters">        
+  <association id="41">    
+    <end type="SOURCE" refId="9" navigable="false">      
+      <attribute id="42" name="canStoreParameters">        
         <position height="18" width="109" x="873" y="1888"/>      
       </attribute>      
-      <multiplicity id="50" minimum="0" maximum="1">        
+      <multiplicity id="43" minimum="0" maximum="1">        
         <position height="0" width="0" x="-220" y="587"/>      
       </multiplicity>    
     </end>    
-    <end type="TARGET" refId="15" navigable="true"/>    
+    <end type="TARGET" refId="14" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <dependency id="51">    
-    <end type="SOURCE" refId="16"/>    
-    <end type="TARGET" refId="17"/>  
-  </dependency>  
-  <generalization id="52">    
-    <end type="SOURCE" refId="23"/>    
-    <end type="TARGET" refId="22"/>  
-  </generalization>  
-  <realization id="53">    
+  <generalization id="44">    
     <end type="SOURCE" refId="3"/>    
-    <end type="TARGET" refId="2"/>  
+    <end type="TARGET" refId="1"/>  
+  </generalization>  
+  <generalization id="45">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="24"/>  
+  </generalization>  
+  <generalization id="46">    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="23"/>  
+  </generalization>  
+  <dependency id="47">    
+    <end type="SOURCE" refId="15"/>    
+    <end type="TARGET" refId="16"/>  
+  </dependency>  
+  <realization id="48">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="3"/>  
   </realization>  
-  <realization id="54">    
-    <end type="SOURCE" refId="10"/>    
-    <end type="TARGET" refId="11"/>  
+  <realization id="49">    
+    <end type="SOURCE" refId="7"/>    
+    <end type="TARGET" refId="8"/>  
   </realization>  
+  <realization id="50">    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="10"/>  
+  </realization>  
+  <generalization id="51">    
+    <end type="SOURCE" refId="20"/>    
+    <end type="TARGET" refId="23"/>  
+  </generalization>  
+  <association id="52">    
+    <end type="SOURCE" refId="9" navigable="false">      
+      <attribute id="53" name="storableParameters">        
+        <position height="0" width="0" x="-216" y="444"/>      
+      </attribute>      
+      <multiplicity id="54" minimum="0" maximum="1">        
+        <position height="0" width="0" x="-216" y="444"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="17" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
   <association id="55">    
-    <end type="SOURCE" refId="15" navigable="false">      
+    <end type="SOURCE" refId="14" navigable="false">      
       <attribute id="56" name="loadingPolicy">        
         <position height="0" width="0" x="-262" y="524"/>      
       </attribute>      
@@ -381,89 +378,73 @@
         <position height="0" width="0" x="-262" y="524"/>      
       </multiplicity>    
     </end>    
-    <end type="TARGET" refId="13" navigable="true"/>    
+    <end type="TARGET" refId="12" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <generalization id="58">    
-    <end type="SOURCE" refId="5"/>    
-    <end type="TARGET" refId="25"/>  
-  </generalization>  
+  <realization id="58">    
+    <end type="SOURCE" refId="24"/>    
+    <end type="TARGET" refId="1"/>  
+  </realization>  
   <association id="59">    
-    <end type="SOURCE" refId="18" navigable="false">      
-      <attribute id="60" name="storableType">        
-        <position height="0" width="0" x="-216" y="444"/>      
+    <end type="SOURCE" refId="13" navigable="false">      
+      <attribute id="60" name="stack">        
+        <position height="0" width="0" x="-198" y="449"/>      
       </attribute>      
-      <multiplicity id="61" minimum="0" maximum="1">        
-        <position height="0" width="0" x="-216" y="444"/>      
+      <multiplicity id="61" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="-198" y="449"/>      
       </multiplicity>    
     </end>    
-    <end type="TARGET" refId="20" navigable="true"/>    
+    <end type="TARGET" refId="10" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
   <generalization id="62">    
-    <end type="SOURCE" refId="24"/>    
-    <end type="TARGET" refId="1"/>  
+    <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="24"/>  
   </generalization>  
   <generalization id="63">    
-    <end type="SOURCE" refId="6"/>    
-    <end type="TARGET" refId="25"/>  
-  </generalization>  
-  <realization id="64">    
-    <end type="SOURCE" refId="12"/>    
-    <end type="TARGET" refId="11"/>  
-  </realization>  
-  <realization id="65">    
-    <end type="SOURCE" refId="6"/>    
-    <end type="TARGET" refId="7"/>  
-  </realization>  
-  <association id="66">    
-    <end type="SOURCE" refId="20" navigable="false">      
-      <attribute id="67" name="canStoreTypes">        
-        <position height="0" width="0" x="-216" y="444"/>      
-      </attribute>      
-      <multiplicity id="68" minimum="0" maximum="2147483647">        
-        <position height="0" width="0" x="-216" y="444"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="19" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <generalization id="69">    
     <end type="SOURCE" refId="21"/>    
     <end type="TARGET" refId="24"/>  
   </generalization>  
-  <association id="70">    
-    <end type="SOURCE" refId="8" navigable="false">      
-      <attribute id="71" name="canStoreParameters">        
-        <position height="0" width="0" x="-220" y="587"/>      
+  <association id="64">    
+    <end type="SOURCE" refId="19" navigable="false">      
+      <attribute id="65" name="canStoreTypes">        
+        <position height="0" width="0" x="-216" y="444"/>      
       </attribute>      
-      <multiplicity id="72" minimum="0" maximum="1">        
-        <position height="0" width="0" x="-220" y="587"/>      
+      <multiplicity id="66" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="-216" y="444"/>      
       </multiplicity>    
     </end>    
-    <end type="TARGET" refId="15" navigable="true"/>    
+    <end type="TARGET" refId="18" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
+  <generalization id="67">    
+    <end type="SOURCE" refId="23"/>    
+    <end type="TARGET" refId="1"/>  
+  </generalization>  
+  <generalization id="68">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="1"/>  
+  </generalization>  
+  <association id="69">    
+    <end type="SOURCE" refId="11" navigable="false">      
+      <attribute id="70" name="storableParameters">        
+        <position height="0" width="0" x="-216" y="444"/>      
+      </attribute>      
+      <multiplicity id="71" minimum="0" maximum="1">        
+        <position height="0" width="0" x="-216" y="444"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="17" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <realization id="72">    
+    <end type="SOURCE" refId="11"/>    
+    <end type="TARGET" refId="10"/>  
+  </realization>  
   <realization id="73">    
-    <end type="SOURCE" refId="10"/>    
-    <end type="TARGET" refId="9"/>  
+    <end type="SOURCE" refId="13"/>    
+    <end type="TARGET" refId="12"/>  
   </realization>  
-  <realization id="74">    
-    <end type="SOURCE" refId="22"/>    
-    <end type="TARGET" refId="21"/>  
-  </realization>  
-  <association id="75">    
-    <end type="SOURCE" refId="14" navigable="false">      
-      <attribute id="76" name="stack">        
-        <position height="0" width="0" x="-198" y="449"/>      
-      </attribute>      
-      <multiplicity id="77" minimum="0" maximum="2147483647">        
-        <position height="0" width="0" x="-198" y="449"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="11" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
     sort-features="false" accessors="true" visibility="true">    
     <attributes public="true" package="true" protected="true" private="true" static="true"/>    

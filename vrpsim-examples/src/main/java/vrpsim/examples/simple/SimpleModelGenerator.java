@@ -30,7 +30,7 @@ import vrpsim.core.model.network.DefaultNode;
 import vrpsim.core.model.network.DefaultWay;
 import vrpsim.core.model.structure.Structure;
 import vrpsim.core.model.structure.VRPSimulationModelStructureElementParameters;
-import vrpsim.core.model.structure.customer.DefaultCustomer;
+import vrpsim.core.model.structure.customer.StaticCustomerWithConsumption;
 import vrpsim.core.model.structure.customer.ICustomer;
 import vrpsim.core.model.structure.depot.DefaultDepot;
 import vrpsim.core.model.structure.depot.IDepot;
@@ -110,13 +110,13 @@ public class SimpleModelGenerator {
 			ICanStore compartment = new Compartment(compartmentParameters);
 			DefaultStorageManager storageManager = new DefaultStorageManager(new DefaultStorage(compartment));
 
+			UncertainParamters.UncertainParameterContainer container = new UncertainParamters.UncertainParameterContainer(
+					storableParameters, new DeterministicDistributionFunction(10.0),
+					new DeterministicDistributionFunction(0.0), new DeterministicDistributionFunction(100.0), false);
+
 			IStorableGenerator storableGenerator = new StorableGenerator(this.storableParameters);
-			ICustomer customer = new DefaultCustomer(vrpSimulationModelElementParameters,
-					vrpSimulationModelStructureElementParameters,
-					new UncertainParamters(new UncertainParamters.UncertainParameterContainer(storableParameters,
-							new DeterministicDistributionFunction(10.0), new DeterministicDistributionFunction(100.0),
-							new DeterministicDistributionFunction(100.0))),
-					storageManager);
+			ICustomer customer = new StaticCustomerWithConsumption(vrpSimulationModelElementParameters,
+					vrpSimulationModelStructureElementParameters, new UncertainParamters(container), storageManager);
 			for (int s = 1; s <= numberItemsInsideCustomer; s++) {
 				IStorable storable = storableGenerator.generateStorable(this.storableParameters);
 				compartment.load(storable);

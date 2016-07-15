@@ -69,19 +69,4 @@ public class VisulizeChristofides extends Visualisation {
 		launch(args);
 	}
 
-//	public static class StaticBehaviorProvider implements IStaticBehaviourProvider {
-//
-//		private final Behaviour behaviour;
-//
-//		public StaticBehaviorProvider(Behaviour behaviour) {
-//			this.behaviour = behaviour;
-//		}
-//
-//		@Override
-//		public Behaviour provideBehavior(NetworkService networkService, StructureService structureService) {
-//			return this.behaviour;
-//		}
-//
-//	}
-
 }

@@ -23,9 +23,9 @@ import vrpsim.core.model.VRPSimulationModelElementParameters;
 import vrpsim.core.model.network.INode;
 import vrpsim.core.model.structure.Structure;
 import vrpsim.core.model.structure.VRPSimulationModelStructureElementParameters;
-import vrpsim.core.model.structure.customer.DefaultCustomer;
 import vrpsim.core.model.structure.customer.DynamicCustomer;
 import vrpsim.core.model.structure.customer.ICustomer;
+import vrpsim.core.model.structure.customer.StaticCustomerWithConsumption;
 import vrpsim.core.model.structure.depot.DefaultDepot;
 import vrpsim.core.model.structure.depot.IDepot;
 import vrpsim.core.model.structure.depot.SourceDepot;
@@ -49,6 +49,7 @@ import vrpsim.core.model.util.exceptions.VRPArithmeticException;
 import vrpsim.core.model.util.policies.LIFOLoadingPolicy;
 import vrpsim.core.model.util.uncertainty.DeterministicDistributionFunction;
 import vrpsim.core.model.util.uncertainty.UncertainParamters;
+import vrpsim.core.model.util.uncertainty.UncertainParamters.UncertainParameterContainer;
 import vrpsim.util.model.generator.GeneratorConfigurationInitializationException;
 
 public class RandomStructureGenerator {
@@ -254,16 +255,18 @@ public class RandomStructureGenerator {
 			Double minCycle = randomStructureGeneratorConfiguration.getMinConsumptionCycleOfStaticCustomer();
 			Double maxCycle = randomStructureGeneratorConfiguration.getMaxConsumptionCycleOfStaticCustomer();
 
-			ICustomer customer = new DefaultCustomer(vrpSimulationModelElementParameters,
+			UncertainParameterContainer consumparameterContainer = new UncertainParamters.UncertainParameterContainer(
+					randomStructureGeneratorConfiguration.getStorableParameters(),
+					new DeterministicDistributionFunction(
+							random.nextInt(maxAmount.intValue() - minAmount.intValue()) + minAmount),
+					new DeterministicDistributionFunction(0.0), new DeterministicDistributionFunction(
+							random.nextInt(maxCycle.intValue() - minCycle.intValue()) + minCycle),
+					true);
+			UncertainParamters consumptionParameters = new UncertainParamters(consumparameterContainer);
+
+			ICustomer customer = new StaticCustomerWithConsumption(vrpSimulationModelElementParameters,
 					vrpSimulationModelStructureElementParameters,
-					new UncertainParamters(new UncertainParamters.UncertainParameterContainer(
-							randomStructureGeneratorConfiguration.getStorableParameters(),
-							new DeterministicDistributionFunction(
-									random.nextInt(maxAmount.intValue() - minAmount.intValue()) + minAmount),
-							new DeterministicDistributionFunction(
-									random.nextInt(maxCycle.intValue() - minCycle.intValue()) + minCycle),
-							new DeterministicDistributionFunction(
-									random.nextInt(maxCycle.intValue() - minCycle.intValue()) + minCycle))),
+					consumptionParameters,
 					storageManager);
 
 			customers.add(customer);
@@ -297,7 +300,7 @@ public class RandomStructureGenerator {
 							new DeterministicDistributionFunction(
 									random.nextInt(maxAmount.intValue() - minAmount.intValue()) + minAmount),
 							new DeterministicDistributionFunction(
-									random.nextInt(maxCycle.intValue() - minCycle.intValue()) + minCycle), 
+									random.nextInt(maxCycle.intValue() - minCycle.intValue()) + minCycle),
 							new DeterministicDistributionFunction(
 									random.nextInt(maxCycle.intValue() - minCycle.intValue()) + minCycle)));
 

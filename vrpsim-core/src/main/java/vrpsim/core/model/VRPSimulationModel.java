@@ -20,11 +20,11 @@ import java.util.List;
 
 import vrpsim.core.model.behaviour.tour.ITour;
 import vrpsim.core.model.network.Network;
+import vrpsim.core.model.solution.IAmInterestedInPubishedOrders;
 import vrpsim.core.model.solution.SolutionManager;
 import vrpsim.core.model.structure.Structure;
 import vrpsim.core.model.structure.customer.ICustomer;
 import vrpsim.core.model.structure.depot.IDepot;
-import vrpsim.core.model.structure.occasionaldriver.IOccasionalDriver;
 import vrpsim.core.model.structure.occasionaldriver.OccasionalDriver;
 import vrpsim.core.simulator.EventListService;
 
@@ -77,21 +77,25 @@ public class VRPSimulationModel {
 	 * @return
 	 */
 	public List<IVRPSimulationElement> initalizeAndReturnSimulationElements(EventListService eventListInterface) {
+
 		List<IVRPSimulationElement> allElements = new ArrayList<>();
+		allElements.addAll(this.structure.getAllSimulationElements());
+		allElements.addAll(this.network.getAllSimulationElements());
 
 		if (this.solutionManager != null) {
 			allElements.addAll(this.solutionManager.initalizeAndReturnSolutionBehaviourSimulationElements(
 					eventListInterface, structure.getStructureService(), network.getNetworkService()));
+			
 			if (this.solutionManager.getDynamicBehaviourProvider() != null) {
-				for (IOccasionalDriver od : this.structure.getOccasionalDrivers()) {
-					od.registerToObserve(this.solutionManager.getDynamicBehaviourProvider().getOrderBord());
-					od.registerServices(eventListInterface, structure.getStructureService(), network.getNetworkService());
+				for (IVRPSimulationElement element : allElements) {
+					if(element instanceof IAmInterestedInPubishedOrders) {
+						((IAmInterestedInPubishedOrders)element).registerToObserve(this.solutionManager.getDynamicBehaviourProvider().getOrderBord());
+						((IAmInterestedInPubishedOrders)element).registerServices(eventListInterface, structure.getStructureService(), network.getNetworkService());
+					}
 				}
 			}
 		}
 
-		allElements.addAll(this.structure.getAllSimulationElements());
-		allElements.addAll(this.network.getAllSimulationElements());
 		return allElements;
 	}
 

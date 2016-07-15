@@ -15,45 +15,11 @@
  */
 package vrpsim.core.model.structure.occasionaldriver;
 
-import java.util.Observer;
-
-import vrpsim.core.model.behaviour.tour.ITour;
 import vrpsim.core.model.events.IEventOwner;
-import vrpsim.core.model.network.NetworkService;
-import vrpsim.core.model.solution.Order;
-import vrpsim.core.model.solution.OrderBord;
+import vrpsim.core.model.solution.IAmInterestedInPubishedOrders;
 import vrpsim.core.model.structure.IVRPSimulationModelStructureElementWithStorageMovable;
-import vrpsim.core.model.structure.StructureService;
-import vrpsim.core.simulator.EventList;
-import vrpsim.core.simulator.EventListService;
 
-public interface IOccasionalDriver extends IEventOwner, IVRPSimulationModelStructureElementWithStorageMovable, Observer {
-
-	/**
-	 * At the {@link OrderBord}, all {@link Order}s are published.
-	 * 
-	 * @param orderBorad
-	 */
-	public void registerToObserve(OrderBord orderBorad);
-
-	/**
-	 * The {@link EventListService} allows the manipulation of the
-	 * {@link EventList}. {@link NetworkService} provides information about the
-	 * infrastructure and {@link StructureService} delivers information about
-	 * the problem-structure.
-	 * 
-	 * @param eventListService
-	 * @param network
-	 * @param structure
-	 */
-	public void registerServices(EventListService eventListService, StructureService structureService,
-			NetworkService networkService);
-
-	/**
-	 * Returns the daily behaviour represented as {@link ITour};
-	 * 
-	 * @return
-	 */
-	public ITour getMyDailyBehaviour();
+public interface IOccasionalDriver
+		extends IEventOwner, IVRPSimulationModelStructureElementWithStorageMovable, IAmInterestedInPubishedOrders {
 
 }

@@ -108,6 +108,8 @@ public class Order extends Observable {
 	 * Creates an {@link Order} with initial costs of 0.0. The initial costs are
 	 * the price the end customer (owner) is willing to pay for the delivery.
 	 * 
+	 * Note that you have to create the due dates dependent on the current simulation time.
+	 * 
 	 * @param id
 	 * @param earliestDueDate
 	 * @param latestDueDate

@@ -17,25 +17,15 @@ package vrpsim.core.model.structure.customer;
 
 import java.util.List;
 
-import vrpsim.core.model.events.IEventOwner;
 import vrpsim.core.model.solution.Order;
-import vrpsim.core.model.structure.IVRPSimulationModelStructureElementWithStorage;
-import vrpsim.core.model.util.uncertainty.UncertainParamters;
 
-/**
- * @date 02.02.2016
- * @author thomas.mayer@unibw.de
- *
- */
-public interface ICustomer extends IEventOwner, IVRPSimulationModelStructureElementWithStorage {
-	
-	public UncertainParamters getUncertainParameters();
-	
+public interface IStaticCustomer extends ICustomer {
+
 	/**
-	 * Returns all created {@link Order}. 
+	 * Returns all initial static orders.
 	 * 
 	 * @return
 	 */
-	public List<Order> getAllCreatedOrders();
+	public List<Order> getStaticOrdersBeforeEventGeneration();
 	
 }

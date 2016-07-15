@@ -35,16 +35,16 @@ public interface IDynamicBehaviourProvider extends IVRPSimulationSolutionElement
 			BehaviourService behaviourService);
 
 	/**
-	 * The {@link IDynamicBehaviourProvider} is the owner of the {@link OrderBord}, the
+	 * The {@link IDynamicBehaviourProvider} is the owner of the {@link PublicOrderPlatform}, the
 	 * representation of the platform where the {@link Order}s are published.
 	 * 
 	 * @param orderBord
 	 */
-	public OrderBord getOrderBord();
+	public PublicOrderPlatform getOrderBord();
 
 	/**
 	 * If an {@link IDynamicBehaviourProvider} publishes order on the
-	 * {@link OrderBord#publishOrder(Order)} and the published {@link Order} is
+	 * {@link PublicOrderPlatform#publishOrder(Order)} and the published {@link Order} is
 	 * not served by an {@link IOccasionalDriver}. The {@link IDynamicBehaviourProvider} get
 	 * informed with the help of this method.
 	 * 
@@ -53,7 +53,7 @@ public interface IDynamicBehaviourProvider extends IVRPSimulationSolutionElement
 	public void handleNotTakenOrder(Order order);
 
 	/**
-	 * If a published {@link Order} via {@link OrderBord#publishOrder(Order)},
+	 * If a published {@link Order} via {@link PublicOrderPlatform#publishOrder(Order)},
 	 * will be served by an {@link IOccasionalDriver}, the {@link IDynamicBehaviourProvider}
 	 * is informed about the {@link IOccasionalDriver}.
 	 * 

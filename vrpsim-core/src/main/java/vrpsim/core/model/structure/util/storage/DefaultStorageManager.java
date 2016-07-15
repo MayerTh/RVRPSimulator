@@ -49,7 +49,7 @@ public class DefaultStorageManager {
 	 * vrpsim.core.model.storage.IHaveAStorage#load(vrpsim.core.model.storage.
 	 * IStorable)
 	 */
-	public void load(IStorable storable) throws VRPArithmeticException, StorageException {
+	public void load(IStorable storable, String ownerId) throws VRPArithmeticException, StorageException {
 
 		int state = 0;
 		String errorMsg = "";
@@ -69,7 +69,7 @@ public class DefaultStorageManager {
 		// If state is not changed, than no fitting compartment for the storable
 		// could be found.
 		if (state == 0) {
-			throw new NoStorageForTypeException("There is no compartment in storage for type "
+			throw new NoStorageForTypeException(ownerId + ": There is no compartment in storage for type "
 					+ storable.getStorableParameters().getStorableType().getCanStoreTypes() + ". Types available: "
 					+ this.storage.getCanStores().keySet());
 		}
@@ -78,7 +78,7 @@ public class DefaultStorageManager {
 		// than even the very last fitting compartment is full already and can
 		// not take any more storables.
 		if (state == 2) {
-			throw new StorageOverflowException("There is not enough space in the compartments for type "
+			throw new StorageOverflowException(ownerId + ": There is not enough space in the compartments for type "
 					+ storable.getStorableParameters().getStorableType().getCanStoreTypes() + ". I am "
 					+ this.getClass().getSimpleName() + ". Original Msg: " + errorMsg);
 		}
@@ -92,7 +92,7 @@ public class DefaultStorageManager {
 	 * vrpsim.core.model.storage.IHaveAStorage#unload(vrpsim.core.model.storage.
 	 * StoreableType)
 	 */
-	public IStorable unload(StorableType storableType) throws StorageException {
+	public IStorable unload(StorableType storableType, String ownerId) throws StorageException {
 
 		List<CanStoreType> canStoreTypes = storableType.getCanStoreTypes();
 		int state = 0;
@@ -112,7 +112,7 @@ public class DefaultStorageManager {
 		// If state is not changed, than no fitting compartment for the storable
 		// could be found.
 		if (state == 0) {
-			throw new NoStorageForTypeException("There is no compartment in storage for any type in " + canStoreTypes
+			throw new NoStorageForTypeException(ownerId + ": There is no compartment in storage for any type in " + canStoreTypes
 					+ ". Types available: " + this.storage.getCanStores().keySet());
 		}
 
@@ -120,7 +120,7 @@ public class DefaultStorageManager {
 		// than even the very last fitting compartment is empty.
 		if (state == 2) {
 			throw new StorageOutOfStockException(
-					"There is no storable in the following compartments anymore: " + canStoreTypes + ".", 1.0);
+					ownerId + ": There is no storable in the following compartments anymore: " + canStoreTypes + ".", 1.0);
 		}
 
 		return result;

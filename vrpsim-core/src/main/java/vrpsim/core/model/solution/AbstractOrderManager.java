@@ -39,7 +39,7 @@ public abstract class AbstractOrderManager implements IDynamicBehaviourProvider 
 
 	protected final static Logger logger = LoggerFactory.getLogger(AbstractOrderManager.class);
 
-	protected final OrderBord orderBord;
+	protected final PublicOrderPlatform orderBord;
 
 	protected StructureService structureService;
 	protected NetworkService networkService;
@@ -47,11 +47,11 @@ public abstract class AbstractOrderManager implements IDynamicBehaviourProvider 
 	protected EventListService eventListService;
 
 	public AbstractOrderManager() {
-		this.orderBord = new OrderBord(this);
+		this.orderBord = new PublicOrderPlatform(this);
 	}
 
 	@Override
-	public OrderBord getOrderBord() {
+	public PublicOrderPlatform getOrderBord() {
 		return this.orderBord;
 	}
 
@@ -92,7 +92,7 @@ public abstract class AbstractOrderManager implements IDynamicBehaviourProvider 
 	 * 
 	 * - Simply ignore it.
 	 * 
-	 * - Publishing it at the {@link OrderBord}, after adding the following
+	 * - Publishing it at the {@link PublicOrderPlatform}, after adding the following
 	 * parameters to the {@link Order}:
 	 * {@link Order#setProvider(vrpsim.core.model.structure.IVRPSimulationModelStructureElementWithStorage)}
 	 * (where to pick up the ordered stuff?)
@@ -102,7 +102,7 @@ public abstract class AbstractOrderManager implements IDynamicBehaviourProvider 
 	 * {@link IDynamicBehaviourProvider#handleNotTakenOrder(Order)}, if an
 	 * published {@link Order} will not be handled from an
 	 * {@link IOccasionalDriver} (or any thing else who can access the
-	 * {@link OrderBord}). -> the parameters can now be readjusted, and the
+	 * {@link PublicOrderPlatform}). -> the parameters can now be readjusted, and the
 	 * {@link Order} can be published again for example, or the own fleet can be
 	 * used for delivery (see the next point).
 	 * 
