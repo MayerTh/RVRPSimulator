@@ -20,9 +20,9 @@ import java.util.Observer;
 
 import vrpsim.core.model.VRPSimulationModelElementParameters;
 import vrpsim.core.model.behaviour.IVRPSimulationBehaviourElementCanAllocate;
-import vrpsim.core.model.behaviour.activities.util.ServiceTimeCalculationInformationContainer;
-import vrpsim.core.model.util.distances.IDistanceFunction;
-import vrpsim.core.model.util.distances.ITimeFunction;
+import vrpsim.core.model.behaviour.activities.util.TimeCalculationInformationContainer;
+import vrpsim.core.model.util.functions.IDistanceFunction;
+import vrpsim.core.model.util.functions.ITimeFunction;
 import vrpsim.core.simulator.IClock;
 import vrpsim.core.simulator.ITime;
 
@@ -81,10 +81,8 @@ public class DefaultWay extends Observable implements IWay {
 	}
 
 	@Override
-	public ITime getServiceTime(ServiceTimeCalculationInformationContainer container, IClock clock) {
-		return clock.getCurrentSimulationTime().createTimeFrom(
-				this.travelTimeFunction.getTravelTime(this.source.getLocation(), this.destination.getLocation(),
-						this.distanceFunction, this.getMaxSpeed(), container.getVehicle(), clock));
+	public ITime getServiceTime(TimeCalculationInformationContainer container, IClock clock) {
+		return clock.getCurrentSimulationTime().createTimeFrom(this.travelTimeFunction.getTime(container, clock));
 	}
 
 	@Override

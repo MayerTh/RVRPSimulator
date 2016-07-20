@@ -22,7 +22,7 @@ import vrpsim.core.model.IVRPSimulationModelElement;
 import vrpsim.core.model.behaviour.activities.util.ActivityDoActionResult;
 import vrpsim.core.model.behaviour.activities.util.ActivityPrepareActionResult;
 import vrpsim.core.model.behaviour.activities.util.IJob;
-import vrpsim.core.model.behaviour.activities.util.ServiceTimeCalculationInformationContainer;
+import vrpsim.core.model.behaviour.activities.util.TimeCalculationInformationContainer;
 import vrpsim.core.model.behaviour.activities.util.TransportJob;
 import vrpsim.core.model.behaviour.tour.ITour;
 import vrpsim.core.model.behaviour.tour.TourContext;
@@ -89,8 +89,11 @@ public class TransportActivity implements IActivity {
 			actionResult = new ActivityPrepareActionResult(false, "Way for transportation is blocked.");
 			actionResult.setResponsibleElement(this.usedWay);
 		} else {
-			ServiceTimeCalculationInformationContainer container = new ServiceTimeCalculationInformationContainer(
-					context.getVehicle(), context.getDriver(), null, null, null);
+			TimeCalculationInformationContainer container = new TimeCalculationInformationContainer(
+					context.getVehicle(), ((INode) context.getCurrentPlace()).getLocation(),
+					((INode) job.getTransportTarget()).getLocation(), usedWay.getDistanceFunction(),
+					usedWay.getMaxSpeed());
+
 			ITime serviceTime = this.usedWay.getServiceTime(container, clock);
 			this.costs = this.usedWay.getDistance();
 			this.usedWay.allocateBy(this);

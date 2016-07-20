@@ -20,6 +20,7 @@ import java.util.List;
 import vrpsim.core.model.events.IEventOwner;
 import vrpsim.core.model.solution.Order;
 import vrpsim.core.model.structure.IVRPSimulationModelStructureElementWithStorage;
+import vrpsim.core.model.util.functions.ITimeFunction;
 import vrpsim.core.model.util.uncertainty.UncertainParamters;
 
 /**
@@ -37,5 +38,12 @@ public interface ICustomer extends IEventOwner, IVRPSimulationModelStructureElem
 	 * @return
 	 */
 	public List<Order> getAllCreatedOrders();
+	
+	/**
+	 * Returns the {@link ITimeFunction} used to calculate the service time.
+	 * 
+	 * @return
+	 */
+	public ITimeFunction getServiceTimeFunction();
 	
 }

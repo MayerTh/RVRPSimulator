@@ -15,8 +15,8 @@
  */
 package vrpsim.core.model.network;
 
-import vrpsim.core.model.util.distances.IDistanceFunction;
-import vrpsim.core.model.util.distances.ITimeFunction;
+import vrpsim.core.model.util.functions.IDistanceFunction;
+import vrpsim.core.model.util.functions.ITimeFunction;
 
 /**
  * An {@link IWay} connects two {@link INode}s with each other.

@@ -13,25 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package vrpsim.core.model.util.distances;
+package vrpsim.core.model.util.functions;
 
-import vrpsim.core.model.network.Location;
+import vrpsim.core.model.behaviour.activities.util.TimeCalculationInformationContainer;
+import vrpsim.core.simulator.IClock;
 
-/**
- * Calculates the distance between two {@link Location}s.
- * 
- * @date 24.02.2016
- * @author thomas.mayer@unibw.de
- */
-public interface IDistanceFunction {
-	
-	/**
-	 * Returns the distance between the two instances of {@link Location}.
-	 * 
-	 * @param location1
-	 * @param location2
-	 * @return
-	 */
-	public Double getDistance(Location location1, Location location2); 
-	
+public class DeterministicTimeFunction implements ITimeFunction {
+
+	private final double value;
+
+	public DeterministicTimeFunction(double value) {
+		this.value = value;
+	}
+
+	@Override
+	public Double getTime(TimeCalculationInformationContainer container, IClock clock) {
+		return this.value;
+	}
+
 }

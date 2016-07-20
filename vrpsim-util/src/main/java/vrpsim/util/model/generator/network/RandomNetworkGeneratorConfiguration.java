@@ -18,10 +18,10 @@ package vrpsim.util.model.generator.network;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import vrpsim.core.model.util.distances.Euclidean2DDistanceFunction;
-import vrpsim.core.model.util.distances.IDistanceFunction;
-import vrpsim.core.model.util.distances.ITimeFunction;
-import vrpsim.core.model.util.distances.LinearMotionTravelTimeFunction;
+import vrpsim.core.model.util.functions.Euclidean2DDistanceFunction;
+import vrpsim.core.model.util.functions.IDistanceFunction;
+import vrpsim.core.model.util.functions.ITimeFunction;
+import vrpsim.core.model.util.functions.LinearMotionTravelTimeFunction;
 import vrpsim.util.model.generator.GeneratorConfigurationInitializationException;
 
 public class RandomNetworkGeneratorConfiguration {

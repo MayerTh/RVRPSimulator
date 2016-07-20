@@ -25,6 +25,7 @@ import vrpsim.core.model.structure.util.storage.IStorableGenerator;
 import vrpsim.core.model.structure.util.storage.StorableType;
 import vrpsim.core.model.util.exceptions.StorageException;
 import vrpsim.core.model.util.exceptions.VRPArithmeticException;
+import vrpsim.core.model.util.functions.ITimeFunction;
 import vrpsim.core.model.util.uncertainty.UncertainParamters;
 
 /**
@@ -39,9 +40,9 @@ public class SourceDepot extends DefaultDepot {
 
 	public SourceDepot(final VRPSimulationModelElementParameters vrpSimulationModelElementParameters,
 			final VRPSimulationModelStructureElementParameters vrpSimulationModelStructureElementParameters,
-			UncertainParamters arrivalParameters, final DefaultStorageManager storageManager) {
+			UncertainParamters arrivalParameters, final DefaultStorageManager storageManager, final ITimeFunction serviceTime) {
 		super(vrpSimulationModelElementParameters, vrpSimulationModelStructureElementParameters, arrivalParameters,
-				storageManager);
+				storageManager, serviceTime);
 	}
 
 	@Override

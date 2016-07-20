@@ -13,24 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package vrpsim.core.model.util.distances;
+package vrpsim.core.model.util.functions;
 
-import vrpsim.core.model.network.Location;
-import vrpsim.core.model.structure.IVRPSimulationModelStructureElementWithStorageMovable;
+import vrpsim.core.model.behaviour.activities.util.TimeCalculationInformationContainer;
 import vrpsim.core.simulator.IClock;
 
 public class LinearMotionTravelTimeFunction implements ITimeFunction {
 
-	@Override
-	public Double getTravelTime(Location source, Location target, IDistanceFunction distanceFunction, Double maxWaySpeed,
-			IVRPSimulationModelStructureElementWithStorageMovable movable, IClock clock) {
-		double distance = distanceFunction.getDistance(source, target);
-		double speed = Math.min(maxWaySpeed, movable.getAverageSpeed());
-		return this.getTravelTime(distance, speed);
-	}
-
 	private Double getTravelTime(Double distance, Double speed) {
 		return speed / distance;
+	}
+
+	@Override
+	public Double getTime(TimeCalculationInformationContainer container, IClock clock) {
+		double distance = container.getDistanceFunction().getDistance(container.getSource(), container.getTarget());
+		double speed = Math.min(container.getMaxWaySpeed(), container.getVehicle().getAverageSpeed());
+		return this.getTravelTime(distance, speed);
 	}
 
 }

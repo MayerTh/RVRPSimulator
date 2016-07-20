@@ -51,10 +51,10 @@ import vrpsim.core.model.structure.util.storage.StorableParameters;
 import vrpsim.core.model.structure.util.storage.StorableType;
 import vrpsim.core.model.structure.vehicle.DefaultVehicle;
 import vrpsim.core.model.structure.vehicle.IVehicle;
-import vrpsim.core.model.util.distances.Euclidean2DDistanceFunction;
-import vrpsim.core.model.util.distances.ZeroTravelTimeFunction;
 import vrpsim.core.model.util.exceptions.StorageException;
 import vrpsim.core.model.util.exceptions.VRPArithmeticException;
+import vrpsim.core.model.util.functions.Euclidean2DDistanceFunction;
+import vrpsim.core.model.util.functions.DeterministicTimeFunction;
 import vrpsim.core.model.util.policies.LIFOLoadingPolicy;
 import vrpsim.core.model.util.uncertainty.DeterministicDistributionFunction;
 import vrpsim.core.model.util.uncertainty.UncertainParamters;
@@ -116,7 +116,8 @@ public class SimpleModelGenerator {
 
 			IStorableGenerator storableGenerator = new StorableGenerator(this.storableParameters);
 			ICustomer customer = new StaticCustomerWithConsumption(vrpSimulationModelElementParameters,
-					vrpSimulationModelStructureElementParameters, new UncertainParamters(container), storageManager);
+					vrpSimulationModelStructureElementParameters, new UncertainParamters(container), storageManager,
+					new DeterministicTimeFunction(10.0));
 			for (int s = 1; s <= numberItemsInsideCustomer; s++) {
 				IStorable storable = storableGenerator.generateStorable(this.storableParameters);
 				compartment.load(storable);
@@ -143,7 +144,7 @@ public class SimpleModelGenerator {
 
 			IStorableGenerator storableGenerator = new StorableGenerator(this.storableParameters);
 			IDepot depot = new DefaultDepot(vrpSimulationModelElementParameters,
-					vrpSimulationModelStructureElementParameters, new UncertainParamters(), storageManager);
+					vrpSimulationModelStructureElementParameters, new UncertainParamters(), storageManager, new DeterministicTimeFunction(20.0));
 
 			for (int s = 1; s <= numberItemsInsideDepot; s++) {
 				IStorable storable = storableGenerator.generateStorable(this.storableParameters);
@@ -214,8 +215,8 @@ public class SimpleModelGenerator {
 								+ node2.getVRPSimulationModelElementParameters().getId(),
 						0);
 
-				IWay way = new DefaultWay(vrpSimulationModelElementParameters, new ZeroTravelTimeFunction(), node1,
-						node2, new Euclidean2DDistanceFunction(), 100.0);
+				IWay way = new DefaultWay(vrpSimulationModelElementParameters, new DeterministicTimeFunction(0.0),
+						node1, node2, new Euclidean2DDistanceFunction(), 100.0);
 				ways.add(way);
 			}
 			node1.setWays(ways);

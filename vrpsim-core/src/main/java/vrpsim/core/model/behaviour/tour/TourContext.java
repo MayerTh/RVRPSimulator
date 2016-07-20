@@ -20,8 +20,8 @@ import java.util.List;
 
 import vrpsim.core.model.IVRPSimulationModelElement;
 import vrpsim.core.model.network.IVRPSimulationModelNetworkElement;
+import vrpsim.core.model.structure.IVRPSimulationModelStructureElementWithStorageMovable;
 import vrpsim.core.model.structure.driver.IDriver;
-import vrpsim.core.model.structure.vehicle.IVehicle;
 import vrpsim.core.simulator.ITime;
 
 /**
@@ -33,7 +33,7 @@ public class TourContext {
 
 	private final ITime activityStart;
 
-	private final IVehicle vehicle;
+	private final IVRPSimulationModelStructureElementWithStorageMovable vehicle;
 	private final IDriver driver;
 	private List<IVRPSimulationModelElement> elementsUpdated;
 
@@ -43,7 +43,7 @@ public class TourContext {
 		return activityStart;
 	}
 
-	public TourContext(ITime activityStartTime, IVehicle vehicle, IDriver driver) {
+	public TourContext(ITime activityStartTime, IVRPSimulationModelStructureElementWithStorageMovable vehicle, IDriver driver) {
 		super();
 		this.activityStart = activityStartTime;
 		this.vehicle = vehicle;
@@ -70,7 +70,7 @@ public class TourContext {
 		this.vehicle.setCurrentPlace(currentPlace);
 	}
 
-	public IVehicle getVehicle() {
+	public IVRPSimulationModelStructureElementWithStorageMovable getVehicle() {
 		return vehicle;
 	}
 

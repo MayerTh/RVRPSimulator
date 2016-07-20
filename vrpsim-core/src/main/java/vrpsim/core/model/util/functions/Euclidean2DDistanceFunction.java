@@ -13,31 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package vrpsim.core.model.util.distances;
+package vrpsim.core.model.util.functions;
 
 import vrpsim.core.model.network.Location;
-import vrpsim.core.model.structure.IVRPSimulationModelStructureElementWithStorageMovable;
-import vrpsim.core.simulator.IClock;
 
 /**
- * Calculates the travel time depending on a distance and on a speed.
- * 
- * @date 02.06.2016
+ * @date 24.02.2016
  * @author thomas.mayer@unibw.de
+ *
  */
-public interface ITimeFunction {
+public class Euclidean2DDistanceFunction implements IDistanceFunction {
 
-	/**
-	 * Returns a travel time depending on following parameters:
-	 * 
-	 * @param source
-	 * @param destination
-	 * @param distanceFunction
-	 * @param maxWaySpeed
-	 * @param movable
-	 * @return
-	 */
-	public Double getTravelTime(Location source, Location destination, IDistanceFunction distanceFunction, Double maxWaySpeed,
-			IVRPSimulationModelStructureElementWithStorageMovable movable, IClock clock);
+	@Override
+	public Double getDistance(Location location1, Location location2) {
+		double a = Math.abs(location1.getX() - location2.getX());
+		double b = Math.abs(location1.getY() - location2.getY());
+		return Math.sqrt(Math.pow(a, 2.0) + Math.pow(b, 2.0));
+	}
 
 }

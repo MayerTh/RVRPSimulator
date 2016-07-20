@@ -13,18 +13,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package vrpsim.core.model.util.distances;
+package vrpsim.core.model.util.functions;
 
 import vrpsim.core.model.network.Location;
-import vrpsim.core.model.structure.IVRPSimulationModelStructureElementWithStorageMovable;
-import vrpsim.core.simulator.IClock;
 
-public class ZeroTravelTimeFunction implements ITimeFunction {
-
-	@Override
-	public Double getTravelTime(Location source, Location target, IDistanceFunction distanceFunction, Double maxWaySpeed,
-			IVRPSimulationModelStructureElementWithStorageMovable movable, IClock clock) {
-		return 0.0;
-	}
-
+/**
+ * Calculates the distance between two {@link Location}s.
+ * 
+ * @date 24.02.2016
+ * @author thomas.mayer@unibw.de
+ */
+public interface IDistanceFunction {
+	
+	/**
+	 * Returns the distance between the two instances of {@link Location}.
+	 * 
+	 * @param location1
+	 * @param location2
+	 * @return
+	 */
+	public Double getDistance(Location location1, Location location2); 
+	
 }

@@ -13,22 +13,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package vrpsim.core.model.util.distances;
+package vrpsim.core.model.util.functions;
 
-import vrpsim.core.model.network.Location;
+import vrpsim.core.model.behaviour.activities.util.TimeCalculationInformationContainer;
+import vrpsim.core.simulator.IClock;
 
 /**
- * @date 24.02.2016
+ * @date 02.06.2016
  * @author thomas.mayer@unibw.de
- *
  */
-public class Euclidean2DDistanceFunction implements IDistanceFunction {
-
-	@Override
-	public Double getDistance(Location location1, Location location2) {
-		double a = Math.abs(location1.getX() - location2.getX());
-		double b = Math.abs(location1.getY() - location2.getY());
-		return Math.sqrt(Math.pow(a, 2.0) + Math.pow(b, 2.0));
-	}
+public interface ITimeFunction {
+	
+	/**
+	 * Returns a travel time depending on following parameters:
+	 * 
+	 * @param container
+	 * @param clock
+	 * @return
+	 */
+	public Double getTime(TimeCalculationInformationContainer container, IClock clock);
 
 }

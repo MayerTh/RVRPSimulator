@@ -22,7 +22,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import vrpsim.core.model.VRPSimulationModelElementParameters;
-import vrpsim.core.model.behaviour.activities.util.ServiceTimeCalculationInformationContainer;
+import vrpsim.core.model.behaviour.activities.util.TimeCalculationInformationContainer;
 import vrpsim.core.model.events.ConsumptionEvent;
 import vrpsim.core.model.events.IEvent;
 import vrpsim.core.model.events.IEventType;
@@ -38,6 +38,7 @@ import vrpsim.core.model.util.exceptions.EventException;
 import vrpsim.core.model.util.exceptions.StorageException;
 import vrpsim.core.model.util.exceptions.VRPArithmeticException;
 import vrpsim.core.model.util.exceptions.detail.ErrorDuringEventProcessingException;
+import vrpsim.core.model.util.functions.ITimeFunction;
 import vrpsim.core.model.util.uncertainty.UncertainParamters;
 import vrpsim.core.model.util.uncertainty.UncertainParamters.UncertainParameterContainer;
 import vrpsim.core.simulator.EventListService;
@@ -45,8 +46,8 @@ import vrpsim.core.simulator.IClock;
 import vrpsim.core.simulator.ITime;
 
 /**
- * {@link StaticCustomerWithConsumption} creates {@link OrderEvent} after configuration in
- * {@link UncertainParamters}.
+ * {@link StaticCustomerWithConsumption} creates {@link OrderEvent} after
+ * configuration in {@link UncertainParamters}.
  * 
  * At {@link UncertainParameterContainer#getStart()} the first
  * {@link OrderEvent} is generated. The second {@link OrderEvent} is generated
@@ -62,15 +63,18 @@ public class DynamicCustomerWithConsumption extends AbstractVRPSimulationModelSt
 	private static Logger logger = LoggerFactory.getLogger(DynamicCustomerWithConsumption.class);
 
 	private final UncertainParamters orderParameters;
+	private final ITimeFunction serviceTimeFunction;
 	private List<IEventType> eventTypes = new ArrayList<IEventType>();
 	private List<Order> createdOrders = new ArrayList<>();
 
 	public DynamicCustomerWithConsumption(final VRPSimulationModelElementParameters vrpSimulationModelElementParameters,
 			final VRPSimulationModelStructureElementParameters vrpSimulationModelStructureElementParameters,
-			final DefaultStorageManager storageManager, final UncertainParamters orderParameters) {
+			final DefaultStorageManager storageManager, final UncertainParamters orderParameters,
+			final ITimeFunction serviceTimeFunction) {
 		super(vrpSimulationModelElementParameters, vrpSimulationModelStructureElementParameters, storageManager);
 
 		this.orderParameters = orderParameters;
+		this.serviceTimeFunction = serviceTimeFunction;
 
 		/* The Order itself. */
 		eventTypes.add(() -> IEventType.ORDER_EVENT);
@@ -132,8 +136,7 @@ public class DynamicCustomerWithConsumption extends AbstractVRPSimulationModelSt
 
 			for (int i = 0; i < numberToConsum; i++) {
 				try {
-					IStorable consumedStorable = this
-							.unload(storableType);
+					IStorable consumedStorable = this.unload(storableType);
 					logger.debug("Following storable is consumed: {}", consumedStorable.getStorableId());
 				} catch (StorageException storageException) {
 					storageException.printStackTrace();
@@ -149,8 +152,8 @@ public class DynamicCustomerWithConsumption extends AbstractVRPSimulationModelSt
 	}
 
 	@Override
-	public ITime getServiceTime(ServiceTimeCalculationInformationContainer container, IClock clock) {
-		return clock.getCurrentSimulationTime().createTimeFrom(0.0);
+	public ITime getServiceTime(TimeCalculationInformationContainer container, IClock clock) {
+		return clock.getCurrentSimulationTime().createTimeFrom(this.serviceTimeFunction.getTime(container, clock));
 	}
 
 	@Override
@@ -192,7 +195,8 @@ public class DynamicCustomerWithConsumption extends AbstractVRPSimulationModelSt
 		// The consumption of the order is discribed with an ConcumptionEvent.
 		// It is triggered for the latest DueDate of the order.
 		ConsumptionEvent consumptionEvent = new ConsumptionEvent(this, () -> IEventType.CONSUMPTION_EVENT, 0,
-				clock.getCurrentSimulationTime().createTimeFrom(container.getLatestDueDate().getNumber()), order, container);
+				clock.getCurrentSimulationTime().createTimeFrom(container.getLatestDueDate().getNumber()), order,
+				container);
 
 		List<IEvent> events = new ArrayList<>();
 		events.add(orderEvent);
@@ -208,6 +212,11 @@ public class DynamicCustomerWithConsumption extends AbstractVRPSimulationModelSt
 	@Override
 	public List<Order> getAllCreatedOrders() {
 		return this.createdOrders;
+	}
+
+	@Override
+	public ITimeFunction getServiceTimeFunction() {
+		return this.serviceTimeFunction;
 	}
 
 }

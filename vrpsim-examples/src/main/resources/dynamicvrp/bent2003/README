@@ -1,0 +1,58 @@
+
+Class Information
+------------------
+
+0-100 files = Class 1
+100-0 files = Class 2
+50-50 files = Class 3
+20-20-60 files = Class 4
+10-10-80 files = Class 5
+0-30-70 files = Class 6
+
+
+Data Format:
+--------------------
+
+Customers: Total potential customer sites
+Capacity:  Capacity of each vehicle
+Time Bins: Number of time blocks a customer could make a request in
+
+Site Data Format
+---------------------
+Cust: Customer site number (D is the depot)
+X: Customer site x coordinate
+Y: Customer site y coordinate
+Demand: Customer site demand
+Start: Customer site Time Window start
+End: Customer site Time Window end
+Service: Customer site service time
+Prebin: Probability customer site makes a request before vehicles deployed
+0-160: Probability customer site makes a request between 0 and 160
+160-320: Probability customer site makes a request between 160 and 320
+320-480: Probability customer site makes a request between 320-480
+
+Known Requests Format
+--------------------------------
+Customer requests known before vehicles deployed
+
+Cust: Site number
+Arrival: Arrival time of request
+Start: Request Time Window begin
+End: Request Time Window End
+Demand: Request demand
+Service: Request Service Time
+
+Unknown Requests Format
+----------------------------------
+Customer requests that are unknown until their arrival time
+(arrivals governed by the probablity distribution listed in the site
+information which is available to applications) Number of dynamic
+requests is also unknown to the application
+
+
+Cust: Site number
+Arrival: Arrival time of request
+Start: Request Time Window begin
+End: Request Time Window End
+Demand: Request demand
+Service: Request Service Time

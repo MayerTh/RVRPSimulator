@@ -62,10 +62,10 @@ import vrpsim.core.model.structure.util.storage.StorableParameters;
 import vrpsim.core.model.structure.util.storage.StorableType;
 import vrpsim.core.model.structure.vehicle.DefaultVehicle;
 import vrpsim.core.model.structure.vehicle.IVehicle;
-import vrpsim.core.model.util.distances.Euclidean2DDistanceFunction;
-import vrpsim.core.model.util.distances.ZeroTravelTimeFunction;
 import vrpsim.core.model.util.exceptions.StorageException;
 import vrpsim.core.model.util.exceptions.VRPArithmeticException;
+import vrpsim.core.model.util.functions.Euclidean2DDistanceFunction;
+import vrpsim.core.model.util.functions.DeterministicTimeFunction;
 import vrpsim.core.model.util.policies.LIFOLoadingPolicy;
 import vrpsim.core.model.util.uncertainty.DeterministicDistributionFunction;
 import vrpsim.core.model.util.uncertainty.UncertainParamters;
@@ -190,7 +190,7 @@ public class VRPREPImporter {
 		ICanStore compartment = new Compartment(compartmentParameters);
 		DefaultStorageManager storageManager = new DefaultStorageManager(new DefaultStorage(compartment));
 
-		IDepot depot = new DefaultDepot(elementParameters, structureElementParameters, arrivalParameters, storageManager);
+		IDepot depot = new DefaultDepot(elementParameters, structureElementParameters, arrivalParameters, storageManager, new DeterministicTimeFunction(0.0));
 
 		logger.debug("Depot generated on location {}.",
 				structureElementParameters.getHome().getVRPSimulationModelElementParameters().getId());
@@ -234,7 +234,7 @@ public class VRPREPImporter {
 			DefaultStorageManager storageManager = new DefaultStorageManager(new DefaultStorage(compartment));
 
 			StaticCustomerWithConsumption dndc = new StaticCustomerWithConsumption(elementParameters,
-					structureElementParameters, consumptionParameters, storageManager);
+					structureElementParameters, consumptionParameters, storageManager, new DeterministicTimeFunction(0.0));
 			customers.add(dndc);
 			logger.debug("Parameterized customer build {}.", dndc.getVRPSimulationModelElementParameters().getId());
 		}
@@ -271,7 +271,7 @@ public class VRPREPImporter {
 				VRPSimulationModelElementParameters vrpSimulationModelElementParameters = new VRPSimulationModelElementParameters(
 						id, 0);
 				IWay way = new DefaultWay(vrpSimulationModelElementParameters,
-						new ZeroTravelTimeFunction(), node1, node2, new Euclidean2DDistanceFunction(), 100.0);
+						new DeterministicTimeFunction(0.0), node1, node2, new Euclidean2DDistanceFunction(), 100.0);
 				ways.add(way);
 
 				logger.trace("Build StaticDefaultWay {} from {} to {}.",

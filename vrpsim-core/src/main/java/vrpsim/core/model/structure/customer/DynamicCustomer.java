@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import vrpsim.core.model.VRPSimulationModelElementParameters;
-import vrpsim.core.model.behaviour.activities.util.ServiceTimeCalculationInformationContainer;
+import vrpsim.core.model.behaviour.activities.util.TimeCalculationInformationContainer;
 import vrpsim.core.model.events.IEvent;
 import vrpsim.core.model.events.IEventType;
 import vrpsim.core.model.events.OrderEvent;
@@ -29,6 +29,7 @@ import vrpsim.core.model.structure.AbstractVRPSimulationModelStructureElementWit
 import vrpsim.core.model.structure.VRPSimulationModelStructureElementParameters;
 import vrpsim.core.model.structure.util.storage.DefaultStorageManager;
 import vrpsim.core.model.util.exceptions.EventException;
+import vrpsim.core.model.util.functions.ITimeFunction;
 import vrpsim.core.model.util.uncertainty.UncertainParamters;
 import vrpsim.core.model.util.uncertainty.UncertainParamters.UncertainParameterContainer;
 import vrpsim.core.simulator.EventListService;
@@ -36,8 +37,8 @@ import vrpsim.core.simulator.IClock;
 import vrpsim.core.simulator.ITime;
 
 /**
- * {@link StaticCustomerWithConsumption} creates {@link OrderEvent} after configuration in
- * {@link UncertainParamters}.
+ * {@link StaticCustomerWithConsumption} creates {@link OrderEvent} after
+ * configuration in {@link UncertainParamters}.
  * 
  * At {@link UncertainParameterContainer#getStart()} the first
  * {@link OrderEvent} is generated. The second {@link OrderEvent} is generated
@@ -50,15 +51,18 @@ import vrpsim.core.simulator.ITime;
 public class DynamicCustomer extends AbstractVRPSimulationModelStructureElementWithStorage implements ICustomer {
 
 	private final UncertainParamters orderParameters;
+	private final ITimeFunction serviceTimeFunction;
 	private List<IEventType> eventTypes = new ArrayList<IEventType>();
 	private List<Order> createdOrders = new ArrayList<>();
 
 	public DynamicCustomer(final VRPSimulationModelElementParameters vrpSimulationModelElementParameters,
 			final VRPSimulationModelStructureElementParameters vrpSimulationModelStructureElementParameters,
-			final DefaultStorageManager storageManager, final UncertainParamters orderParameters) {
+			final DefaultStorageManager storageManager, final UncertainParamters orderParameters,
+			final ITimeFunction serviceTimeFunction) {
 		super(vrpSimulationModelElementParameters, vrpSimulationModelStructureElementParameters, storageManager);
 
 		this.orderParameters = orderParameters;
+		this.serviceTimeFunction = serviceTimeFunction;
 
 		/* The Order itself. */
 		eventTypes.add(() -> IEventType.ORDER_EVENT);
@@ -101,8 +105,8 @@ public class DynamicCustomer extends AbstractVRPSimulationModelStructureElementW
 	}
 
 	@Override
-	public ITime getServiceTime(ServiceTimeCalculationInformationContainer container, IClock clock) {
-		return clock.getCurrentSimulationTime().createTimeFrom(0.0);
+	public ITime getServiceTime(TimeCalculationInformationContainer container, IClock clock) {
+		return clock.getCurrentSimulationTime().createTimeFrom(this.serviceTimeFunction.getTime(container, clock));
 	}
 
 	@Override
@@ -143,10 +147,15 @@ public class DynamicCustomer extends AbstractVRPSimulationModelStructureElementW
 	private String createOrderId(ITime currentTime) {
 		return "ORDER_FROM_" + this.getVRPSimulationModelElementParameters().getId() + "_AT" + currentTime.getValue();
 	}
-	
+
 	@Override
 	public List<Order> getAllCreatedOrders() {
 		return this.createdOrders;
+	}
+
+	@Override
+	public ITimeFunction getServiceTimeFunction() {
+		return this.serviceTimeFunction;
 	}
 
 }

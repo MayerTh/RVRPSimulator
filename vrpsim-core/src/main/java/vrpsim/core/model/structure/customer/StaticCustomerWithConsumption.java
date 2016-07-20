@@ -22,7 +22,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import vrpsim.core.model.VRPSimulationModelElementParameters;
-import vrpsim.core.model.behaviour.activities.util.ServiceTimeCalculationInformationContainer;
+import vrpsim.core.model.behaviour.activities.util.TimeCalculationInformationContainer;
 import vrpsim.core.model.events.ConsumptionEvent;
 import vrpsim.core.model.events.IEvent;
 import vrpsim.core.model.events.IEventType;
@@ -38,6 +38,7 @@ import vrpsim.core.model.util.exceptions.EventException;
 import vrpsim.core.model.util.exceptions.StorageException;
 import vrpsim.core.model.util.exceptions.VRPArithmeticException;
 import vrpsim.core.model.util.exceptions.detail.ErrorDuringEventProcessingException;
+import vrpsim.core.model.util.functions.ITimeFunction;
 import vrpsim.core.model.util.uncertainty.UncertainParamters;
 import vrpsim.core.model.util.uncertainty.UncertainParamters.UncertainParameterContainer;
 import vrpsim.core.simulator.Clock;
@@ -51,6 +52,7 @@ public class StaticCustomerWithConsumption extends AbstractVRPSimulationModelStr
 	private static Logger logger = LoggerFactory.getLogger(StaticCustomerWithConsumption.class);
 
 	private final UncertainParamters consumptionParameters;
+	private final ITimeFunction serviceTimeFunction;
 	private final List<IEventType> eventTypes;
 	private final List<Order> staticOrdersBeforeEventGeneration;
 	private List<Order> createdOrders = new ArrayList<>();
@@ -58,10 +60,12 @@ public class StaticCustomerWithConsumption extends AbstractVRPSimulationModelStr
 
 	public StaticCustomerWithConsumption(final VRPSimulationModelElementParameters vrpSimulationModelElementParameters,
 			final VRPSimulationModelStructureElementParameters vrpSimulationModelStructureElementParameters,
-			final UncertainParamters consumptionParameters, final DefaultStorageManager storageManager) {
+			final UncertainParamters consumptionParameters, final DefaultStorageManager storageManager,
+			final ITimeFunction serviceTimeFunction) {
 
 		super(vrpSimulationModelElementParameters, vrpSimulationModelStructureElementParameters, storageManager);
 		this.consumptionParameters = consumptionParameters;
+		this.serviceTimeFunction = serviceTimeFunction;
 
 		this.eventTypes = new ArrayList<IEventType>();
 		this.eventTypes.add(() -> IEventType.CONSUMPTION_EVENT);
@@ -203,7 +207,8 @@ public class StaticCustomerWithConsumption extends AbstractVRPSimulationModelStr
 		// The consumption of the order is discribed with an ConcumptionEvent.
 		// It is triggered for the latest DueDate of the order.
 		ConsumptionEvent consumptionEvent = new ConsumptionEvent(this, () -> IEventType.CONSUMPTION_EVENT, 0,
-				clock.getCurrentSimulationTime().createTimeFrom(container.getLatestDueDate().getNumber()), order, container);
+				clock.getCurrentSimulationTime().createTimeFrom(container.getLatestDueDate().getNumber()), order,
+				container);
 
 		List<IEvent> events = new ArrayList<>();
 		events.add(orderEvent);
@@ -217,8 +222,13 @@ public class StaticCustomerWithConsumption extends AbstractVRPSimulationModelStr
 	}
 
 	@Override
-	public ITime getServiceTime(ServiceTimeCalculationInformationContainer container, IClock clock) {
-		return clock.getCurrentSimulationTime().createTimeFrom(0.0);
+	public ITime getServiceTime(TimeCalculationInformationContainer container, IClock clock) {
+		return clock.getCurrentSimulationTime().createTimeFrom(this.serviceTimeFunction.getTime(container, clock));
+	}
+
+	@Override
+	public ITimeFunction getServiceTimeFunction() {
+		return this.serviceTimeFunction;
 	}
 
 }

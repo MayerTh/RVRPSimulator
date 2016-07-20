@@ -17,6 +17,7 @@ package vrpsim.core.model.structure.depot;
 
 import vrpsim.core.model.events.IEventOwner;
 import vrpsim.core.model.structure.IVRPSimulationModelStructureElementWithStorage;
+import vrpsim.core.model.util.functions.ITimeFunction;
 import vrpsim.core.model.util.uncertainty.UncertainParamters;
 
 /**
@@ -26,6 +27,13 @@ import vrpsim.core.model.util.uncertainty.UncertainParamters;
  */
 public interface IDepot extends IEventOwner, IVRPSimulationModelStructureElementWithStorage {
 
+	/**
+	 * Returns the {@link ITimeFunction} used to calculate the service time.
+	 * 
+	 * @return
+	 */
+	public ITimeFunction getServiceTimeFunction();
+	
 	public UncertainParamters getArrivalParameters();
 
 }

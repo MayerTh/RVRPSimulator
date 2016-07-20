@@ -23,7 +23,7 @@ import vrpsim.core.model.behaviour.activities.util.ActivityDoActionResult;
 import vrpsim.core.model.behaviour.activities.util.ActivityPrepareActionResult;
 import vrpsim.core.model.behaviour.activities.util.IJob;
 import vrpsim.core.model.behaviour.activities.util.LoadUnloadJob;
-import vrpsim.core.model.behaviour.activities.util.ServiceTimeCalculationInformationContainer;
+import vrpsim.core.model.behaviour.activities.util.TimeCalculationInformationContainer;
 import vrpsim.core.model.behaviour.tour.TourContext;
 import vrpsim.core.model.structure.util.storage.Capacity;
 import vrpsim.core.model.structure.util.storage.IStorable;
@@ -94,7 +94,7 @@ public class UnloadActivity implements IActivity {
 		job.getLoadingPartner().allocateBy(this);
 
 		activityDoActionResult = new ActivityPrepareActionResult(true, "Unloading possible");
-		ServiceTimeCalculationInformationContainer container = new ServiceTimeCalculationInformationContainer(
+		TimeCalculationInformationContainer container = new TimeCalculationInformationContainer(
 				context.getVehicle(), context.getDriver(), job.getLoadingPartner(), job.getStoreableParameters(),
 				job.getNumber());
 

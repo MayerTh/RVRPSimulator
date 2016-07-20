@@ -22,7 +22,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import vrpsim.core.model.VRPSimulationModelElementParameters;
-import vrpsim.core.model.behaviour.activities.util.ServiceTimeCalculationInformationContainer;
+import vrpsim.core.model.behaviour.activities.util.TimeCalculationInformationContainer;
 import vrpsim.core.model.events.IEvent;
 import vrpsim.core.model.events.IEventType;
 import vrpsim.core.model.events.UncertainEvent;
@@ -160,7 +160,7 @@ public class DefaultVehicle extends AbstractVRPSimulationModelStructureElementWi
 	}
 
 	@Override
-	public ITime getServiceTime(ServiceTimeCalculationInformationContainer serviceTimeCalculationInformationContainer,
+	public ITime getServiceTime(TimeCalculationInformationContainer serviceTimeCalculationInformationContainer,
 			IClock clock) {
 		return clock.getCurrentSimulationTime().createTimeFrom(0.0);
 	}

@@ -31,10 +31,10 @@ import vrpsim.core.model.behaviour.tour.ITour;
 import vrpsim.core.model.behaviour.tour.Tour;
 import vrpsim.core.model.behaviour.tour.TourContext;
 import vrpsim.core.model.structure.IVRPSimulationModelStructureElement;
+import vrpsim.core.model.structure.IVRPSimulationModelStructureElementWithStorageMovable;
 import vrpsim.core.model.structure.customer.ICustomer;
 import vrpsim.core.model.structure.depot.IDepot;
 import vrpsim.core.model.structure.util.storage.StorableParameters;
-import vrpsim.core.model.structure.vehicle.IVehicle;
 import vrpsim.core.model.util.exceptions.BehaviourException;
 import vrpsim.core.model.util.exceptions.NetworkException;
 import vrpsim.core.model.util.exceptions.VRPArithmeticException;
@@ -126,7 +126,7 @@ public class SimpleBehaviorGenerator {
 		return activities.get(0);
 	}
 
-	private LoadActivity createStorableExchangeBetweenDepotAndVehicle(IDepot depot, IVehicle vehicle, StorableParameters storeableParameters)
+	private LoadActivity createStorableExchangeBetweenDepotAndVehicle(IDepot depot, IVRPSimulationModelStructureElementWithStorageMovable vehicle, StorableParameters storeableParameters)
 			throws BehaviourException, VRPArithmeticException {
 
 //		depot.getStorableGenerator().resetStorableGenerationCounter();
@@ -138,7 +138,7 @@ public class SimpleBehaviorGenerator {
 		return storableExchangeActivity;
 	}
 
-	private LoadActivity createStorableExchangeBetweenDepotAndVehicle(IDepot depot, IVehicle vehicle,
+	private LoadActivity createStorableExchangeBetweenDepotAndVehicle(IDepot depot, IVRPSimulationModelStructureElementWithStorageMovable vehicle,
 			int stillInVehicle, StorableParameters storeableParameters) throws BehaviourException, VRPArithmeticException {
 
 //		depot.getStorableGenerator().resetStorableGenerationCounter();
@@ -151,7 +151,7 @@ public class SimpleBehaviorGenerator {
 		return storableExchangeActivity;
 	}
 
-	private UnloadActivity createStorableExchangeBetweenVehicleAndCustomer(IVehicle vehicle,
+	private UnloadActivity createStorableExchangeBetweenVehicleAndCustomer(IVRPSimulationModelStructureElementWithStorageMovable vehicle,
 			ICustomer customer, IDepot depot, StorableParameters storeableParameters) throws BehaviourException, VRPArithmeticException {
 
 //		depot.getStorableGenerator().resetStorableGenerationCounter();
@@ -164,7 +164,7 @@ public class SimpleBehaviorGenerator {
 	}
 
 	private TransportActivity createStorableTransportActivity(IVRPSimulationModelStructureElement target,
-			IVehicle vehicle) {
+			IVRPSimulationModelStructureElementWithStorageMovable vehicle) {
 		TransportJob job = new TransportJob(
 				target.getVRPSimulationModelStructureElementParameters().getHome());
 		TransportActivity storableExchangeActivity = new TransportActivity(job);

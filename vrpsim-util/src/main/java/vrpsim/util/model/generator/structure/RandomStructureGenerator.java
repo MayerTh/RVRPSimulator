@@ -46,6 +46,7 @@ import vrpsim.core.model.structure.vehicle.DefaultVehicle;
 import vrpsim.core.model.structure.vehicle.IVehicle;
 import vrpsim.core.model.util.exceptions.StorageException;
 import vrpsim.core.model.util.exceptions.VRPArithmeticException;
+import vrpsim.core.model.util.functions.DeterministicTimeFunction;
 import vrpsim.core.model.util.policies.LIFOLoadingPolicy;
 import vrpsim.core.model.util.uncertainty.DeterministicDistributionFunction;
 import vrpsim.core.model.util.uncertainty.UncertainParamters;
@@ -197,7 +198,7 @@ public class RandomStructureGenerator {
 				DefaultStorageManager storageManager = new DefaultStorageManager(new DefaultStorage(compartment));
 
 				depot = new SourceDepot(vrpSimulationModelElementParameters,
-						vrpSimulationModelStructureElementParameters, new UncertainParamters(), storageManager);
+						vrpSimulationModelStructureElementParameters, new UncertainParamters(), storageManager, new DeterministicTimeFunction(0.0));
 
 			} else {
 				// Default Depot
@@ -216,7 +217,7 @@ public class RandomStructureGenerator {
 				DefaultStorageManager storageManager = new DefaultStorageManager(new DefaultStorage(compartment));
 
 				depot = new DefaultDepot(vrpSimulationModelElementParameters,
-						vrpSimulationModelStructureElementParameters, new UncertainParamters(), storageManager);
+						vrpSimulationModelStructureElementParameters, new UncertainParamters(), storageManager, new DeterministicTimeFunction(0.0));
 				IStorableGenerator storableGenerator = new StorableGenerator(
 						randomStructureGeneratorConfiguration.getStorableParameters());
 				for (int s = 1; s <= randomStructureGeneratorConfiguration.getNumberStorablesInDefaultDepot(); s++) {
@@ -265,9 +266,8 @@ public class RandomStructureGenerator {
 			UncertainParamters consumptionParameters = new UncertainParamters(consumparameterContainer);
 
 			ICustomer customer = new StaticCustomerWithConsumption(vrpSimulationModelElementParameters,
-					vrpSimulationModelStructureElementParameters,
-					consumptionParameters,
-					storageManager);
+					vrpSimulationModelStructureElementParameters, consumptionParameters, storageManager,
+					new DeterministicTimeFunction(0.0));
 
 			customers.add(customer);
 		}
@@ -305,7 +305,8 @@ public class RandomStructureGenerator {
 									random.nextInt(maxCycle.intValue() - minCycle.intValue()) + minCycle)));
 
 			ICustomer customer = new DynamicCustomer(vrpSimulationModelElementParameters,
-					vrpSimulationModelStructureElementParameters, storageManager, orderParameters);
+					vrpSimulationModelStructureElementParameters, storageManager, orderParameters,
+					new DeterministicTimeFunction(0.0));
 
 			customers.add(customer);
 		}

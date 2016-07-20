@@ -43,6 +43,7 @@ import vrpsim.core.model.events.OrderEvent;
 import vrpsim.core.model.network.INode;
 import vrpsim.core.model.network.IVRPSimulationModelNetworkElement;
 import vrpsim.core.model.structure.IVRPSimulationModelStructureElement;
+import vrpsim.core.model.structure.IVRPSimulationModelStructureElementWithStorageMovable;
 import vrpsim.core.model.structure.driver.IDriver;
 import vrpsim.core.model.structure.vehicle.IVehicle;
 import vrpsim.core.model.util.exceptions.VRPArithmeticException;
@@ -77,7 +78,7 @@ public class ModelViewController implements Observer {
 
 	// Shape connecting to network element and vice versa.
 	private HashMap<Node, OriginLocation> fxNodesOriginLocation = new HashMap<>();
-	private HashMap<IVehicle, IVRPSimulationModelNetworkElement> vehiclesToNetworkElement = new HashMap<>();
+	private HashMap<IVRPSimulationModelStructureElementWithStorageMovable, IVRPSimulationModelNetworkElement> vehiclesToNetworkElement = new HashMap<>();
 	private HashMap<IDriver, IVRPSimulationModelNetworkElement> driversToNetworkElement = new HashMap<>();
 //	private HashMap<IOccasionalDriver, IVRPSimulationModelNetworkElement> occasionalDriversToNetworkElement = new HashMap<>();
 	private HashMap<IVRPSimulationModelNetworkElement, NetworkNodeVisualization> networkElementToVisualisation = new HashMap<>();
@@ -157,7 +158,7 @@ public class ModelViewController implements Observer {
 				}
 			}
 
-			for (IVehicle vehicle : this.vehiclesToNetworkElement.keySet()) {
+			for (IVRPSimulationModelStructureElementWithStorageMovable vehicle : this.vehiclesToNetworkElement.keySet()) {
 				this.networkElementToVisualisation.get(this.vehiclesToNetworkElement.get(vehicle))
 						.addSimulationModelStructureElement(vehicle, new Clock.Time(0.0));
 			}

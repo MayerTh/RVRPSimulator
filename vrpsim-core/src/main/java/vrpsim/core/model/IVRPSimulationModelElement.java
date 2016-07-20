@@ -20,7 +20,7 @@ import java.util.Observer;
 import vrpsim.core.model.behaviour.IVRPSimulationBehaviourElement;
 import vrpsim.core.model.behaviour.IVRPSimulationBehaviourElementCanAllocate;
 import vrpsim.core.model.behaviour.activities.util.IJob;
-import vrpsim.core.model.behaviour.activities.util.ServiceTimeCalculationInformationContainer;
+import vrpsim.core.model.behaviour.activities.util.TimeCalculationInformationContainer;
 import vrpsim.core.simulator.IClock;
 import vrpsim.core.simulator.ITime;
 
@@ -76,7 +76,7 @@ public interface IVRPSimulationModelElement extends IVRPSimulationElement {
 	 * @param clock
 	 * @return
 	 */
-	public ITime getServiceTime(ServiceTimeCalculationInformationContainer container, IClock clock);
+	public ITime getServiceTime(TimeCalculationInformationContainer container, IClock clock);
 
 	/**
 	 * {@link Observer} getting notified when released from an allocation.

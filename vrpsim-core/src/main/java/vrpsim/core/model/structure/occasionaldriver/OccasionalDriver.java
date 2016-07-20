@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.Observable;
 
 import vrpsim.core.model.VRPSimulationModelElementParameters;
-import vrpsim.core.model.behaviour.activities.util.ServiceTimeCalculationInformationContainer;
+import vrpsim.core.model.behaviour.activities.util.TimeCalculationInformationContainer;
 import vrpsim.core.model.behaviour.tour.ITour;
 import vrpsim.core.model.events.IEvent;
 import vrpsim.core.model.events.IEventType;
@@ -89,7 +89,7 @@ public class OccasionalDriver extends AbstractOccasionalDriver {
 	}
 
 	@Override
-	public ITime getServiceTime(ServiceTimeCalculationInformationContainer container, IClock clock) {
+	public ITime getServiceTime(TimeCalculationInformationContainer container, IClock clock) {
 		// TODO Auto-generated method stub
 		return null;
 	}
