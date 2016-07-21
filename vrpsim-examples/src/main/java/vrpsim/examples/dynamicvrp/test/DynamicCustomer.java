@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package vrpsim.examples.dynamiccustomer;
+package vrpsim.examples.dynamicvrp.test;
 
 import java.util.Random;
 
