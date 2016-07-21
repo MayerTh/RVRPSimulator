@@ -16,7 +16,6 @@
 package vrpsim.visualization.components;
 
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 import javafx.geometry.Insets;
@@ -31,6 +30,7 @@ import vrpsim.core.model.structure.IVRPSimulationModelStructureElementWithStorag
 import vrpsim.core.model.structure.util.storage.CanStoreType;
 import vrpsim.core.model.util.exceptions.VRPArithmeticException;
 import vrpsim.core.simulator.ITime;
+import vrpsim.visualization.util.AlphanumericSorting;
 
 public class NetworkNodeVisualizationPopup extends VisualizationPopup {
 
@@ -50,13 +50,7 @@ public class NetworkNodeVisualizationPopup extends VisualizationPopup {
 			throws VRPArithmeticException {
 		this.dataBox.getChildren().clear();
 
-		Collections.sort(elements, new Comparator<IVRPSimulationModelStructureElement>() {
-			@Override
-			public int compare(IVRPSimulationModelStructureElement o1, IVRPSimulationModelStructureElement o2) {
-				return o1.getVRPSimulationModelElementParameters().getId()
-						.compareTo(o2.getVRPSimulationModelElementParameters().getId());
-			}
-		});
+		Collections.sort(elements, new AlphanumericSorting());
 
 		for (IVRPSimulationModelStructureElement element : elements) {
 			String id = element.getVRPSimulationModelElementParameters().getId();
