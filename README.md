@@ -22,4 +22,5 @@ You can access the full documentation in the [wiki] (https://github.com/MayerTh/
 For any questions or help, feel free to contact [me] (mailto:Thomas.Mayer@unibw.de), or communicate bugs or features requests with the help of the [issue tracker] (https://github.com/MayerTh/RVRPSimulator/issues). Any kind of feedback is always welcome.
 
 ## License
-This software is released under the [Apache License Version 2.0] (https://github.com/MayerTh/RVRPSimulator/blob/master/LICENSE).
+* RVRPSimulator software is released under the [Apache License Version 2.0] (https://github.com/MayerTh/RVRPSimulator/blob/master/LICENSE).
+* RVRPSimulator visualization is using an [adapted version] () of an [alphabetic and numeric sorting algorithm] (http://blog.icodejava.com/261/how-to-sort-alpha-numeric-strings-in-java/) from [Kushal Paudyal] (www.icodejava.com).  
