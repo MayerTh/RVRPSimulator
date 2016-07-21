@@ -72,7 +72,7 @@ public class SolveChristofides {
 
 		int popSize = 30;
 		int genSize = 100;
-		String inputFolderName = "Christofides1979";
+		String inputFolderName = "/cvrp/christofides1979";
 
 //		try {
 //			popSize = Integer.parseInt(args[0]); // 100
@@ -85,8 +85,6 @@ public class SolveChristofides {
 
 		List<String> files = getFiles();
 		logger.info("Following instances will be solved: " + files);
-//		new File("Christofides1979-Solutions\\").mkdirs();
-//		logger.info("Solution directory created and set to Christofides1979-Solutions\\");
 
 		for (String file : getFiles()) {
 

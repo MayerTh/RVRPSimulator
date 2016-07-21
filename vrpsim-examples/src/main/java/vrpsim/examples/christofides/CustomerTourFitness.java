@@ -18,7 +18,6 @@
  */
 package vrpsim.examples.christofides;
 
-import java.io.File;
 import java.net.URISyntaxException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -34,9 +33,9 @@ import vrpsim.core.model.VRPSimulationModel;
 import vrpsim.core.model.behaviour.Behaviour;
 import vrpsim.core.model.solution.SolutionManager;
 import vrpsim.core.model.structure.customer.ICustomer;
+import vrpsim.core.model.util.exceptions.BehaviourException;
 import vrpsim.core.model.util.exceptions.EventException;
 import vrpsim.core.model.util.exceptions.InitializationException;
-import vrpsim.core.model.util.exceptions.BehaviourException;
 import vrpsim.core.model.util.exceptions.NetworkException;
 import vrpsim.core.model.util.exceptions.StorageException;
 import vrpsim.core.model.util.exceptions.VRPArithmeticException;
@@ -51,7 +50,8 @@ import vrpsim.examples.support.VRPREPImporter;
  */
 public class CustomerTourFitness extends AbstractFitnessFunction<CustomerTour> {
 
-//	private static Logger logger = LoggerFactory.getLogger(CustomerTourFitness.class);
+	// private static Logger logger =
+	// LoggerFactory.getLogger(CustomerTourFitness.class);
 
 	private final String storageType = "Storage Type A";
 	private final String storableType = "Item Type A";
@@ -71,19 +71,9 @@ public class CustomerTourFitness extends AbstractFitnessFunction<CustomerTour> {
 
 	public CustomerTourFitness(String modelFolder, String modelName) throws URISyntaxException {
 
-		importer = new VRPREPImporter(storageType, storableType, capacityType, consumptionCycleTime, maxCustomerStorageCapacity,
-				numberOfStorablesInDepot, numberOfVehicles);
-		
-//		String resoucre = modelFolder + "/" + modelName;		
-//		String resoucre = modelName;
-//		System.out.println(ClassLoader.getSystemClassLoader().getResource(resoucre));
-		path = Paths.get(new File(modelFolder + "/" + modelName).toURI());
-//		path = Paths.get(ClassLoader.getSystemClassLoader().getResource(resoucre).toURI());
-
-		// path = Paths
-		// .get("C:\\Users\\mayert\\projects\\logistic_diss\\workspaces\\simulator\\vrpsim-examples\\src\\main\\resources\\Christofides1979\\"
-		// + modelName);
-
+		importer = new VRPREPImporter(storageType, storableType, capacityType, consumptionCycleTime,
+				maxCustomerStorageCapacity, numberOfStorablesInDepot, numberOfVehicles);
+		path = Paths.get(ClassLoader.class.getResource(modelFolder + "/" + modelName).toURI());
 		this.setModel();
 	}
 
@@ -113,7 +103,7 @@ public class CustomerTourFitness extends AbstractFitnessFunction<CustomerTour> {
 			Behaviour behaviour = this.customerTourTranslator.translate(customerTour, this.model,
 					this.mainProgramm.getSimulationClock());
 			this.model.setSolutionManager(new SolutionManager((network, structure) -> behaviour));
-//			this.model.setBehaviour(behaviour);
+			// this.model.setBehaviour(behaviour);
 
 		} catch (NetworkException | BehaviourException | VRPArithmeticException e) {
 			e.printStackTrace();
@@ -127,7 +117,8 @@ public class CustomerTourFitness extends AbstractFitnessFunction<CustomerTour> {
 			throw new RuntimeErrorException(new Error(e.getMessage()));
 		}
 
-		double costs = this.model.getSolutionManager().getStaticBehaviourFromStaticBehaviourProvider().getTours().get(0).getCurrentTourCosts();
+		double costs = this.model.getSolutionManager().getStaticBehaviourFromStaticBehaviourProvider().getTours().get(0)
+				.getCurrentTourCosts();
 		this.setModel();
 		return costs;
 	}
