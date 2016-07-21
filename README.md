@@ -23,4 +23,4 @@ For any questions or help, feel free to contact [me] (mailto:Thomas.Mayer@unibw.
 
 ## License
 * RVRPSimulator software is released under the [Apache License Version 2.0] (https://github.com/MayerTh/RVRPSimulator/blob/master/LICENSE).
-* RVRPSimulator visualization is using an [adapted version] () of an [alphabetic and numeric sorting algorithm] (http://blog.icodejava.com/261/how-to-sort-alpha-numeric-strings-in-java/) from [Kushal Paudyal] (www.icodejava.com).  
+* RVRPSimulator visualization is using an [adapted version] (https://github.com/MayerTh/RVRPSimulator/blob/master/vrpsim-visualization/src/main/java/vrpsim/visualization/util/AlphanumericSorting.java) of an [alphabetic and numeric sorting algorithm] (http://blog.icodejava.com/261/how-to-sort-alpha-numeric-strings-in-java/) from [Kushal Paudyal] (www.icodejava.com).  
