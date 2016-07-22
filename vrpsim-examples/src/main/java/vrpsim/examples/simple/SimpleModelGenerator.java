@@ -112,7 +112,7 @@ public class SimpleModelGenerator {
 
 			UncertainParamters.UncertainParameterContainer container = new UncertainParamters.UncertainParameterContainer(
 					storableParameters, new DeterministicDistributionFunction(10.0),
-					new DeterministicDistributionFunction(0.0), new DeterministicDistributionFunction(100.0), false, false);
+					new DeterministicDistributionFunction(0.0), new DeterministicDistributionFunction(500.0), false, false);
 
 			IStorableGenerator storableGenerator = new StorableGenerator(this.storableParameters);
 			ICustomer customer = new StaticCustomerWithConsumption(vrpSimulationModelElementParameters,
