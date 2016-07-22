@@ -41,7 +41,7 @@ public class Simple extends Visualisation {
 
 		MainProgramm mainProgramm = new MainProgramm();
 		IClock clock = mainProgramm.getSimulationClock();
-		ITime simulationEndTime = clock.getCurrentSimulationTime().createTimeFrom(100.0);
+		ITime simulationEndTime = clock.getCurrentSimulationTime().createTimeFrom(1000.0);
 		
 		SimpleModelGenerator simpleModelGenerator = new SimpleModelGenerator();
 		VRPSimulationModel model = simpleModelGenerator.generateSimpleModel(seed);
