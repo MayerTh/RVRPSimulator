@@ -54,11 +54,11 @@ public class Structure {
 	public Structure(List<StorableParameters> storableParameters, List<IDepot> depots, List<ICustomer> customers,
 			List<IVehicle> vehicles, List<IDriver> drivers, List<IOccasionalDriver> occasionalDrivers) {
 		this.storableParameters = storableParameters;
-		this.depots = depots;
-		this.customers = customers;
-		this.vehicles = vehicles;
-		this.drivers = drivers;
-		this.occasionalDrivers = occasionalDrivers;
+		this.depots = depots == null ? new ArrayList<>() : depots;
+		this.customers = customers == null ? new ArrayList<>() : customers;
+		this.vehicles = vehicles == null ? new ArrayList<>() : vehicles;
+		this.drivers = drivers == null ? new ArrayList<>() : drivers;
+		this.occasionalDrivers = occasionalDrivers == null ? new ArrayList<>() : occasionalDrivers;
 	}
 	
 	/**
@@ -71,11 +71,11 @@ public class Structure {
 	 */
 	public Structure(StorableParameters storableParameters, List<IDepot> depots, List<ICustomer> customers,
 			List<IVehicle> vehicles, List<IDriver> drivers, List<IOccasionalDriver> occasionalDrivers) {
-		this.depots = depots;
-		this.customers = customers;
-		this.vehicles = vehicles;
-		this.drivers = drivers;
-		this.occasionalDrivers = occasionalDrivers;
+		this.depots = depots == null ? new ArrayList<>() : depots;
+		this.customers = customers == null ? new ArrayList<>() : customers;
+		this.vehicles = vehicles == null ? new ArrayList<>() : vehicles;
+		this.drivers = drivers == null ? new ArrayList<>() : drivers;
+		this.occasionalDrivers = occasionalDrivers == null ? new ArrayList<>() : occasionalDrivers;
 
 		this.storableParameters = new ArrayList<>();
 		this.storableParameters.add(storableParameters);

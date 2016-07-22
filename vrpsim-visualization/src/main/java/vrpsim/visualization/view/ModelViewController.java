@@ -34,6 +34,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Polygon;
+import javafx.scene.text.Text;
 import vrpsim.core.model.IVRPSimulationModelElement;
 import vrpsim.core.model.VRPSimulationModel;
 import vrpsim.core.model.behaviour.tour.ITour;
@@ -86,6 +87,9 @@ public class ModelViewController implements Observer {
 
 	// Visualization
 	private VRPVisualizationModel visualisationModel;
+	
+	// Current Simulation time
+	private String currentSimulationTime = "0";
 
 	public void init(final VRPSimulationModel simulationModel) {
 
@@ -177,7 +181,7 @@ public class ModelViewController implements Observer {
 		// Locate all nodes regarding to current transformation.
 		List<Node> nodesToRemove = new ArrayList<>();
 		for (Node n : this.pane.getChildren()) {
-			if (n instanceof Line || n instanceof Polygon) {
+			if (n instanceof Line || n instanceof Polygon || n instanceof Text) {
 				nodesToRemove.add(n);
 			} else {
 				n.relocate(
@@ -188,7 +192,7 @@ public class ModelViewController implements Observer {
 			}
 		}
 
-		// Remove nodes to remove.
+		// Remove nodes to remove, lines and polygons.
 		for (Node n : nodesToRemove) {
 			this.pane.getChildren().remove(n);
 		}
@@ -230,6 +234,10 @@ public class ModelViewController implements Observer {
 				}
 			}
 		}
+		
+		Text simTime = new Text("Simulation time: " + currentSimulationTime);
+		simTime.relocate(10, 10);
+		this.pane.getChildren().add(simTime);
 
 	}
 
@@ -241,7 +249,8 @@ public class ModelViewController implements Observer {
 			IEvent event = (IEvent) arg;
 			logger.info("Visualisation update triggered from " + event.getOwner().getClass().getSimpleName() + ".");
 			ITime simulationTimeOfLastEventOccurence = event.getSimulationTimeOfOccurence();
-
+			this.currentSimulationTime = simulationTimeOfLastEventOccurence.getValue();
+			
 			if (event instanceof OrderEvent) {
 				if (this.orderBoardVisualizationPopup == null) {
 					this.orderBoardVisualizationPopup = new OrderBoardVisualizationPopup();

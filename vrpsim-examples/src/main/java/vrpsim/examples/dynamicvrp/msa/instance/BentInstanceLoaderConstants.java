@@ -30,4 +30,7 @@ public class BentInstanceLoaderConstants {
 	public static String TEABLE_HEADER_CUSTOMER = "Cust";
 	public static String DEPOT_INDEX = "D";
 	
+	public static String TEABLE_HEADER_LONG = "Cust	X	Y	Demand	Start	End	Service	PreBin	0-160	160-320	320-480";
+	public static String TEABLE_HEADER_SHORT = "Cust	Arrival	Start	Deadline	Demand	Service";
+	
 }

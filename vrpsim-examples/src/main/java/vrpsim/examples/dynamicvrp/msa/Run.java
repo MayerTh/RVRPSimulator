@@ -10,7 +10,7 @@ import vrpsim.visualization.Visualisation;
 
 public class Run extends Visualisation {
 
-	private static String file = "/dynamicvrp/bent2003/class1/0-100-rc101-1";
+	private static String file = "/dynamicvrp/bent2003/class1/0-100-rc101-5";
 	
 	public static void main(String[] args) throws IOException {
 		

@@ -15,6 +15,7 @@
  */
 package vrpsim.visualization.components;
 
+import java.text.MessageFormat;
 import java.util.Collections;
 import java.util.List;
 
@@ -27,8 +28,10 @@ import vrpsim.core.model.network.INode;
 import vrpsim.core.model.network.IVRPSimulationModelNetworkElement;
 import vrpsim.core.model.structure.IVRPSimulationModelStructureElement;
 import vrpsim.core.model.structure.IVRPSimulationModelStructureElementWithStorage;
+import vrpsim.core.model.structure.customer.ICustomer;
 import vrpsim.core.model.structure.util.storage.CanStoreType;
 import vrpsim.core.model.util.exceptions.VRPArithmeticException;
+import vrpsim.core.model.util.uncertainty.UncertainParamters.UncertainParameterContainer;
 import vrpsim.core.simulator.ITime;
 import vrpsim.visualization.util.AlphanumericSorting;
 
@@ -42,7 +45,7 @@ public class NetworkNodeVisualizationPopup extends VisualizationPopup {
 			INode node = (INode) networkElement;
 			String title = node.getVRPSimulationModelElementParameters().getId() + " at "
 					+ node.getLocation().toString();
-			buildPopup(title);
+			buildPopup(title, 410);
 		}
 	}
 
@@ -73,6 +76,23 @@ public class NetworkNodeVisualizationPopup extends VisualizationPopup {
 					Text text = new Text(type.getId() + " " + currentCapa + "/" + maxCapa);
 					VBox.setMargin(text, new Insets(0, 0, 0, 12));
 					this.dataBox.getChildren().add(text);
+				}
+
+				if (element instanceof ICustomer) {
+					ICustomer customer = (ICustomer) element;
+					int containerIndex = 1;
+					for (UncertainParameterContainer container : customer.getUncertainParameters().getParameter()) {
+
+						String str = MessageFormat.format(
+								"UContainer-{0}: start={1};number={2};type={6};edd={3};ldd={4};cyclic={5}",
+								containerIndex++, container.getStart(), container.getNumber(),
+								container.getEarliestDueDate(), container.getLatestDueDate(), container.isCyclic(),
+								container.getStorableParameters().getStorableType().toString());
+
+						Text text = new Text(str);
+						VBox.setMargin(text, new Insets(0, 0, 0, 12));
+						this.dataBox.getChildren().add(text);
+					}
 				}
 			}
 		}

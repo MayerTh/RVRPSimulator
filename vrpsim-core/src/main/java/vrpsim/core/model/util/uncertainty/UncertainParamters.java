@@ -43,6 +43,10 @@ public class UncertainParamters {
 		this.consumparameter = new HashSet<UncertainParamters.UncertainParameterContainer>();
 	}
 
+	public void addContainer(UncertainParameterContainer consumparameterContainer) {
+		this.consumparameter.add(consumparameterContainer);
+	}
+
 	public List<UncertainParameterContainer> getParameter() {
 		return new ArrayList<UncertainParameterContainer>(this.consumparameter);
 	}
@@ -57,13 +61,15 @@ public class UncertainParamters {
 
 		private final IDistributionFunction earliestDueDate;
 		private final IDistributionFunction latestDueDate;
+		private final boolean adaptDueDatesToSimulationTime;
+
+		private Double startInstance;
+		private Double numberInstance;
+		private Double cycleInstance;
+		private Double earliestDueDateInstance;
+		private Double latestDueDateInstance;
 
 		/**
-		 * Creates an {@link UncertainParameterContainer} which is not cyclic
-		 * and where {@link UncertainParameterContainer#getCycle()},
-		 * {@link UncertainParameterContainer#getEarliestDueDate()} and
-		 * {@link UncertainParameterContainer#getLatestDueDate()} returns null.
-		 * 
 		 * @param storableParameters
 		 *            - defining the storable which are consumed/ordered/...
 		 * @param number
@@ -74,14 +80,10 @@ public class UncertainParamters {
 		 */
 		public UncertainParameterContainer(final StorableParameters storableParameters,
 				final IDistributionFunction number, final IDistributionFunction start) {
-			this(storableParameters, number, start, null, null, null);
+			this(storableParameters, number, start, null, null, null, false);
 		}
 
 		/**
-		 * Creates an {@link UncertainParameterContainer} where
-		 * {@link UncertainParameterContainer#getEarliestDueDate()} and
-		 * {@link UncertainParameterContainer#getLatestDueDate()} returns null.
-		 * 
 		 * @param storableParameters
 		 *            - defining the storable which are consumed/ordered/...
 		 * @param number
@@ -96,11 +98,11 @@ public class UncertainParamters {
 		public UncertainParameterContainer(final StorableParameters storableParameters,
 				final IDistributionFunction number, final IDistributionFunction start,
 				final IDistributionFunction cycle) {
-			this(storableParameters, number, start, cycle, null, null);
+			this(storableParameters, number, start, cycle, null, null, false);
 		}
-		
 
 		/**
+		 * 
 		 * @param storableParameters
 		 *            - defining the storable which are consumed/ordered/...
 		 * @param number
@@ -111,15 +113,22 @@ public class UncertainParamters {
 		 * @param latestDueDate
 		 *            - latest delivery of the order, after order is created,
 		 *            see {@link UncertainParameterContainer#getCycle()}
+		 * @param adaptDueDatesToSimulationTime
+		 *            - define if the due dates have to be adapted to simulation
+		 *            time.
+		 * @param isCyclic
+		 *            - define if {@link UncertainParameterContainer} is cyclic.
 		 */
 		public UncertainParameterContainer(final StorableParameters storableParameters,
 				final IDistributionFunction number, final IDistributionFunction earliestDueDate,
-				final IDistributionFunction latestDueDate, final boolean isCyclic) {
-			this(storableParameters, number, null, null, earliestDueDate, latestDueDate);
+				final IDistributionFunction latestDueDate, final boolean adaptDueDatesToSimulationTime,
+				final boolean isCyclic) {
+			this(storableParameters, number, null, null, earliestDueDate, latestDueDate, adaptDueDatesToSimulationTime);
 			this.isCyclic = isCyclic;
 		}
 
 		/**
+		 * 
 		 * @param storableParameters
 		 *            - defining the storable which are consumed/ordered/...
 		 * @param number
@@ -128,7 +137,7 @@ public class UncertainParamters {
 		 *            - the start when the defined amount the first time are
 		 *            consumed/ordered/...
 		 * @param cycle
-		 *            - cycle when defined amount of defined storables are
+		 *            - cycle where defined amount of defined storables are
 		 *            consumed/ordered/...
 		 * @param earliestDueDate
 		 *            - earliest delivery of the order, after order is created,
@@ -136,11 +145,14 @@ public class UncertainParamters {
 		 * @param latestDueDate
 		 *            - latest delivery of the order, after order is created,
 		 *            see {@link UncertainParameterContainer#getCycle()}
+		 * @param adaptDueDatesToSimulationTime
+		 *            - define if the due dates have to be adapted to simulation
+		 *            time.
 		 */
 		public UncertainParameterContainer(final StorableParameters storableParameters,
 				final IDistributionFunction number, final IDistributionFunction start,
 				final IDistributionFunction cycle, final IDistributionFunction earliestDueDate,
-				final IDistributionFunction latestDueDate) {
+				final IDistributionFunction latestDueDate, final boolean adaptDueDatesToSimulationTime) {
 			this.start = start;
 			this.number = number;
 			this.cycle = cycle;
@@ -148,6 +160,9 @@ public class UncertainParamters {
 			this.storableParameters = storableParameters;
 			this.earliestDueDate = earliestDueDate;
 			this.latestDueDate = latestDueDate;
+			this.adaptDueDatesToSimulationTime = adaptDueDatesToSimulationTime;
+
+			resetInstances();
 		}
 
 		/**
@@ -157,8 +172,8 @@ public class UncertainParamters {
 		 * 
 		 * @return
 		 */
-		public IDistributionFunction getEarliestDueDate() {
-			return earliestDueDate;
+		public Double getEarliestDueDate() {
+			return earliestDueDateInstance;
 		}
 
 		/**
@@ -168,8 +183,8 @@ public class UncertainParamters {
 		 * 
 		 * @return
 		 */
-		public IDistributionFunction getLatestDueDate() {
-			return latestDueDate;
+		public Double getLatestDueDate() {
+			return latestDueDateInstance;
 		}
 
 		/**
@@ -187,8 +202,8 @@ public class UncertainParamters {
 		 * 
 		 * @return
 		 */
-		public IDistributionFunction getNumber() {
-			return number;
+		public Double getNumber() {
+			return numberInstance;
 		}
 
 		/**
@@ -199,8 +214,8 @@ public class UncertainParamters {
 		 * 
 		 * @return
 		 */
-		public IDistributionFunction getCycle() {
-			return cycle;
+		public Double getCycle() {
+			return cycleInstance;
 		}
 
 		/**
@@ -209,8 +224,8 @@ public class UncertainParamters {
 		 * 
 		 * @return
 		 */
-		public IDistributionFunction getStart() {
-			return start;
+		public Double getStart() {
+			return startInstance;
 		}
 
 		/**
@@ -221,6 +236,30 @@ public class UncertainParamters {
 		 */
 		public boolean isCyclic() {
 			return isCyclic;
+		}
+
+		/**
+		 * Returns true, if you have to adapt the due dates to the current
+		 * simulation time (the current simulation time is the time where you
+		 * would like to create something dependent on this container).
+		 * 
+		 * @return
+		 */
+		public boolean isAdaptDueDatesToSimulationTime() {
+			return adaptDueDatesToSimulationTime;
+		}
+
+		/**
+		 * Resets the instances of all values of the
+		 * {@link UncertainParameterContainer} created from the
+		 * {@link IDistributionFunction}.
+		 */
+		public void resetInstances() {
+			this.startInstance = (start != null) ? start.getNumber() : null;
+			this.numberInstance = (number != null) ? number.getNumber() : null;
+			this.cycleInstance = (cycle != null) ? cycle.getNumber() : null;
+			this.earliestDueDateInstance = (earliestDueDate != null) ? earliestDueDate.getNumber() : null;
+			this.latestDueDateInstance = (latestDueDate != null) ? latestDueDate.getNumber() : null;
 		}
 
 	}

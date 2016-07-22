@@ -96,6 +96,7 @@ public class DynamicCustomer extends AbstractVRPSimulationModelStructureElementW
 			// created.
 			events = new ArrayList<>();
 			if (uncertainEvent.getContainer().isCyclic()) {
+				uncertainEvent.getContainer().resetInstances();
 				events.add(createTRIGGERING_ORDER_EVENT(uncertainEvent.getContainer(), clock, false));
 			}
 			events.add(createORDER_EVENT(uncertainEvent.getContainer(), clock));
@@ -116,24 +117,38 @@ public class DynamicCustomer extends AbstractVRPSimulationModelStructureElementW
 
 	private IEvent createTRIGGERING_ORDER_EVENT(UncertainParamters.UncertainParameterContainer container, IClock clock,
 			boolean isInitialEvent) {
-		double t = isInitialEvent ? container.getStart().getNumber() : container.getCycle().getNumber();
+		double t = isInitialEvent ? container.getStart() : container.getCycle();
 		return new UncertainEvent(this, () -> IEventType.TRIGGERING_ORDER_EVENT,
 				clock.getCurrentSimulationTime().createTimeFrom(t), container);
 	}
 
 	private IEvent createORDER_EVENT(UncertainParameterContainer container, IClock clock) throws EventException {
 
-		ITime earliestDueDate = container.getEarliestDueDate() != null
-				? clock.getCurrentSimulationTime().add(
-						clock.getCurrentSimulationTime().createTimeFrom(container.getEarliestDueDate().getNumber()))
-				: null;
-		ITime latestDueDate = container.getLatestDueDate() != null
-				? clock.getCurrentSimulationTime()
-						.add(clock.getCurrentSimulationTime().createTimeFrom(container.getLatestDueDate().getNumber()))
-				: null;
+		ITime earliestDueDate = null;
+		if(container.getEarliestDueDate() != null) {
+			earliestDueDate = container.isAdaptDueDatesToSimulationTime() 
+				? clock.getCurrentSimulationTime().add(clock.getCurrentSimulationTime().createTimeFrom(container.getEarliestDueDate())) 
+				: clock.getCurrentSimulationTime().createTimeFrom(container.getEarliestDueDate());
+		}
+		
+		ITime latestDueDate = null;
+		if(container.getLatestDueDate() != null) {
+			latestDueDate = container.isAdaptDueDatesToSimulationTime() 
+				? clock.getCurrentSimulationTime().add(clock.getCurrentSimulationTime().createTimeFrom(container.getLatestDueDate())) 
+				: clock.getCurrentSimulationTime().createTimeFrom(container.getLatestDueDate());
+		}
+		
+//		ITime earliestDueDate = container.getEarliestDueDate() != null
+//				? clock.getCurrentSimulationTime().add(
+//						clock.getCurrentSimulationTime().createTimeFrom(container.getEarliestDueDate()))
+//				: null;
+//		ITime latestDueDate = container.getLatestDueDate() != null
+//				? clock.getCurrentSimulationTime()
+//						.add(clock.getCurrentSimulationTime().createTimeFrom(container.getLatestDueDate()))
+//				: null;
 
 		Order order = new Order(createOrderId(clock.getCurrentSimulationTime()), earliestDueDate, latestDueDate,
-				container.getStorableParameters().getStorableType(), container.getNumber().getNumber().intValue(),
+				container.getStorableParameters().getStorableType(), container.getNumber().intValue(),
 				this);
 
 		// Save order in history.

@@ -262,7 +262,7 @@ public class RandomStructureGenerator {
 							random.nextInt(maxAmount.intValue() - minAmount.intValue()) + minAmount),
 					new DeterministicDistributionFunction(0.0), new DeterministicDistributionFunction(
 							random.nextInt(maxCycle.intValue() - minCycle.intValue()) + minCycle),
-					true);
+					false, true);
 			UncertainParamters consumptionParameters = new UncertainParamters(consumparameterContainer);
 
 			ICustomer customer = new StaticCustomerWithConsumption(vrpSimulationModelElementParameters,

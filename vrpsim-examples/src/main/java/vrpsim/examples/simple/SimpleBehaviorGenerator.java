@@ -155,7 +155,7 @@ public class SimpleBehaviorGenerator {
 			ICustomer customer, IDepot depot, StorableParameters storeableParameters) throws BehaviourException, VRPArithmeticException {
 
 //		depot.getStorableGenerator().resetStorableGenerationCounter();
-		Integer number = customer.getUncertainParameters().getParameter().get(0).getNumber().getNumber().intValue();
+		Integer number = customer.getUncertainParameters().getParameter().get(0).getNumber().intValue();
 
 		LoadUnloadJob job = new LoadUnloadJob(storeableParameters, number, customer);
 		UnloadActivity storableExchangeActivity = new UnloadActivity(job);

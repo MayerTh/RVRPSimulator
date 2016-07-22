@@ -132,6 +132,7 @@ public class DefaultVehicle extends AbstractVRPSimulationModelStructureElementWi
 
 		List<IEvent> events = new ArrayList<>();
 		if (((UncertainEvent) event).getContainer().isCyclic()) {
+			((UncertainEvent) event).getContainer().resetInstances();
 			events.add(createEvent(((UncertainEvent) event).getContainer(), clock, false));
 		}
 		return events;
@@ -143,8 +144,8 @@ public class DefaultVehicle extends AbstractVRPSimulationModelStructureElementWi
 	}
 
 	private IEvent createEvent(UncertainParameterContainer container, IClock clock, boolean isInitialEvent) {
-		double t = isInitialEvent ? container.getStart().getNumber() : container.getCycle().getNumber();
-		double timeFrom = this.isAvailable(clock) ? container.getNumber().getNumber() : t;
+		double t = isInitialEvent ? container.getStart() : container.getCycle();
+		double timeFrom = this.isAvailable(clock) ? container.getNumber() : t;
 		ITime time = clock.getCurrentSimulationTime().createTimeFrom(timeFrom);
 		return new UncertainEvent(this, this.getAllEventTypes().get(0), time, container);
 	}
