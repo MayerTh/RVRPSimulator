@@ -45,7 +45,7 @@
             </resource>
             <resource>
                 <directory>src/main/resources/</directory>
-                <targetPath></targetPath>
+                <targetPath>.</targetPath>
                 <includes>
                     <include>*.png</include>
                     <include>*.xml</include>
