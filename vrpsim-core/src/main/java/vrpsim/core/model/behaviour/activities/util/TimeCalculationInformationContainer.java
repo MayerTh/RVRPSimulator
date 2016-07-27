@@ -42,7 +42,7 @@ public class TimeCalculationInformationContainer {
 	private final Double maxWaySpeed;
 
 	/**
-	 * Constructor typically used to crate a container to calculate a service
+	 * Constructor typically used to create a container to calculate a service
 	 * time.
 	 * 
 	 * @param vehicle

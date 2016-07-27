@@ -1,4 +1,19 @@
-package vrpsim.examples.dynamicvrp.msa.instance;
+/**
+ * Copyright (C) 2016 Thomas Mayer (thomas.mayer@unibw.de)
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *         http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package vrpsim.util.model.instances.generator.bent;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -46,7 +61,6 @@ import vrpsim.core.model.util.functions.DeterministicTimeFunction;
 import vrpsim.core.model.util.functions.Euclidean2DDistanceFunction;
 import vrpsim.core.model.util.functions.IDistanceFunction;
 import vrpsim.core.model.util.functions.ITimeFunction;
-import vrpsim.core.model.util.functions.LinearMotionTravelTimeFunction;
 import vrpsim.core.model.util.policies.LIFOLoadingPolicy;
 import vrpsim.core.model.util.uncertainty.DeterministicDistributionFunction;
 import vrpsim.core.model.util.uncertainty.UncertainParamters;
@@ -344,7 +358,18 @@ public class BentInstanceLoader {
 				if (!node_1.equals(node_2)) {
 					VRPSimulationModelElementParameters para = new VRPSimulationModelElementParameters(
 							wayCounter++ + "", 1);
-					ITimeFunction travelTimeFunction = new LinearMotionTravelTimeFunction();
+					/*
+					 * Since Solomon 1987 (ALGORITHMS FOR THE VEHICLE ROUTING
+					 * AND SCHEDULING PROBLEMS WITH TIME WINDOW CONSTRAINT),
+					 * where the instances original coming from, travel time is
+					 * equal to the distance between customers: "All the test
+					 * problems are 100-customer euclidean problems. This
+					 * problem size is not limiting for the methods presented,
+					 * since much larger problems could be solved. Travel times
+					 * between customers are taken to equal the corresponding
+					 * distances."
+					 */
+					ITimeFunction travelTimeFunction = new SolomonTravelTimeFunction();
 					IDistanceFunction distanceFunction = new Euclidean2DDistanceFunction();
 					double maxSpeed = 50.0;
 					INode source = node_1;

@@ -27,6 +27,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
+import javafx.scene.text.Text;
 import vrpsim.core.model.network.IVRPSimulationModelNetworkElement;
 import vrpsim.core.model.structure.IVRPSimulationModelStructureElement;
 import vrpsim.core.model.structure.customer.ICustomer;
@@ -57,12 +58,15 @@ public class NetworkNodeVisualization extends Parent {
 	private final double numberToPlace = 5;
 	private final double delta = 8;
 
+	private final IVRPSimulationModelNetworkElement networkElement;
+
 	private double angle;
 	private HashSet<IVRPSimulationModelStructureElement> structuralElements = new HashSet<>();
 	private NetworkNodeVisualizationPopup popup;
 
 	public NetworkNodeVisualization(IVRPSimulationModelNetworkElement networkElement,
 			HashSet<IVRPSimulationModelStructureElement> structuralElements, ITime simulationTimeOfLastEventOccurence) {
+		this.networkElement = networkElement;
 		this.popup = new NetworkNodeVisualizationPopup(networkElement);
 		this.structuralElements = structuralElements;
 		angle = 2 * Math.PI / numberToPlace;
@@ -100,6 +104,9 @@ public class NetworkNodeVisualization extends Parent {
 		middle.setCenterY(radius);
 		middle.setFill(middlePointColor);
 		middle.setSmooth(true);
+		Text text = new Text(this.networkElement.getVRPSimulationModelElementParameters().getId());
+		text.relocate(radius, radius);
+		this.getChildren().add(text);
 
 		this.setOnMouseEntered(event -> {
 			middle.setStroke(circleColorHighlighted);
