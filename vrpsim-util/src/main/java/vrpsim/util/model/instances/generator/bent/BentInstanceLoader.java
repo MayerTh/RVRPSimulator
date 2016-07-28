@@ -16,12 +16,19 @@
 package vrpsim.util.model.instances.generator.bent;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
+import java.util.jar.JarEntry;
+import java.util.jar.JarFile;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -95,11 +102,76 @@ public class BentInstanceLoader {
 	private final Capacity singleCapacity = new Capacity(capacityUnit, 1.0); // 4
 	private final StorableParameters storableParameters = new StorableParameters(1, singleCapacity, storableType); // 5
 
-	public VRPSimulationModel loadBentInstance(String path) throws IOException {
-		File file = new File(this.getClass().getResource(path).getFile());
+	/**
+	 * Returns a list of internal paths of files representing an VRP instance
+	 * from Bent & Van Hentenryck.
+	 * 
+	 * @return
+	 * @throws IOException
+	 */
+	public List<String> getAvailablePathsToBentInstances() throws IOException {
+
+		List<String> availableInstances = new ArrayList<>();
+		final String path = "dynamicvrp/bent2003/class";
+		final File jarFile = new File(getClass().getProtectionDomain().getCodeSource().getLocation().getPath());
+
+		if (jarFile.isFile()) {
+			final JarFile jar = new JarFile(jarFile);
+			final Enumeration<JarEntry> entries = jar.entries();
+			while (entries.hasMoreElements()) {
+				final String name = entries.nextElement().getName();
+				if (name.startsWith(path) && !name.endsWith("/")) {
+					availableInstances.add("/" + name);
+				}
+			}
+			jar.close();
+		} else {
+			for(int i = 1; i <= 4; i++) {
+				String resoucre = "/" + path + i;
+				BufferedReader br = new BufferedReader(new InputStreamReader(BentInstanceLoader.class.getResourceAsStream(resoucre)));
+				String name = "";
+				while((name = br.readLine()) != null) {
+					availableInstances.add("/" + path + i + "/" + name);
+				}
+			}
+			
+		}
+
+		return availableInstances;
+	}
+
+	/**
+	 * Return the bent instance defined by the path.
+	 * 
+	 * @param path
+	 * @return
+	 * @throws IOException
+	 * @throws URISyntaxException 
+	 */
+	public VRPSimulationModel loadBentInstance(String path) throws IOException, URISyntaxException {
+		
+		logger.info("Loading Bent & Van Hentenryck instance as stream: {}", path);
+		BufferedReader br = new BufferedReader(new InputStreamReader(BentInstanceLoader.class.getResourceAsStream(path)));
+		
+		File file = new File("dummy");
+		BufferedWriter bw = new BufferedWriter(new FileWriter(file));
+		String line = "";
+		String debug = "\n\n";
+		while((line = br.readLine()) != null) {
+			bw.write(line);
+			bw.newLine();
+			debug += line + "\n";
+		}
+		bw.close();
+
+		logger.debug("Following Bent & Van Hentenryck instance loaded: {}", debug);
+		
 		Network network = createNetwork(file);
 		Structure structure = createStructure(file, network.getNetworkService());
 		VRPSimulationModelParameters vrpSimulationModelParameters = new VRPSimulationModelParameters(path, path);
+		
+		file.delete();
+		
 		return new VRPSimulationModel(vrpSimulationModelParameters, structure, network);
 	}
 

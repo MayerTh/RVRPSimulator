@@ -1,6 +1,7 @@
 package vrpsim.examples.dynamicvrp.msa;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 
 import vrpsim.core.model.VRPSimulationModel;
 import vrpsim.core.simulator.Clock;
@@ -10,17 +11,15 @@ import vrpsim.visualization.Visualisation;
 
 public class Run extends Visualisation {
 
-	private static String file = "/dynamicvrp/bent2003/class1/0-100-rc101-1";
-	
-	public static void main(String[] args) throws IOException {
-		
+	public static void main(String[] args) throws IOException, URISyntaxException {
+
 		BentInstanceLoader bil = new BentInstanceLoader();
-		VRPSimulationModel model = bil.loadBentInstance(file); 
-		
+		String path = bil.getAvailablePathsToBentInstances().get(0);
+		VRPSimulationModel model = bil.loadBentInstance(path);
+
 		init(new MainProgramm(), model, new Clock.Time(1000.0));
 		launch(args);
-		
+
 	}
-	
+
 }
- 

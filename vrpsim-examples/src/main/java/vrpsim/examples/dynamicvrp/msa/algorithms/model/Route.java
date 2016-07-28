@@ -18,12 +18,31 @@ public class Route {
 	/**
 	 * Customers without depot.
 	 */
-	private List<Stop> stops;
+	private final List<Stop> stops;
 
 	/**
 	 * The vehicle responsible for the {@link Route}.
 	 */
-	private String vehicleId;
+	private final String vehicleId;
+
+	/**
+	 * When all vehicles have to be back to the depot.
+	 */
+	private final double depotClosingTime;
+
+	/**
+	 * Creates a route. Note that the list of stops should not conaint the
+	 * depot.
+	 * 
+	 * @param stops
+	 * @param vehicleId
+	 * @param depotClosingTime
+	 */
+	public Route(List<Stop> stops, String vehicleId, double depotClosingTime) {
+		this.stops = stops;
+		this.vehicleId = vehicleId;
+		this.depotClosingTime = depotClosingTime;
+	}
 
 	/**
 	 * The size of a route is equal to the number of customers, the depots are
@@ -77,16 +96,14 @@ public class Route {
 	 * @throws VRPArithmeticException
 	 */
 	public boolean isFeasible(StructureService structureService, IClock clock) throws VRPArithmeticException {
-		
-		double depotClosingTime = 240.0;
-		
+
 		boolean result = true;
 		int currentCapacity = 0;
 		int maxCapacity = getCapacityOfVehicle(structureService);
 		double currentTime = 0;
 
-		INode depotNode = (INode) structureService.getDepots().get(0)
-				.getVRPSimulationModelStructureElementParameters().getHome();
+		INode depotNode = (INode) structureService.getDepots().get(0).getVRPSimulationModelStructureElementParameters()
+				.getHome();
 		INode currentNode = depotNode;
 
 		for (Stop stop : this.getStops()) {
@@ -119,18 +136,17 @@ public class Route {
 
 			currentNode = workingNode;
 		}
-		
+
 		double distanceBackToDepot = getDistance(currentNode, depotNode);
-		if(currentTime + distanceBackToDepot > depotClosingTime) {
+		if (currentTime + distanceBackToDepot > depotClosingTime) {
 			result = false;
 		}
-		
+
 		return result;
 	}
 
 	private double getServiceTime(ICustomer customer, IClock clock) {
-		TimeCalculationInformationContainer container = new TimeCalculationInformationContainer(null, null, null, null,
-				new Integer(0));
+		TimeCalculationInformationContainer container = new TimeCalculationInformationContainer(null, null, null, null, new Integer(0));
 		return customer.getServiceTime(container, clock).getDoubleValue();
 
 	}
@@ -182,15 +198,8 @@ public class Route {
 		return stops;
 	}
 
-	public void setStops(List<Stop> stops) {
-		this.stops = stops;
-	}
-
 	public String getVehicleId() {
 		return vehicleId;
 	}
 
-	public void setVehicleId(String vehicleId) {
-		this.vehicleId = vehicleId;
-	}
 }
