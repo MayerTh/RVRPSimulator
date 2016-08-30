@@ -29,6 +29,7 @@ public class Network {
 
 	private final List<INode> nodes;
 	private final List<IWay> ways;
+	
 	private NetworkService networkService;
 
 	public Network(final List<INode> nodes, final List<IWay> ways) {

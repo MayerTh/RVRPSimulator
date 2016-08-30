@@ -55,19 +55,21 @@ public class UncertainParamters {
 
 		private final StorableParameters storableParameters;
 		private final IDistributionFunction start;
+		private Double startInstance;
 		private final IDistributionFunction number;
+		private Double numberInstance;
 		private final IDistributionFunction cycle;
+		private Double cycleInstance;
+		
 		private boolean isCyclic;
 
 		private final IDistributionFunction earliestDueDate;
+		private Double earliestDueDateInstance;
 		private final IDistributionFunction latestDueDate;
+		private Double latestDueDateInstance;
+		
 		private final boolean adaptDueDatesToSimulationTime;
 
-		private Double startInstance;
-		private Double numberInstance;
-		private Double cycleInstance;
-		private Double earliestDueDateInstance;
-		private Double latestDueDateInstance;
 
 		/**
 		 * @param storableParameters

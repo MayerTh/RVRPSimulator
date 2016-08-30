@@ -1,4 +1,4 @@
-package vrpsim.examples.dynamicvrp.msa.algorithms.operators;
+package vrpsim.examples.dynamicvrp.msa.algorithms.model.operators;
 
 import java.util.List;
 

@@ -2,19 +2,22 @@ package vrpsim.examples.dynamicvrp.msa.algorithms.model;
 
 public class Stop {
 
-	private Stop next;
-	private Stop pre;
-
 	private final String id;
 	private final double demand;
 	private final double edd;
 	private final double ldd;
+	private final double serviceTime;
 
-	public Stop(String id, double demand, double edd, double ldd) {
+	public Stop(String id, double demand, double edd, double ldd, double serviceTime) {
 		this.id = id;
 		this.demand = demand;
 		this.edd = edd;
 		this.ldd = ldd;
+		this.serviceTime = serviceTime;
+	}
+
+	public double getServiceTime() {
+		return serviceTime;
 	}
 
 	public double getDemand() {
@@ -29,28 +32,18 @@ public class Stop {
 		return ldd;
 	}
 
-	public boolean hasNext() {
-		return next != null;
-	}
-
 	public String getId() {
 		return id;
 	}
-
-	public Stop getNext() {
-		return next;
+	
+	@Override
+	public boolean equals(Object obj) {
+		return this.id.equals(((Stop)obj).getId());
 	}
-
-	public void setNext(Stop next) {
-		this.next = next;
-	}
-
-	public Stop getPre() {
-		return pre;
-	}
-
-	public void setPre(Stop pre) {
-		this.pre = pre;
+	
+	@Override
+	public String toString() {
+		return "CustId = " + this.id;
 	}
 
 }

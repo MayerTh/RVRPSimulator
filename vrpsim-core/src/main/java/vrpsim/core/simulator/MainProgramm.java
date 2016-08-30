@@ -45,7 +45,7 @@ public class MainProgramm extends Observable {
 
 	private final IClock clock;
 	private final EventListService eventListInterface;
-	private final HashMap<IEventType, List<IForeignEventListener>> foreignEventListeners;
+	private final HashMap<String, List<IForeignEventListener>> foreignEventListeners;
 
 	private VRPSimulationModel model;
 
@@ -54,7 +54,7 @@ public class MainProgramm extends Observable {
 	public MainProgramm() {
 		this.clock = new Clock();
 		this.eventListInterface = new EventListService();
-		this.foreignEventListeners = new HashMap<IEventType, List<IForeignEventListener>>();
+		this.foreignEventListeners = new HashMap<String, List<IForeignEventListener>>();
 	}
 
 	public IClock getSimulationClock() {
@@ -94,13 +94,13 @@ public class MainProgramm extends Observable {
 				IForeignEventListener foreignEventListener = (IForeignEventListener) element;
 				for (IEventType type : foreignEventListener.registerForEventTypes(types)) {
 					List<IForeignEventListener> fel = new ArrayList<IForeignEventListener>();
-					if (foreignEventListeners.containsKey(type)) {
-						fel = foreignEventListeners.get(type);
+					if (foreignEventListeners.containsKey(type.getType())) {
+						fel = foreignEventListeners.get(type.getType());
 					}
 					fel.add(foreignEventListener);
-					foreignEventListeners.put(type, fel);
-					logger.info("Foreign event listener added class={} for type={} ",
-							element.getClass().getSimpleName(), type.getType());
+					foreignEventListeners.put(type.getType(), fel);
+					logger.info("Foreign event listener added class={} for type={} ", element.getClass().getName(),
+							type.getType());
 				}
 			}
 		}
@@ -163,12 +163,15 @@ public class MainProgramm extends Observable {
 		logger.info("Current simulation time: {}", this.clock.getCurrentSimulationTime().getValue());
 
 		logger.debug("Event (type=" + currentEvent.getType().getType() + ") from "
-				+ currentEvent.getOwner().getClass().getSimpleName() + " will be executed and " + this.countObservers()
-				+ " observers will be notified.");
+				+ currentEvent.getOwner().getClass().getSimpleName());
 
 		// Inform all foreign event listeners.
-		if (this.foreignEventListeners.containsKey(currentEvent.getType())) {
-			for (IForeignEventListener fel : this.foreignEventListeners.get(currentEvent.getType())) {
+		if (this.foreignEventListeners.containsKey(currentEvent.getType().getType())) {
+			logger.debug("For the event type {}, {} IForeignEventListener is/are informed",
+					currentEvent.getType().getType(),
+					this.foreignEventListeners.get(currentEvent.getType().getType()).size());
+			for (IForeignEventListener fel : this.foreignEventListeners.get(currentEvent.getType().getType())) {
+				logger.trace("Inform ", fel);
 				fel.notify(currentEvent, this.clock);
 			}
 		}
@@ -201,7 +204,8 @@ public class MainProgramm extends Observable {
 		if (0 < this.eventListInterface.getNextEvent().getSimulationTimeOfOccurence()
 				.compareTo(this.simulationEndTime)) {
 			logger.info("Simulation ends, current time = {}, simulation end time = {}.",
-					this.eventListInterface.getNextEvent().getSimulationTimeOfOccurence().getValue(), this.simulationEndTime.getValue());
+					this.eventListInterface.getNextEvent().getSimulationTimeOfOccurence().getValue(),
+					this.simulationEndTime.getValue());
 			return true;
 		}
 

@@ -1,14 +1,11 @@
 package vrpsim.examples.dynamicvrp.msa.algorithms.model;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import vrpsim.core.model.behaviour.activities.util.TimeCalculationInformationContainer;
 import vrpsim.core.model.network.INode;
 import vrpsim.core.model.network.IWay;
 import vrpsim.core.model.network.NetworkService;
 import vrpsim.core.model.structure.StructureService;
-import vrpsim.core.model.structure.customer.ICustomer;
 import vrpsim.core.model.structure.util.storage.CanStoreType;
 import vrpsim.core.model.util.exceptions.VRPArithmeticException;
 import vrpsim.core.simulator.IClock;
@@ -52,6 +49,15 @@ public class Route {
 	 */
 	public int getSizeOfRoute() {
 		return stops.size();
+	}
+	
+	/**
+	 * Returns the depot closing time.
+	 * 
+	 * @return
+	 */
+	public double getDepotClosingTime() {
+		return depotClosingTime;
 	}
 
 	/**
@@ -116,7 +122,7 @@ public class Route {
 
 			INode workingNode = (INode) structureService.getCustomer(stop.getId())
 					.getVRPSimulationModelStructureElementParameters().getHome();
-			double workingNodeServiceTime = getServiceTime(structureService.getCustomer(stop.getId()), clock);
+			double workingNodeServiceTime = stop.getServiceTime();
 			double getDistanceWhichEqualsTime = getDistance(currentNode, workingNode);
 
 			currentTime += getDistanceWhichEqualsTime;
@@ -145,12 +151,6 @@ public class Route {
 		return result;
 	}
 
-	private double getServiceTime(ICustomer customer, IClock clock) {
-		TimeCalculationInformationContainer container = new TimeCalculationInformationContainer(null, null, null, null, new Integer(0));
-		return customer.getServiceTime(container, clock).getDoubleValue();
-
-	}
-
 	private int getCapacityOfVehicle(StructureService structure) throws VRPArithmeticException {
 		CanStoreType type = structure.getVehicle(this.vehicleId).getAllCanStoreTypes().get(0);
 		return structure.getVehicle(this.vehicleId).getFreeCapacity(type).getValue().intValue();
@@ -164,17 +164,6 @@ public class Route {
 			}
 		}
 		throw new RuntimeException("No distance between nodes calculateable.");
-	}
-
-	/**
-	 * Returns the customer ids.
-	 * 
-	 * @return
-	 */
-	public List<String> getCustomerIds() {
-		List<String> ids = new ArrayList<>();
-		this.stops.forEach(stop -> ids.add(stop.getId()));
-		return ids;
 	}
 
 	/**
