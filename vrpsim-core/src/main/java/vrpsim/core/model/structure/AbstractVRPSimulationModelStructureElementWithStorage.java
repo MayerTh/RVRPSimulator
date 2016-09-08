@@ -75,14 +75,14 @@ public abstract class AbstractVRPSimulationModelStructureElementWithStorage exte
 
 	@Override
 	public void allocateBy(IVRPSimulationBehaviourElementCanAllocate element) {
-		this.isAvailable = false;
-		this.isAllocatedBy = element;
+//		this.isAvailable = false;
+//		this.isAllocatedBy = element;
 	}
 
 	@Override
 	public void releaseFrom(IVRPSimulationBehaviourElementCanAllocate element) {
-		this.isAvailable = true;
-		this.isAllocatedBy = null;
+//		this.isAvailable = true;
+//		this.isAllocatedBy = null;
 		this.setChanged();
 		this.notifyObservers();
 	}
