@@ -53,5 +53,12 @@ public interface INode extends IVRPSimulationModelNetworkElement {
 	 * @param ways
 	 */
 	public void addWay(IWay way);
+	
+	/**
+	 * Return the {@link IWay} to the given node.
+	 * @param node
+	 * @return
+	 */
+	public IWay getWayTo(INode node);
 
 }

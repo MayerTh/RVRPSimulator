@@ -68,13 +68,14 @@ public class TransportActivity implements IActivity {
 				job.getTransportTarget().getVRPSimulationModelElementParameters().getId());
 
 		this.validate(context);
-		for (IWay way : ((INode) context.getCurrentPlace()).getWays()) {
-			if (way.getTarget().getVRPSimulationModelElementParameters().getId()
-					.equals(job.getTransportTarget().getVRPSimulationModelElementParameters().getId())) {
-				this.usedWay = way;
-				break;
-			}
-		}
+		this.usedWay = ((INode) context.getCurrentPlace()).getWayTo((INode)job.getTransportTarget());
+//		for (IWay way : ((INode) context.getCurrentPlace()).getWays()) {
+//			if (way.getTarget().getVRPSimulationModelElementParameters().getId()
+//					.equals(job.getTransportTarget().getVRPSimulationModelElementParameters().getId())) {
+//				this.usedWay = way;
+//				break;
+//			}
+//		}
 
 		if (usedWay == null) {
 			throw new NoDirectConnectionBetweenNodesException("There is no direct connection between node "

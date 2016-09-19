@@ -50,19 +50,16 @@ public class DefaultNode extends Observable implements INode {
 		return this.vrpSimulationModelElementParameters;
 	}
 
-	
 	@Override
 	public boolean isAvailable(IClock clock) {
 		return true;
 	}
 
-	
 	@Override
 	public void allocateBy(IVRPSimulationBehaviourElementCanAllocate element) {
 		// not relevant for StativDefaultNode.
 	}
 
-	
 	@Override
 	public void releaseFrom(IVRPSimulationBehaviourElementCanAllocate element) {
 		this.setChanged();
@@ -97,6 +94,19 @@ public class DefaultNode extends Observable implements INode {
 	@Override
 	public void addWay(IWay way) {
 		this.ways.add(way);
+	}
+
+	@Override
+	public IWay getWayTo(INode node) {
+		IWay result = null;
+		for (IWay way : this.ways) {
+			if (way.getTarget().getVRPSimulationModelElementParameters().getId()
+					.equals(node.getVRPSimulationModelElementParameters().getId())) {
+				result = way;
+				break;
+			}
+		}
+		return result;
 	}
 
 }
