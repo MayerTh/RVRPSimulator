@@ -11,7 +11,7 @@ Beside the simulation model, RVRPSimulator provides the simulation engine (with 
 ## Documentation
 You can access the full documentation in the [wiki] (https://github.com/MayerTh/RVRPSimulator/wiki), the documentation includes a modelling guide, how to plugin static and dynamic optimizer, how to setup a simulation, how to use the visualization, and much more.
 
-## Open issues and features
+## Open issues and features, see the [issue section] (https://github.com/MayerTh/RVRPSimulator/issues) for details
 * Recording of simulation statistic for evaluation
 * Implementing order state machine
 * Pre-implemented dynamic or static optimization algorithms
