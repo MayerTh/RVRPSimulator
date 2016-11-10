@@ -24,7 +24,7 @@ import vrpsim.core.model.structure.StructureService;
  * 
  * @author mayert
  */
-public interface IStaticBehaviourProvider extends IVRPSimulationSolutionElement {
+public interface IInitialBehaviourProvider extends IVRPSimulationSolutionElement {
 
 	/**
 	 * Creates the static solution of the VRP problem.

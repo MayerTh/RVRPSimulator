@@ -29,4 +29,8 @@ public class BehaviourService {
 		this.behaviour = behaviour;
 	}
 
+	public Behaviour getBehaviour() {
+		return behaviour;
+	}
+
 }

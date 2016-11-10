@@ -29,7 +29,7 @@ import vrpsim.core.simulator.EventListService;
 
 /**
  * A {@link SolutionManager} represents the static solution, {@link Behaviour}
- * in form of {@link IStaticBehaviourProvider} and the dynamic solution in form
+ * in form of {@link IInitialBehaviourProvider} and the dynamic solution in form
  * of {@link IDynamicBehaviourProvider}, implementation is e.g. the
  * {@link OrderManager}.
  * 
@@ -42,11 +42,11 @@ public class SolutionManager implements IVRPSimulationSolutionElement {
 
 	private static Logger logger = LoggerFactory.getLogger(SolutionManager.class);
 
-	private final IStaticBehaviourProvider staticBehaviourProvider;
+	private final IInitialBehaviourProvider staticBehaviourProvider;
 	private IDynamicBehaviourProvider dynamicBehaviourProvider;
 	private Behaviour staticBehaviour;
 
-	public SolutionManager(IStaticBehaviourProvider staticBehaviourProvider) {
+	public SolutionManager(IInitialBehaviourProvider staticBehaviourProvider) {
 		this.staticBehaviourProvider = staticBehaviourProvider;
 	}
 
@@ -64,7 +64,7 @@ public class SolutionManager implements IVRPSimulationSolutionElement {
 	}
 
 	/**
-	 * Initializes the {@link IStaticBehaviourProvider} and the
+	 * Initializes the {@link IInitialBehaviourProvider} and the
 	 * {@link IDynamicBehaviourProvider} and returns the
 	 * {@link IVRPSimulationElement}s.
 	 * 

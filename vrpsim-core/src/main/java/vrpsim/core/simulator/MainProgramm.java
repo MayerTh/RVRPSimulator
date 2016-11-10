@@ -106,39 +106,6 @@ public class MainProgramm extends Observable {
 		}
 	}
 
-	// private void runStep(IEvent currentEvent) throws EventException {
-	//
-	// logger.info("Simulation time: {}", ((Time)
-	// this.clock.getCurrentSimulationTime()).getTimeDouble());
-	//
-	// setChanged();
-	// notifyObservers(currentEvent);
-	// logger.debug("Event (type="+currentEvent.getType()+") from " +
-	// currentEvent.getOwner().getClass().getSimpleName() + " executed and "
-	// + this.countObservers() + " observers notified.");
-	//
-	// if (this.foreignEventListeners.containsKey(currentEvent.getType())) {
-	// for (IForeignEventListener fel :
-	// this.foreignEventListeners.get(currentEvent.getType())) {
-	// fel.notify(currentEvent, this.clock);
-	// }
-	// }
-	//
-	// // Can return null, if no more activity is executed with in the tour.
-	// List<IEvent> newEvents =
-	// currentEvent.getOwner().processEvent(currentEvent, this.clock,
-	// this.eventListInterface);
-	//
-	// if (newEvents != null) {
-	// for (IEvent newEvent : newEvents) {
-	// if (newEvent != null) {
-	// this.eventListInterface.addEvent(this.clock, newEvent);
-	// }
-	// }
-	// }
-	//
-	// }
-
 	public void run(final VRPSimulationModel model, final double simulationEndTime)
 			throws EventException, InterruptedException, InitializationException {
 		this.init(model, simulationEndTime);

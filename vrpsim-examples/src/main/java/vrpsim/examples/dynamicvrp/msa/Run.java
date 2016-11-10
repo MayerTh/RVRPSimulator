@@ -11,8 +11,9 @@ import vrpsim.core.model.behaviour.tour.ITour;
 import vrpsim.core.model.events.OrderEvent;
 import vrpsim.core.model.network.NetworkService;
 import vrpsim.core.model.solution.AbstractOrderManager;
-import vrpsim.core.model.solution.IStaticBehaviourProvider;
+import vrpsim.core.model.solution.IInitialBehaviourProvider;
 import vrpsim.core.model.solution.Order;
+import vrpsim.core.model.solution.OrderState;
 import vrpsim.core.model.solution.SolutionManager;
 import vrpsim.core.model.structure.StructureService;
 import vrpsim.core.model.structure.occasionaldriver.IOccasionalDriver;
@@ -30,7 +31,7 @@ public class Run extends Visualisation {
 		String path = bil.getAvailablePathsToBentInstances().get(0);
 		VRPSimulationModel model = bil.loadBentInstance(path);
 
-		IStaticBehaviourProvider stb = new IStaticBehaviourProvider() {
+		IInitialBehaviourProvider stb = new IInitialBehaviourProvider() {
 			
 			@Override
 			public Behaviour provideBehavior(NetworkService networkService, StructureService structureService) {
@@ -60,7 +61,6 @@ public class Run extends Visualisation {
 				System.out.println("SIMU TIME = " + simulationClock.getCurrentSimulationTime().getDoubleValue());
 				System.out.println("Order menge = " + orderEvent.getOrder().getAmount() + ", order kunde = "
 						+ orderEvent.getOrder().getOwner().getVRPSimulationModelElementParameters().getId());
-				
 			}
 		});
 		model.setSolutionManager(sm);
