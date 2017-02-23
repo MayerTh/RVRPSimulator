@@ -29,6 +29,7 @@ import vrpsim.core.model.solution.PublicOrderPlatform;
 import vrpsim.core.model.structure.VRPSimulationModelStructureElementParameters;
 import vrpsim.core.model.structure.util.storage.DefaultStorageManager;
 import vrpsim.core.model.util.exceptions.EventException;
+import vrpsim.core.model.util.functions.ITimeFunction;
 import vrpsim.core.simulator.EventListService;
 import vrpsim.core.simulator.IClock;
 import vrpsim.core.simulator.ITime;
@@ -90,6 +91,12 @@ public class OccasionalDriver extends AbstractOccasionalDriver {
 
 	@Override
 	public ITime getServiceTime(TimeCalculationInformationContainer container, IClock clock) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	@Override
+	public ITimeFunction getServiceTimeFunction() {
 		// TODO Auto-generated method stub
 		return null;
 	}

@@ -39,11 +39,4 @@ public interface ICustomer extends IEventOwner, IVRPSimulationModelStructureElem
 	 */
 	public List<Order> getAllCreatedOrders();
 	
-	/**
-	 * Returns the {@link ITimeFunction} used to calculate the service time.
-	 * 
-	 * @return
-	 */
-	public ITimeFunction getServiceTimeFunction();
-	
 }

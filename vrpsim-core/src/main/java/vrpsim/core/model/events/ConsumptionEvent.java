@@ -16,7 +16,7 @@
 package vrpsim.core.model.events;
 
 import vrpsim.core.model.solution.Order;
-import vrpsim.core.model.util.uncertainty.UncertainParamters;
+import vrpsim.core.model.util.uncertainty.UncertainParameterContainer;
 import vrpsim.core.simulator.ITime;
 
 public class ConsumptionEvent implements IEvent {
@@ -27,11 +27,10 @@ public class ConsumptionEvent implements IEvent {
 	private final ITime timeTillOccurence;
 
 	private Order order;
-	private UncertainParamters.UncertainParameterContainer container;
+	private UncertainParameterContainer container;
 	private ITime simulationtimeTillOccurence;
 
-	public ConsumptionEvent(IEventOwner owner, IEventType type, Integer priority, ITime timeTillOccurence, Order order,
-			UncertainParamters.UncertainParameterContainer container) {
+	public ConsumptionEvent(IEventOwner owner, IEventType type, Integer priority, ITime timeTillOccurence, Order order, UncertainParameterContainer container) {
 		this.owner = owner;
 		this.type = type;
 		this.priority = priority;
@@ -40,7 +39,7 @@ public class ConsumptionEvent implements IEvent {
 		this.container = container;
 	}
 
-	public UncertainParamters.UncertainParameterContainer getContainer() {
+	public UncertainParameterContainer getContainer() {
 		return container;
 	}
 

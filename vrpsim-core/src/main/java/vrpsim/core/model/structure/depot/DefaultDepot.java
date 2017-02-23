@@ -37,6 +37,7 @@ import vrpsim.core.model.util.exceptions.VRPArithmeticException;
 import vrpsim.core.model.util.exceptions.detail.ErrorDuringEventProcessingException;
 import vrpsim.core.model.util.exceptions.detail.RejectEventException;
 import vrpsim.core.model.util.functions.ITimeFunction;
+import vrpsim.core.model.util.uncertainty.UncertainParameterContainer;
 import vrpsim.core.model.util.uncertainty.UncertainParamters;
 import vrpsim.core.simulator.EventListService;
 import vrpsim.core.simulator.IClock;
@@ -56,9 +57,8 @@ public class DefaultDepot extends AbstractVRPSimulationModelStructureElementWith
 	private final ITimeFunction serviceTime;
 
 	public DefaultDepot(final VRPSimulationModelElementParameters vrpSimulationModelElementParameters,
-			final VRPSimulationModelStructureElementParameters vrpSimulationModelStructureElementParameters,
-			final UncertainParamters arrivalParameters, final DefaultStorageManager storageManager,
-			final ITimeFunction serviceTime) {
+			final VRPSimulationModelStructureElementParameters vrpSimulationModelStructureElementParameters, final UncertainParamters arrivalParameters,
+			final DefaultStorageManager storageManager, final ITimeFunction serviceTime) {
 
 		super(vrpSimulationModelElementParameters, vrpSimulationModelStructureElementParameters, storageManager);
 		this.arrivalParameters = arrivalParameters;
@@ -82,7 +82,7 @@ public class DefaultDepot extends AbstractVRPSimulationModelStructureElementWith
 
 		// Create an event for each storable type consumed by the consumer.
 		List<IEvent> events = new ArrayList<IEvent>();
-		for (UncertainParamters.UncertainParameterContainer container : this.arrivalParameters.getParameter()) {
+		for (UncertainParameterContainer container : this.arrivalParameters.getParameter()) {
 			events.add(createEvent(container, clock, true));
 		}
 		return events;
@@ -96,25 +96,21 @@ public class DefaultDepot extends AbstractVRPSimulationModelStructureElementWith
 	 * vrpsim.core.model.util.events.IEventOwner#processOwnEvent(vrpsim.core.
 	 * model.util.events.IEvent, vrpsim.core.simulator.IClock)
 	 */
-	public List<IEvent> processEvent(IEvent event, IClock clock, EventListService eventListAnalyzer)
-			throws EventException {
+	public List<IEvent> processEvent(IEvent event, IClock clock, EventListService eventListAnalyzer) throws EventException {
 
 		if (!(event.getType().equals(this.eventTypes.get(0))) || !(event instanceof UncertainEvent)) {
-			throw new RejectEventException(
-					"Event type " + event.getType() + " not supported from " + this.getClass().getSimpleName());
+			throw new RejectEventException("Event type " + event.getType() + " not supported from " + this.getClass().getSimpleName());
 		} else {
 
 			// Logic of a consumer.
 			UncertainEvent cEvent = (UncertainEvent) event;
-			int numberOfArrived = cEvent.getContainer().getNumber().intValue();
-			logger.debug("In {} with id {} just arrived {} from storable type {}.", this.getClass().getSimpleName(),
-					this.vrpSimulationModelElementParameters.getId(), numberOfArrived,
-					cEvent.getContainer().getStorableParameters().getStorableType().getId());
+			int numberOfArrived = cEvent.getContainer().getNewRealizationFromNumberDistributionFunction().intValue();
+			logger.debug("In {} with id {} just arrived {} from storable type {}.", this.getClass().getSimpleName(), this.vrpSimulationModelElementParameters.getId(),
+					numberOfArrived, cEvent.getContainer().getStorableParameters().getStorableType().getId());
 
 			for (CanStoreType type : this.getAllCanStoreTypes()) {
 				try {
-					this.storageManager.loadGeneratedIn(type, cEvent.getContainer().getNumber().intValue(),
-							cEvent.getContainer().getStorableParameters());
+					this.storageManager.loadGeneratedIn(type, cEvent.getContainer().getNewRealizationFromNumberDistributionFunction().intValue(), cEvent.getContainer().getStorableParameters());
 				} catch (StorageException | VRPArithmeticException exception) {
 					exception.printStackTrace();
 					String msg = exception.getClass().getSimpleName() + ": " + exception.getMessage();
@@ -126,7 +122,7 @@ public class DefaultDepot extends AbstractVRPSimulationModelStructureElementWith
 			this.storageManager.printDebugInformationForStorage(this.vrpSimulationModelElementParameters.getId());
 			List<IEvent> events = new ArrayList<>();
 			if (cEvent.getContainer().isCyclic()) {
-				cEvent.getContainer().resetInstances();
+//				cEvent.getContainer().resetInstances();
 				events.add(createEvent(cEvent.getContainer(), clock, false));
 			}
 			return events;
@@ -151,11 +147,9 @@ public class DefaultDepot extends AbstractVRPSimulationModelStructureElementWith
 		return this.eventTypes;
 	}
 
-	private IEvent createEvent(UncertainParamters.UncertainParameterContainer container, IClock clock,
-			boolean isInitialEvent) {
-		double t = isInitialEvent ? container.getStart() : container.getCycle();
-		UncertainEvent event = new UncertainEvent(this, this.eventTypes.get(0),
-				clock.getCurrentSimulationTime().createTimeFrom(t), container);
+	private IEvent createEvent(UncertainParameterContainer container, IClock clock, boolean isInitialEvent) {
+		double t = isInitialEvent ? container.getNewRealizationFromStartDistributionFunction() : container.getNewRealizationOfCycleDistributionFunction();
+		UncertainEvent event = new UncertainEvent(this, this.eventTypes.get(0), clock.getCurrentSimulationTime().createTimeFrom(t), container);
 		return event;
 	}
 

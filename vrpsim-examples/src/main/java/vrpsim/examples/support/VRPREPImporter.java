@@ -34,16 +34,16 @@ import org.vrprep.model.util.Instances;
 import vrpsim.core.model.VRPSimulationModel;
 import vrpsim.core.model.VRPSimulationModelElementParameters;
 import vrpsim.core.model.VRPSimulationModelParameters;
+import vrpsim.core.model.network.DefaultNode;
+import vrpsim.core.model.network.DefaultWay;
 import vrpsim.core.model.network.INode;
 import vrpsim.core.model.network.IWay;
 import vrpsim.core.model.network.Location;
 import vrpsim.core.model.network.Network;
-import vrpsim.core.model.network.DefaultNode;
-import vrpsim.core.model.network.DefaultWay;
 import vrpsim.core.model.structure.Structure;
 import vrpsim.core.model.structure.VRPSimulationModelStructureElementParameters;
-import vrpsim.core.model.structure.customer.StaticCustomerWithConsumption;
 import vrpsim.core.model.structure.customer.ICustomer;
+import vrpsim.core.model.structure.customer.StaticCustomerWithConsumption;
 import vrpsim.core.model.structure.depot.DefaultDepot;
 import vrpsim.core.model.structure.depot.IDepot;
 import vrpsim.core.model.structure.driver.DefaultDriver;
@@ -64,12 +64,12 @@ import vrpsim.core.model.structure.vehicle.DefaultVehicle;
 import vrpsim.core.model.structure.vehicle.IVehicle;
 import vrpsim.core.model.util.exceptions.StorageException;
 import vrpsim.core.model.util.exceptions.VRPArithmeticException;
-import vrpsim.core.model.util.functions.Euclidean2DDistanceFunction;
 import vrpsim.core.model.util.functions.DeterministicTimeFunction;
+import vrpsim.core.model.util.functions.Euclidean2DDistanceFunction;
 import vrpsim.core.model.util.policies.LIFOLoadingPolicy;
 import vrpsim.core.model.util.uncertainty.DeterministicDistributionFunction;
 import vrpsim.core.model.util.uncertainty.UncertainParamters;
-import vrpsim.core.model.util.uncertainty.UncertainParamters.UncertainParameterContainer;
+import vrpsim.core.model.util.uncertainty.UncertainParameterContainer;
 
 /**
  * @date 24.02.2016
@@ -92,9 +92,8 @@ public class VRPREPImporter {
 	private final CanStoreType canStoreType;
 	private final StorableParameters storableParameters;
 
-	public VRPREPImporter(String STORAGE_TYPE_1, String STORABLE_TYPE_1, String CAPACITY_TYPE_1,
-			double consumptionCycleTime, double maxCustomerStorageCapacity, int numberOfStorablesInDepot,
-			int numberOfVehicles) {
+	public VRPREPImporter(String STORAGE_TYPE_1, String STORABLE_TYPE_1, String CAPACITY_TYPE_1, double consumptionCycleTime, double maxCustomerStorageCapacity,
+			int numberOfStorablesInDepot, int numberOfVehicles) {
 		this.STORAGE_TYPE_1 = STORAGE_TYPE_1;
 		this.STORABLE_TYPE_1 = STORABLE_TYPE_1;
 		this.CAPACITY_UNIT_1 = CAPACITY_TYPE_1;
@@ -105,12 +104,10 @@ public class VRPREPImporter {
 
 		this.canStoreType = new CanStoreType(this.STORAGE_TYPE_1);
 		this.capacityUnit = this.CAPACITY_UNIT_1;
-		this.storableParameters = new StorableParameters(1, new Capacity(this.capacityUnit, 1.0),
-				new StorableType(this.STORABLE_TYPE_1, this.canStoreType));
+		this.storableParameters = new StorableParameters(1, new Capacity(this.capacityUnit, 1.0), new StorableType(this.STORABLE_TYPE_1, this.canStoreType));
 	}
 
-	public VRPSimulationModel getSimulationModelWithoutSolutionFromVRPREPModel(Path inputPath)
-			throws JAXBException, VRPArithmeticException, StorageException {
+	public VRPSimulationModel getSimulationModelWithoutSolutionFromVRPREPModel(Path inputPath) throws JAXBException, VRPArithmeticException, StorageException {
 
 		Instance instance = loadInstance(inputPath);
 		Network network = getNetworkFromVRPREP(instance);
@@ -119,11 +116,9 @@ public class VRPREPImporter {
 		List<IVehicle> vehicles = getVehiclesFromVRPREP(instance, network.getNodes());
 		List<IDriver> drivers = getDriversFromVRPREP(instance, vehicles);
 		List<IOccasionalDriver> occasionalDrivers = new ArrayList<>();
-		Structure structure = new Structure(this.storableParameters, depots, customers, vehicles, drivers,
-				occasionalDrivers);
+		Structure structure = new Structure(this.storableParameters, depots, customers, vehicles, drivers, occasionalDrivers);
 
-		VRPSimulationModelParameters vrpSimulationModelParameters = new VRPSimulationModelParameters(
-				inputPath.toString(), "Thomas Mayer");
+		VRPSimulationModelParameters vrpSimulationModelParameters = new VRPSimulationModelParameters(inputPath.toString(), "Thomas Mayer");
 		logger.debug("Simultaion model generated");
 
 		return new VRPSimulationModel(vrpSimulationModelParameters, structure, network);
@@ -148,52 +143,44 @@ public class VRPREPImporter {
 		Double vehicleCapacity = instance.getFleet().getVehicleProfile().get(0).getCapacity();
 
 		for (int i = 0; i < this.numberOfVehicles; i++) {
-			VRPSimulationModelStructureElementParameters structureElementParameters = new VRPSimulationModelStructureElementParameters(
-					getNode(nodeId, nodes));
+			VRPSimulationModelStructureElementParameters structureElementParameters = new VRPSimulationModelStructureElementParameters(getNode(nodeId, nodes));
 
 			// No breakdown.
 			UncertainParamters breakdownParameters = new UncertainParamters();
 
-			CanStoreParameters compartmentParameters = new CanStoreParameters(canStoreType,
-					new Capacity(capacityUnit, vehicleCapacity), new LIFOLoadingPolicy(), new StorableGenerator(this.storableParameters));
+			CanStoreParameters compartmentParameters = new CanStoreParameters(canStoreType, new Capacity(capacityUnit, vehicleCapacity), new LIFOLoadingPolicy(),
+					new StorableGenerator(this.storableParameters));
 			ICanStore compartment = new Compartment(compartmentParameters);
 			DefaultStorageManager storageManager = new DefaultStorageManager(new DefaultStorage(compartment));
 
-			VRPSimulationModelElementParameters elementParameters = new VRPSimulationModelElementParameters(
-					"VEHICLE-" + i, 0);
-			IVehicle vehicle = new DefaultVehicle(elementParameters, structureElementParameters, breakdownParameters,
-					storageManager, 80.0);
+			VRPSimulationModelElementParameters elementParameters = new VRPSimulationModelElementParameters("VEHICLE-" + i, 0);
+			IVehicle vehicle = new DefaultVehicle(elementParameters, structureElementParameters, breakdownParameters, storageManager, 80.0);
 			vehicles.add(vehicle);
-			logger.debug("Vehicle {} created with capacity {} and location {}",
-					vehicle.getVRPSimulationModelElementParameters().getId(), vehicleCapacity, nodeId);
+			logger.debug("Vehicle {} created with capacity {} and location {}", vehicle.getVRPSimulationModelElementParameters().getId(), vehicleCapacity, nodeId);
 		}
 
 		return vehicles;
 	}
 
-	private List<IDepot> getDepotsFromVRPREP(Instance instance, List<INode> nodes)
-			throws VRPArithmeticException, StorageException {
+	private List<IDepot> getDepotsFromVRPREP(Instance instance, List<INode> nodes) throws VRPArithmeticException, StorageException {
 		List<IDepot> depots = new ArrayList<IDepot>();
 		String nodeId = instance.getFleet().getVehicleProfile().get(0).getArrivalNode().get(0).toString();
 
 		VRPSimulationModelElementParameters elementParameters = new VRPSimulationModelElementParameters("DEPOT", 0);
-		VRPSimulationModelStructureElementParameters structureElementParameters = new VRPSimulationModelStructureElementParameters(
-				getNode(nodeId, nodes));
+		VRPSimulationModelStructureElementParameters structureElementParameters = new VRPSimulationModelStructureElementParameters(getNode(nodeId, nodes));
 
 		// No arrival.
 		UncertainParamters arrivalParameters = new UncertainParamters();
 		StorableGenerator storableGenerator = new StorableGenerator(this.storableParameters);
 
-		CanStoreParameters compartmentParameters = new CanStoreParameters(canStoreType,
-				new Capacity(capacityUnit, this.maxCustomerStorageCapacity), new LIFOLoadingPolicy(),
+		CanStoreParameters compartmentParameters = new CanStoreParameters(canStoreType, new Capacity(capacityUnit, this.maxCustomerStorageCapacity), new LIFOLoadingPolicy(),
 				storableGenerator);
 		ICanStore compartment = new Compartment(compartmentParameters);
 		DefaultStorageManager storageManager = new DefaultStorageManager(new DefaultStorage(compartment));
 
 		IDepot depot = new DefaultDepot(elementParameters, structureElementParameters, arrivalParameters, storageManager, new DeterministicTimeFunction(0.0));
 
-		logger.debug("Depot generated on location {}.",
-				structureElementParameters.getHome().getVRPSimulationModelElementParameters().getId());
+		logger.debug("Depot generated on location {}.", structureElementParameters.getHome().getVRPSimulationModelElementParameters().getId());
 
 		for (int i = 0; i < this.numberOfStorablesInDepot; i++) {
 			IStorable storable = storableGenerator.generateStorable(storableParameters);
@@ -216,25 +203,20 @@ public class VRPREPImporter {
 			String nodeId = request.getNode().toString();
 			logger.debug("Request found with amount {} on node with id {}", amount, nodeId);
 
-			VRPSimulationModelElementParameters elementParameters = new VRPSimulationModelElementParameters(
-					"CUSTOMER-" + requestId, 0);
-			VRPSimulationModelStructureElementParameters structureElementParameters = new VRPSimulationModelStructureElementParameters(
-					getNode(nodeId, nodes));
+			VRPSimulationModelElementParameters elementParameters = new VRPSimulationModelElementParameters("CUSTOMER-" + requestId, 0);
+			VRPSimulationModelStructureElementParameters structureElementParameters = new VRPSimulationModelStructureElementParameters(getNode(nodeId, nodes));
 
-			
-			UncertainParameterContainer consumparameterContainer = new UncertainParamters.UncertainParameterContainer(
-					storableParameters, new DeterministicDistributionFunction(amount),
-					new DeterministicDistributionFunction(0.0), new DeterministicDistributionFunction(consumptionCycleTime), false, true);
+			UncertainParameterContainer consumparameterContainer = new UncertainParameterContainer(storableParameters, new DeterministicDistributionFunction(amount),
+					new DeterministicDistributionFunction(0.0), new DeterministicDistributionFunction(consumptionCycleTime), false);
 			UncertainParamters consumptionParameters = new UncertainParamters(consumparameterContainer);
 
-			CanStoreParameters compartmentParameters = new CanStoreParameters(canStoreType,
-					new Capacity(capacityUnit, this.maxCustomerStorageCapacity), new LIFOLoadingPolicy(),
+			CanStoreParameters compartmentParameters = new CanStoreParameters(canStoreType, new Capacity(capacityUnit, this.maxCustomerStorageCapacity), new LIFOLoadingPolicy(),
 					new StorableGenerator(this.storableParameters));
 			ICanStore compartment = new Compartment(compartmentParameters);
 			DefaultStorageManager storageManager = new DefaultStorageManager(new DefaultStorage(compartment));
 
-			StaticCustomerWithConsumption dndc = new StaticCustomerWithConsumption(elementParameters,
-					structureElementParameters, consumptionParameters, storageManager, new DeterministicTimeFunction(0.0));
+			StaticCustomerWithConsumption dndc = new StaticCustomerWithConsumption(elementParameters, structureElementParameters, consumptionParameters, storageManager,
+					new DeterministicTimeFunction(0.0));
 			customers.add(dndc);
 			logger.debug("Parameterized customer build {}.", dndc.getVRPSimulationModelElementParameters().getId());
 		}
@@ -248,8 +230,7 @@ public class VRPREPImporter {
 		for (Node node : instance.getNetwork().getNodes().getNode()) {
 			logger.debug("Node {} with coords: {}, {}, {}.", node.getId(), node.getCx(), node.getCy(), node.getCz());
 			Location location = new Location(node.getCx(), node.getCy(), node.getCz());
-			VRPSimulationModelElementParameters vrpSimulationModelElementParameters = new VRPSimulationModelElementParameters(
-					"NODE-" + node.getId().toString(), 0);
+			VRPSimulationModelElementParameters vrpSimulationModelElementParameters = new VRPSimulationModelElementParameters("NODE-" + node.getId().toString(), 0);
 			INode simNode = new DefaultNode(vrpSimulationModelElementParameters, location);
 			nodes.add(simNode);
 			logger.debug("StaticDefaultNode build {}", simNode.getVRPSimulationModelElementParameters().getId());
@@ -266,18 +247,13 @@ public class VRPREPImporter {
 				// .equals(node2.getVRPSimulationModelElementParameters().getId()))
 				// {
 
-				String id = node1.getVRPSimulationModelElementParameters().getId() + "-"
-						+ node2.getVRPSimulationModelElementParameters().getId();
-				VRPSimulationModelElementParameters vrpSimulationModelElementParameters = new VRPSimulationModelElementParameters(
-						id, 0);
-				IWay way = new DefaultWay(vrpSimulationModelElementParameters,
-						new DeterministicTimeFunction(0.0), node1, node2, new Euclidean2DDistanceFunction(), 100.0);
+				String id = node1.getVRPSimulationModelElementParameters().getId() + "-" + node2.getVRPSimulationModelElementParameters().getId();
+				VRPSimulationModelElementParameters vrpSimulationModelElementParameters = new VRPSimulationModelElementParameters(id, 0);
+				IWay way = new DefaultWay(vrpSimulationModelElementParameters, new DeterministicTimeFunction(0.0), node1, node2, new Euclidean2DDistanceFunction(), 100.0);
 				ways.add(way);
 
-				logger.trace("Build StaticDefaultWay {} from {} to {}.",
-						way.getVRPSimulationModelElementParameters().getId(),
-						node1.getVRPSimulationModelElementParameters().getId(),
-						node2.getVRPSimulationModelElementParameters().getId());
+				logger.trace("Build StaticDefaultWay {} from {} to {}.", way.getVRPSimulationModelElementParameters().getId(),
+						node1.getVRPSimulationModelElementParameters().getId(), node2.getVRPSimulationModelElementParameters().getId());
 				// }
 
 			}

@@ -40,7 +40,7 @@ import vrpsim.core.model.util.exceptions.VRPArithmeticException;
 import vrpsim.core.model.util.exceptions.detail.ErrorDuringEventProcessingException;
 import vrpsim.core.model.util.functions.ITimeFunction;
 import vrpsim.core.model.util.uncertainty.UncertainParamters;
-import vrpsim.core.model.util.uncertainty.UncertainParamters.UncertainParameterContainer;
+import vrpsim.core.model.util.uncertainty.UncertainParameterContainer;
 import vrpsim.core.simulator.EventListService;
 import vrpsim.core.simulator.IClock;
 import vrpsim.core.simulator.ITime;
@@ -49,10 +49,10 @@ import vrpsim.core.simulator.ITime;
  * {@link StaticCustomerWithConsumption} creates {@link OrderEvent} after
  * configuration in {@link UncertainParamters}.
  * 
- * At {@link UncertainParameterContainer#getStart()} the first
+ * At {@link UncertainParameterContainer#getNewRealizationFromStartDistributionFunction()} the first
  * {@link OrderEvent} is generated. The second {@link OrderEvent} is generated
- * at {@link UncertainParameterContainer#getStart()} +
- * {@link UncertainParameterContainer#getCycle()} and so on. No consumption of
+ * at {@link UncertainParameterContainer#getNewRealizationFromStartDistributionFunction()} +
+ * {@link UncertainParameterContainer#getNewRealizationOfCycleDistributionFunction()} and so on. No consumption of
  * goods is triggered.
  * 
  * @author mayert
@@ -92,7 +92,7 @@ public class DynamicCustomerWithConsumption extends AbstractVRPSimulationModelSt
 	@Override
 	public List<IEvent> getInitialEvents(IClock clock) {
 		List<IEvent> initialEvents = new ArrayList<>();
-		for (UncertainParamters.UncertainParameterContainer container : this.orderParameters.getParameter()) {
+		for (UncertainParameterContainer container : this.orderParameters.getParameter()) {
 			initialEvents.add(createTRIGGERING_ORDER_EVENT(container, clock, true));
 		}
 		return initialEvents;
@@ -110,7 +110,7 @@ public class DynamicCustomerWithConsumption extends AbstractVRPSimulationModelSt
 			// created.
 			events = new ArrayList<>();
 			if (uncertainEvent.getContainer().isCyclic()) {
-				uncertainEvent.getContainer().resetInstances();
+//				uncertainEvent.getContainer().resetInstances();
 				events.add(createTRIGGERING_ORDER_EVENT(uncertainEvent.getContainer(), clock, false));
 			}
 			events.addAll(createORDER_AND_CONSUMPTION_EVENT(uncertainEvent.getContainer(), clock));
@@ -162,9 +162,9 @@ public class DynamicCustomerWithConsumption extends AbstractVRPSimulationModelSt
 		return this.orderParameters;
 	}
 
-	private IEvent createTRIGGERING_ORDER_EVENT(UncertainParamters.UncertainParameterContainer container, IClock clock,
+	private IEvent createTRIGGERING_ORDER_EVENT(UncertainParameterContainer container, IClock clock,
 			boolean isInitialEvent) {
-		double t = isInitialEvent ? container.getStart() : container.getCycle();
+		double t = isInitialEvent ? container.getNewRealizationFromStartDistributionFunction() : container.getNewRealizationOfCycleDistributionFunction();
 		return new UncertainEvent(this, () -> IEventType.TRIGGERING_ORDER_EVENT,
 				clock.getCurrentSimulationTime().createTimeFrom(t), container);
 	}
@@ -173,17 +173,17 @@ public class DynamicCustomerWithConsumption extends AbstractVRPSimulationModelSt
 			throws EventException {
 
 		ITime earliestDueDate = null;
-		if(container.getEarliestDueDate() != null) {
+		if(container.getNewRealizationFromEarliestDueDateDistributionFunction() != null) {
 			earliestDueDate = container.isAdaptDueDatesToSimulationTime() 
-				? clock.getCurrentSimulationTime().add(clock.getCurrentSimulationTime().createTimeFrom(container.getEarliestDueDate())) 
-				: clock.getCurrentSimulationTime().createTimeFrom(container.getEarliestDueDate());
+				? clock.getCurrentSimulationTime().add(clock.getCurrentSimulationTime().createTimeFrom(container.getNewRealizationFromEarliestDueDateDistributionFunction())) 
+				: clock.getCurrentSimulationTime().createTimeFrom(container.getNewRealizationFromEarliestDueDateDistributionFunction());
 		}
 		
 		ITime latestDueDate = null;
-		if(container.getLatestDueDate() != null) {
+		if(container.getNewRealizationFromLatestDueDateDistributionFunction() != null) {
 			latestDueDate = container.isAdaptDueDatesToSimulationTime() 
-				? clock.getCurrentSimulationTime().add(clock.getCurrentSimulationTime().createTimeFrom(container.getLatestDueDate())) 
-				: clock.getCurrentSimulationTime().createTimeFrom(container.getLatestDueDate());
+				? clock.getCurrentSimulationTime().add(clock.getCurrentSimulationTime().createTimeFrom(container.getNewRealizationFromLatestDueDateDistributionFunction())) 
+				: clock.getCurrentSimulationTime().createTimeFrom(container.getNewRealizationFromLatestDueDateDistributionFunction());
 		}
 		
 //		ITime earliestDueDate = container.getEarliestDueDate() != null
@@ -196,7 +196,7 @@ public class DynamicCustomerWithConsumption extends AbstractVRPSimulationModelSt
 //				: null;
 
 		Order order = new Order(createOrderId(clock.getCurrentSimulationTime()), earliestDueDate, latestDueDate,
-				container.getStorableParameters().getStorableType(), container.getNumber().intValue(),
+				container.getStorableParameters().getStorableType(), container.getNewRealizationFromNumberDistributionFunction().intValue(),
 				this);
 
 		// Save order in history.
@@ -210,7 +210,7 @@ public class DynamicCustomerWithConsumption extends AbstractVRPSimulationModelSt
 		// The consumption of the order is discribed with an ConcumptionEvent.
 		// It is triggered for the latest DueDate of the order.
 		ConsumptionEvent consumptionEvent = new ConsumptionEvent(this, () -> IEventType.CONSUMPTION_EVENT, 0,
-				clock.getCurrentSimulationTime().createTimeFrom(container.getLatestDueDate()), order,
+				clock.getCurrentSimulationTime().createTimeFrom(container.getNewRealizationFromLatestDueDateDistributionFunction()), order,
 				container);
 
 		List<IEvent> events = new ArrayList<>();

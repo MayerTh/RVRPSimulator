@@ -15,6 +15,8 @@
  */
 package vrpsim.core.model.structure.util.storage;
 
+import java.util.UUID;
+
 /**
  * Defines the type of a {@link ICanStore}. Is referenced by
  * {@link StorableType} in {@link StorableParameters} for an {@link IStorable},
@@ -25,14 +27,21 @@ package vrpsim.core.model.structure.util.storage;
 public class CanStoreType {
 
 	private final String id;
+	private final Long lId;
 
 	public CanStoreType(String id) {
 		super();
 		this.id = id;
+//		this.lId = UUID.fromString(this.id).getMostSignificantBits();
+		this.lId = UUID.randomUUID().getMostSignificantBits();
 	}
 
 	public String getId() {
 		return id;
+	}
+
+	public Long getlId() {
+		return lId;
 	}
 
 	/*

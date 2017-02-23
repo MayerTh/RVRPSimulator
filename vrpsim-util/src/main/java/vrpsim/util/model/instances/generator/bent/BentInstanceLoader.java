@@ -16,19 +16,13 @@
 package vrpsim.util.model.instances.generator.bent;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
-import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
-import java.util.jar.JarEntry;
-import java.util.jar.JarFile;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -70,7 +64,9 @@ import vrpsim.core.model.util.functions.IDistanceFunction;
 import vrpsim.core.model.util.functions.ITimeFunction;
 import vrpsim.core.model.util.policies.LIFOLoadingPolicy;
 import vrpsim.core.model.util.uncertainty.DeterministicDistributionFunction;
+import vrpsim.core.model.util.uncertainty.UncertainParameterContainer;
 import vrpsim.core.model.util.uncertainty.UncertainParamters;
+import vrpsim.util.model.instances.generator.util.InstanceLoaderUtil;
 
 /**
  * {@link BentInstanceLoader} loads the problem instances introduced in: Bent,
@@ -102,6 +98,8 @@ public class BentInstanceLoader {
 	private final Capacity singleCapacity = new Capacity(capacityUnit, 1.0); // 4
 	private final StorableParameters storableParameters = new StorableParameters(1, singleCapacity, storableType); // 5
 
+	private final InstanceLoaderUtil instanceLoaderUtil = new InstanceLoaderUtil();
+
 	/**
 	 * Returns a list of internal paths of files representing an VRP instance
 	 * from Bent & Van Hentenryck.
@@ -113,30 +111,10 @@ public class BentInstanceLoader {
 
 		List<String> availableInstances = new ArrayList<>();
 		final String path = "dynamicvrp/bent2003/class";
-		final File jarFile = new File(getClass().getProtectionDomain().getCodeSource().getLocation().getPath());
-
-		if (jarFile.isFile()) {
-			final JarFile jar = new JarFile(jarFile);
-			final Enumeration<JarEntry> entries = jar.entries();
-			while (entries.hasMoreElements()) {
-				final String name = entries.nextElement().getName();
-				if (name.startsWith(path) && !name.endsWith("/")) {
-					availableInstances.add("/" + name);
-				}
-			}
-			jar.close();
-		} else {
-			for(int i = 1; i <= 4; i++) {
-				String resoucre = "/" + path + i;
-				BufferedReader br = new BufferedReader(new InputStreamReader(BentInstanceLoader.class.getResourceAsStream(resoucre)));
-				String name = "";
-				while((name = br.readLine()) != null) {
-					availableInstances.add("/" + path + i + "/" + name);
-				}
-			}
-			
+		for (int i = 1; i <= 4; i++) {
+			String instance = "/" + path + i;
+			availableInstances.addAll(this.instanceLoaderUtil.getAvailablePathsToInstances(instance));
 		}
-
 		return availableInstances;
 	}
 
@@ -149,29 +127,14 @@ public class BentInstanceLoader {
 	 * @throws URISyntaxException 
 	 */
 	public VRPSimulationModel loadBentInstance(String path) throws IOException, URISyntaxException {
-		
-		logger.info("Loading Bent & Van Hentenryck instance as stream: {}", path);
-		BufferedReader br = new BufferedReader(new InputStreamReader(BentInstanceLoader.class.getResourceAsStream(path)));
-		
-		File file = new File("dummy");
-		BufferedWriter bw = new BufferedWriter(new FileWriter(file));
-		String line = "";
-		String debug = "\n\n";
-		while((line = br.readLine()) != null) {
-			bw.write(line);
-			bw.newLine();
-			debug += line + "\n";
-		}
-		bw.close();
 
-		logger.debug("Following Bent & Van Hentenryck instance loaded: {}", debug);
-		
+		File file = this.instanceLoaderUtil.loadInstance(path);
 		Network network = createNetwork(file);
 		Structure structure = createStructure(file, network.getNetworkService());
 		VRPSimulationModelParameters vrpSimulationModelParameters = new VRPSimulationModelParameters(path, path);
-		
+
 		file.delete();
-		
+
 		return new VRPSimulationModel(vrpSimulationModelParameters, structure, network);
 	}
 
@@ -181,8 +144,7 @@ public class BentInstanceLoader {
 		String[] firstLine = br.readLine().split("\\t");
 		br.close();
 
-		List<IVehicle> vehicles = getVehicles(Integer.parseInt(firstLine[7]), Double.parseDouble(firstLine[3]),
-				networkService);
+		List<IVehicle> vehicles = getVehicles(Integer.parseInt(firstLine[7]), Double.parseDouble(firstLine[3]), networkService);
 		List<IDriver> drivers = getDrivers(Integer.parseInt(firstLine[7]), networkService);
 		List<IDepot> depots = getDepots(networkService);
 		List<ICustomer> customers = getCustomers(file, networkService);
@@ -200,8 +162,7 @@ public class BentInstanceLoader {
 
 			if (line.startsWith(BentInstanceLoaderConstants.START_KNOWN_REQUESTS)) {
 				while (!line.isEmpty()) {
-					if (!line.startsWith(BentInstanceLoaderConstants.TEABLE_HEADER_CUSTOMER)
-							&& !line.startsWith(BentInstanceLoaderConstants.START_KNOWN_REQUESTS)) {
+					if (!line.startsWith(BentInstanceLoaderConstants.TEABLE_HEADER_CUSTOMER) && !line.startsWith(BentInstanceLoaderConstants.START_KNOWN_REQUESTS)) {
 
 						logger.debug("Start creating static customer from line: {}", line);
 
@@ -213,32 +174,24 @@ public class BentInstanceLoader {
 						String demand = staticCustomerInfo[5];
 						String serviceTime = staticCustomerInfo[6];
 
-						VRPSimulationModelElementParameters elementParameters = new VRPSimulationModelElementParameters(
-								"staticcustomer-" + id, 1);
+						VRPSimulationModelElementParameters elementParameters = new VRPSimulationModelElementParameters("staticcustomer-" + id, 1);
 						VRPSimulationModelStructureElementParameters structureElementParameters = new VRPSimulationModelStructureElementParameters(
 								networkService.getNetworkElement(id));
 
-						UncertainParamters consumptionParameters = new UncertainParamters(
-								new UncertainParamters.UncertainParameterContainer(this.storableParameters,
-										new DeterministicDistributionFunction(Double.parseDouble(demand)),
-										new DeterministicDistributionFunction(Double.parseDouble(earliestDueDate)),
-										new DeterministicDistributionFunction(Double.parseDouble(latestDueDate)),
-										false /* is cyclic */, false));
+						UncertainParamters consumptionParameters = new UncertainParamters(new UncertainParameterContainer(this.storableParameters,
+								new DeterministicDistributionFunction(Double.parseDouble(demand)), new DeterministicDistributionFunction(Double.parseDouble(earliestDueDate)),
+								new DeterministicDistributionFunction(Double.parseDouble(latestDueDate)), false));
 
 						// We create our first compartment where we can store
-						CanStoreParameters cartonStorageParameters = new CanStoreParameters(this.canStoreType,
-								new Capacity(this.capacityUnit, 100.0), new LIFOLoadingPolicy(),
+						CanStoreParameters cartonStorageParameters = new CanStoreParameters(this.canStoreType, new Capacity(this.capacityUnit, 100.0), new LIFOLoadingPolicy(),
 								new StorableGenerator(this.storableParameters));
 						ICanStore cartonStorage = new Compartment(cartonStorageParameters);
-						DefaultStorageManager storageManager = new DefaultStorageManager(
-								new DefaultStorage(cartonStorage));
+						DefaultStorageManager storageManager = new DefaultStorageManager(new DefaultStorage(cartonStorage));
 						ITimeFunction service = new DeterministicTimeFunction(Double.parseDouble(serviceTime));
 
-						StaticCustomer staticCustomer = new StaticCustomer(elementParameters,
-								structureElementParameters, consumptionParameters, storageManager, service);
+						StaticCustomer staticCustomer = new StaticCustomer(elementParameters, structureElementParameters, consumptionParameters, storageManager, service);
 
-						logger.debug("Created static customer with id={} Start={}, Deadline={}, Demand={}, Service={}",
-								id, earliestDueDate, latestDueDate, demand, serviceTime);
+						logger.debug("Created static customer with id={} Start={}, Deadline={}, Demand={}, Service={}", id, earliestDueDate, latestDueDate, demand, serviceTime);
 						customers.add(staticCustomer);
 
 					}
@@ -251,8 +204,7 @@ public class BentInstanceLoader {
 				HashMap<String, DynamicCustomer> dynamicCustomers = new HashMap<>();
 
 				while (line != null && !line.isEmpty()) {
-					if (!line.startsWith(BentInstanceLoaderConstants.TEABLE_HEADER_CUSTOMER)
-							&& !line.startsWith(BentInstanceLoaderConstants.START_UNKNOWN_REQUESTS)) {
+					if (!line.startsWith(BentInstanceLoaderConstants.TEABLE_HEADER_CUSTOMER) && !line.startsWith(BentInstanceLoaderConstants.START_UNKNOWN_REQUESTS)) {
 						logger.debug("Start creating dynamic customer from line: {}", line);
 
 						// Create static customer.
@@ -264,10 +216,8 @@ public class BentInstanceLoader {
 						String demand = dynamicCustomerInfo[5];
 						String serviceTime = dynamicCustomerInfo[6];
 
-						UncertainParamters.UncertainParameterContainer container = new UncertainParamters.UncertainParameterContainer(
-								this.storableParameters,
-								new DeterministicDistributionFunction(Double.parseDouble(demand)),
-								new DeterministicDistributionFunction(Double.parseDouble(arrival)), null,
+						UncertainParameterContainer container = new UncertainParameterContainer(this.storableParameters,
+								new DeterministicDistributionFunction(Double.parseDouble(demand)), new DeterministicDistributionFunction(Double.parseDouble(arrival)), null,
 								new DeterministicDistributionFunction(Double.parseDouble(earliestDueDate)),
 								new DeterministicDistributionFunction(Double.parseDouble(latestDueDate)), false);
 
@@ -275,8 +225,7 @@ public class BentInstanceLoader {
 
 						if (!dynamicCustomers.containsKey(finalCustomerId)) {
 
-							VRPSimulationModelElementParameters elementParameters = new VRPSimulationModelElementParameters(
-									finalCustomerId, 1);
+							VRPSimulationModelElementParameters elementParameters = new VRPSimulationModelElementParameters(finalCustomerId, 1);
 							VRPSimulationModelStructureElementParameters structureElementParameters = new VRPSimulationModelStructureElementParameters(
 									networkService.getNetworkElement(id));
 
@@ -284,29 +233,23 @@ public class BentInstanceLoader {
 
 							// We create our first compartment where we can
 							// store
-							CanStoreParameters cartonStorageParameters = new CanStoreParameters(this.canStoreType,
-									new Capacity(this.capacityUnit, 100.0), new LIFOLoadingPolicy(),
+							CanStoreParameters cartonStorageParameters = new CanStoreParameters(this.canStoreType, new Capacity(this.capacityUnit, 100.0), new LIFOLoadingPolicy(),
 									new StorableGenerator(this.storableParameters));
 							ICanStore cartonStorage = new Compartment(cartonStorageParameters);
-							DefaultStorageManager storageManager = new DefaultStorageManager(
-									new DefaultStorage(cartonStorage));
+							DefaultStorageManager storageManager = new DefaultStorageManager(new DefaultStorage(cartonStorage));
 							ITimeFunction service = new DeterministicTimeFunction(Double.parseDouble(serviceTime));
 
-							DynamicCustomer dynamicCustomer = new DynamicCustomer(elementParameters,
-									structureElementParameters, storageManager, consumptionParameters, service);
-							dynamicCustomers.put(dynamicCustomer.getVRPSimulationModelElementParameters().getId(),
-									dynamicCustomer);
+							DynamicCustomer dynamicCustomer = new DynamicCustomer(elementParameters, structureElementParameters, storageManager, consumptionParameters, service);
+							dynamicCustomers.put(dynamicCustomer.getVRPSimulationModelElementParameters().getId(), dynamicCustomer);
 
-							logger.debug(
-									"Created dynamic customer with id={} Arrival={}, Start={}, Deadline={}, Demand={}, Service={}",
-									id, arrival, earliestDueDate, latestDueDate, demand, serviceTime);
+							logger.debug("Created dynamic customer with id={} Arrival={}, Start={}, Deadline={}, Demand={}, Service={}", id, arrival, earliestDueDate,
+									latestDueDate, demand, serviceTime);
 							customers.add(dynamicCustomer);
 
 						} else {
 							dynamicCustomers.get(finalCustomerId).getUncertainParameters().addContainer(container);
-							logger.debug(
-									"Dynamic customer with id={} exists already. New UncertainParameterContainer added: Demand={}, Arrival={}, EarliestDD={}, LatestDD={}",
-									id, demand, arrival, earliestDueDate, latestDueDate);
+							logger.debug("Dynamic customer with id={} exists already. New UncertainParameterContainer added: Demand={}, Arrival={}, EarliestDD={}, LatestDD={}", id,
+									demand, arrival, earliestDueDate, latestDueDate);
 						}
 
 					}
@@ -327,15 +270,12 @@ public class BentInstanceLoader {
 		List<IDriver> drivers = new ArrayList<IDriver>();
 		for (int i = 0; i < number; i++) {
 			// Id + prio + where is the depot located.
-			VRPSimulationModelElementParameters elementParameters = new VRPSimulationModelElementParameters(
-					"driver-" + (i + 1), 1);
-			VRPSimulationModelStructureElementParameters structureElementParameters = new VRPSimulationModelStructureElementParameters(
-					networkService.getNetworkElement("D"));
+			VRPSimulationModelElementParameters elementParameters = new VRPSimulationModelElementParameters("driver-" + (i + 1), 1);
+			VRPSimulationModelStructureElementParameters structureElementParameters = new VRPSimulationModelStructureElementParameters(networkService.getNetworkElement("D"));
 
 			// We are modeling no sick leaves of a driver.
 			UncertainParamters breakdownParameters = new UncertainParamters();
-			DefaultDriver driver = new DefaultDriver(elementParameters, structureElementParameters,
-					breakdownParameters);
+			DefaultDriver driver = new DefaultDriver(elementParameters, structureElementParameters, breakdownParameters);
 
 			drivers.add(driver);
 		}
@@ -344,8 +284,7 @@ public class BentInstanceLoader {
 
 	private List<IDepot> getDepots(NetworkService networkService) {
 		// Id + prio + where is the depot located.
-		VRPSimulationModelElementParameters vrpSimulationModelElementParameters = new VRPSimulationModelElementParameters(
-				"depot", 1); // 1
+		VRPSimulationModelElementParameters vrpSimulationModelElementParameters = new VRPSimulationModelElementParameters("depot", 1); // 1
 		VRPSimulationModelStructureElementParameters vrpSimulationModelStructureElementParameters = new VRPSimulationModelStructureElementParameters(
 				networkService.getNetworkElement("D")); // 2
 
@@ -353,15 +292,13 @@ public class BentInstanceLoader {
 		UncertainParamters arrivalParameters = new UncertainParamters(); // 3
 
 		// We create our first compartment where we can store
-		CanStoreParameters cartonStorageParameters = new CanStoreParameters(this.canStoreType,
-				new Capacity(this.capacityUnit, 1000.0), new LIFOLoadingPolicy(),
+		CanStoreParameters cartonStorageParameters = new CanStoreParameters(this.canStoreType, new Capacity(this.capacityUnit, 1000.0), new LIFOLoadingPolicy(),
 				new StorableGenerator(this.storableParameters));
 		ICanStore cartonStorage = new Compartment(cartonStorageParameters);
 		DefaultStorageManager storageManager = new DefaultStorageManager(new DefaultStorage(cartonStorage));
 
 		// The depot
-		IDepot depot = new SourceDepot(vrpSimulationModelElementParameters,
-				vrpSimulationModelStructureElementParameters, arrivalParameters, storageManager,
+		IDepot depot = new SourceDepot(vrpSimulationModelElementParameters, vrpSimulationModelStructureElementParameters, arrivalParameters, storageManager,
 				new DeterministicTimeFunction(0.0));
 
 		// Return a list with our depot.
@@ -378,14 +315,11 @@ public class BentInstanceLoader {
 		for (int i = 0; i < number; i++) {
 
 			VRPSimulationModelElementParameters smep = new VRPSimulationModelElementParameters("vehicle-" + (i + 1), 1);
-			VRPSimulationModelStructureElementParameters smsep = new VRPSimulationModelStructureElementParameters(
-					vehicleHome);
+			VRPSimulationModelStructureElementParameters smsep = new VRPSimulationModelStructureElementParameters(vehicleHome);
 
-			CanStoreParameters csp = new CanStoreParameters(canStoreType, new Capacity(capacityUnit, capacity),
-					new LIFOLoadingPolicy(), new StorableGenerator(storableParameters));
+			CanStoreParameters csp = new CanStoreParameters(canStoreType, new Capacity(capacityUnit, capacity), new LIFOLoadingPolicy(), new StorableGenerator(storableParameters));
 
-			IVehicle vehicle = new DefaultVehicle(smep, smsep, new UncertainParamters(),
-					new DefaultStorageManager(new DefaultStorage(new Compartment(csp))), 100.0);
+			IVehicle vehicle = new DefaultVehicle(smep, smsep, new UncertainParamters(), new DefaultStorageManager(new DefaultStorage(new Compartment(csp))), 100.0);
 
 			vehicles.add(vehicle);
 		}
@@ -410,8 +344,7 @@ public class BentInstanceLoader {
 					String cy = split[2];
 
 					VRPSimulationModelElementParameters parameters = new VRPSimulationModelElementParameters(id, 1);
-					INode node = new DefaultNode(parameters,
-							new Location(Integer.parseInt(cx), Integer.parseInt(cy), 0));
+					INode node = new DefaultNode(parameters, new Location(Integer.parseInt(cx), Integer.parseInt(cy), 0));
 					nodes.add(node);
 
 					logger.debug("Node with id {} created at location {},{},0.", id, cx, cy);
@@ -428,8 +361,7 @@ public class BentInstanceLoader {
 		for (INode node_1 : nodes) {
 			for (INode node_2 : nodes) {
 				if (!node_1.equals(node_2)) {
-					VRPSimulationModelElementParameters para = new VRPSimulationModelElementParameters(
-							wayCounter++ + "", 1);
+					VRPSimulationModelElementParameters para = new VRPSimulationModelElementParameters(wayCounter++ + "", 1);
 					/*
 					 * Since Solomon 1987 (ALGORITHMS FOR THE VEHICLE ROUTING
 					 * AND SCHEDULING PROBLEMS WITH TIME WINDOW CONSTRAINT),

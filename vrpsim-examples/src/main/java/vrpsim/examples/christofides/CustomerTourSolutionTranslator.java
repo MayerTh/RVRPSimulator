@@ -154,7 +154,7 @@ public class CustomerTourSolutionTranslator {
 			throws BehaviourException, VRPArithmeticException {
 
 		// depot.getStorableGenerator().resetStorableGenerationCounter();
-		Integer number = customer.getUncertainParameters().getParameter().get(0).getNumber().intValue();
+		Integer number = customer.getUncertainParameters().getParameter().get(0).getNewRealizationFromNumberDistributionFunction().intValue();
 
 		LoadUnloadJob job = new LoadUnloadJob(storeableParameters, number, customer);
 		UnloadActivity storableExchangeActivity = new UnloadActivity(job);

@@ -1,0 +1,378 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<instance>
+  <info>
+    <dataset>Christiansen and Lysgaard (2007)</dataset>
+    <name>E-n33-k4</name>
+  </info>
+  <network>
+    <nodes>
+      <node id="1" type="0">
+        <cx>292.0</cx>
+        <cy>495.0</cy>
+      </node>
+      <node id="2" type="1">
+        <cx>298.0</cx>
+        <cy>427.0</cy>
+      </node>
+      <node id="3" type="1">
+        <cx>309.0</cx>
+        <cy>445.0</cy>
+      </node>
+      <node id="4" type="1">
+        <cx>307.0</cx>
+        <cy>464.0</cy>
+      </node>
+      <node id="5" type="1">
+        <cx>336.0</cx>
+        <cy>475.0</cy>
+      </node>
+      <node id="6" type="1">
+        <cx>320.0</cx>
+        <cy>439.0</cy>
+      </node>
+      <node id="7" type="1">
+        <cx>321.0</cx>
+        <cy>437.0</cy>
+      </node>
+      <node id="8" type="1">
+        <cx>322.0</cx>
+        <cy>437.0</cy>
+      </node>
+      <node id="9" type="1">
+        <cx>323.0</cx>
+        <cy>433.0</cy>
+      </node>
+      <node id="10" type="1">
+        <cx>324.0</cx>
+        <cy>433.0</cy>
+      </node>
+      <node id="11" type="1">
+        <cx>323.0</cx>
+        <cy>429.0</cy>
+      </node>
+      <node id="12" type="1">
+        <cx>314.0</cx>
+        <cy>435.0</cy>
+      </node>
+      <node id="13" type="1">
+        <cx>311.0</cx>
+        <cy>442.0</cy>
+      </node>
+      <node id="14" type="1">
+        <cx>304.0</cx>
+        <cy>427.0</cy>
+      </node>
+      <node id="15" type="1">
+        <cx>293.0</cx>
+        <cy>421.0</cy>
+      </node>
+      <node id="16" type="1">
+        <cx>296.0</cx>
+        <cy>418.0</cy>
+      </node>
+      <node id="17" type="1">
+        <cx>261.0</cx>
+        <cy>384.0</cy>
+      </node>
+      <node id="18" type="1">
+        <cx>297.0</cx>
+        <cy>410.0</cy>
+      </node>
+      <node id="19" type="1">
+        <cx>315.0</cx>
+        <cy>407.0</cy>
+      </node>
+      <node id="20" type="1">
+        <cx>314.0</cx>
+        <cy>406.0</cy>
+      </node>
+      <node id="21" type="1">
+        <cx>321.0</cx>
+        <cy>391.0</cy>
+      </node>
+      <node id="22" type="1">
+        <cx>321.0</cx>
+        <cy>398.0</cy>
+      </node>
+      <node id="23" type="1">
+        <cx>314.0</cx>
+        <cy>394.0</cy>
+      </node>
+      <node id="24" type="1">
+        <cx>313.0</cx>
+        <cy>378.0</cy>
+      </node>
+      <node id="25" type="1">
+        <cx>304.0</cx>
+        <cy>382.0</cy>
+      </node>
+      <node id="26" type="1">
+        <cx>295.0</cx>
+        <cy>402.0</cy>
+      </node>
+      <node id="27" type="1">
+        <cx>283.0</cx>
+        <cy>406.0</cy>
+      </node>
+      <node id="28" type="1">
+        <cx>279.0</cx>
+        <cy>399.0</cy>
+      </node>
+      <node id="29" type="1">
+        <cx>271.0</cx>
+        <cy>401.0</cy>
+      </node>
+      <node id="30" type="1">
+        <cx>264.0</cx>
+        <cy>414.0</cy>
+      </node>
+      <node id="31" type="1">
+        <cx>277.0</cx>
+        <cy>439.0</cy>
+      </node>
+      <node id="32" type="1">
+        <cx>290.0</cx>
+        <cy>434.0</cy>
+      </node>
+      <node id="33" type="1">
+        <cx>319.0</cx>
+        <cy>433.0</cy>
+      </node>
+    </nodes>
+    <euclidean />
+    <decimals>0</decimals>
+  </network>
+  <fleet>
+    <vehicle_profile type="1">
+      <departure_node>1</departure_node>
+      <arrival_node>1</arrival_node>
+      <capacity>8000.0</capacity>
+    </vehicle_profile>
+  </fleet>
+  <requests>
+    <request id="1" node="2">
+      <uncertain_quantity>
+        <random_variable distribution="Poisson">
+          <parameter name="lambda">70</parameter>
+        </random_variable>
+      </uncertain_quantity>
+    </request>
+    <request id="2" node="3">
+      <uncertain_quantity>
+        <random_variable distribution="Poisson">
+          <parameter name="lambda">40</parameter>
+        </random_variable>
+      </uncertain_quantity>
+    </request>
+    <request id="3" node="4">
+      <uncertain_quantity>
+        <random_variable distribution="Poisson">
+          <parameter name="lambda">40</parameter>
+        </random_variable>
+      </uncertain_quantity>
+    </request>
+    <request id="4" node="5">
+      <uncertain_quantity>
+        <random_variable distribution="Poisson">
+          <parameter name="lambda">120</parameter>
+        </random_variable>
+      </uncertain_quantity>
+    </request>
+    <request id="5" node="6">
+      <uncertain_quantity>
+        <random_variable distribution="Poisson">
+          <parameter name="lambda">4</parameter>
+        </random_variable>
+      </uncertain_quantity>
+    </request>
+    <request id="6" node="7">
+      <uncertain_quantity>
+        <random_variable distribution="Poisson">
+          <parameter name="lambda">8</parameter>
+        </random_variable>
+      </uncertain_quantity>
+    </request>
+    <request id="7" node="8">
+      <uncertain_quantity>
+        <random_variable distribution="Poisson">
+          <parameter name="lambda">200</parameter>
+        </random_variable>
+      </uncertain_quantity>
+    </request>
+    <request id="8" node="9">
+      <uncertain_quantity>
+        <random_variable distribution="Poisson">
+          <parameter name="lambda">90</parameter>
+        </random_variable>
+      </uncertain_quantity>
+    </request>
+    <request id="9" node="10">
+      <uncertain_quantity>
+        <random_variable distribution="Poisson">
+          <parameter name="lambda">60</parameter>
+        </random_variable>
+      </uncertain_quantity>
+    </request>
+    <request id="10" node="11">
+      <uncertain_quantity>
+        <random_variable distribution="Poisson">
+          <parameter name="lambda">75</parameter>
+        </random_variable>
+      </uncertain_quantity>
+    </request>
+    <request id="11" node="12">
+      <uncertain_quantity>
+        <random_variable distribution="Poisson">
+          <parameter name="lambda">150</parameter>
+        </random_variable>
+      </uncertain_quantity>
+    </request>
+    <request id="12" node="13">
+      <uncertain_quantity>
+        <random_variable distribution="Poisson">
+          <parameter name="lambda">15</parameter>
+        </random_variable>
+      </uncertain_quantity>
+    </request>
+    <request id="13" node="14">
+      <uncertain_quantity>
+        <random_variable distribution="Poisson">
+          <parameter name="lambda">25</parameter>
+        </random_variable>
+      </uncertain_quantity>
+    </request>
+    <request id="14" node="15">
+      <uncertain_quantity>
+        <random_variable distribution="Poisson">
+          <parameter name="lambda">160</parameter>
+        </random_variable>
+      </uncertain_quantity>
+    </request>
+    <request id="15" node="16">
+      <uncertain_quantity>
+        <random_variable distribution="Poisson">
+          <parameter name="lambda">45</parameter>
+        </random_variable>
+      </uncertain_quantity>
+    </request>
+    <request id="16" node="17">
+      <uncertain_quantity>
+        <random_variable distribution="Poisson">
+          <parameter name="lambda">70</parameter>
+        </random_variable>
+      </uncertain_quantity>
+    </request>
+    <request id="17" node="18">
+      <uncertain_quantity>
+        <random_variable distribution="Poisson">
+          <parameter name="lambda">55</parameter>
+        </random_variable>
+      </uncertain_quantity>
+    </request>
+    <request id="18" node="19">
+      <uncertain_quantity>
+        <random_variable distribution="Poisson">
+          <parameter name="lambda">65</parameter>
+        </random_variable>
+      </uncertain_quantity>
+    </request>
+    <request id="19" node="20">
+      <uncertain_quantity>
+        <random_variable distribution="Poisson">
+          <parameter name="lambda">20</parameter>
+        </random_variable>
+      </uncertain_quantity>
+    </request>
+    <request id="20" node="21">
+      <uncertain_quantity>
+        <random_variable distribution="Poisson">
+          <parameter name="lambda">40</parameter>
+        </random_variable>
+      </uncertain_quantity>
+    </request>
+    <request id="21" node="22">
+      <uncertain_quantity>
+        <random_variable distribution="Poisson">
+          <parameter name="lambda">30</parameter>
+        </random_variable>
+      </uncertain_quantity>
+    </request>
+    <request id="22" node="23">
+      <uncertain_quantity>
+        <random_variable distribution="Poisson">
+          <parameter name="lambda">130</parameter>
+        </random_variable>
+      </uncertain_quantity>
+    </request>
+    <request id="23" node="24">
+      <uncertain_quantity>
+        <random_variable distribution="Poisson">
+          <parameter name="lambda">70</parameter>
+        </random_variable>
+      </uncertain_quantity>
+    </request>
+    <request id="24" node="25">
+      <uncertain_quantity>
+        <random_variable distribution="Poisson">
+          <parameter name="lambda">75</parameter>
+        </random_variable>
+      </uncertain_quantity>
+    </request>
+    <request id="25" node="26">
+      <uncertain_quantity>
+        <random_variable distribution="Poisson">
+          <parameter name="lambda">140</parameter>
+        </random_variable>
+      </uncertain_quantity>
+    </request>
+    <request id="26" node="27">
+      <uncertain_quantity>
+        <random_variable distribution="Poisson">
+          <parameter name="lambda">400</parameter>
+        </random_variable>
+      </uncertain_quantity>
+    </request>
+    <request id="27" node="28">
+      <uncertain_quantity>
+        <random_variable distribution="Poisson">
+          <parameter name="lambda">60</parameter>
+        </random_variable>
+      </uncertain_quantity>
+    </request>
+    <request id="28" node="29">
+      <uncertain_quantity>
+        <random_variable distribution="Poisson">
+          <parameter name="lambda">100</parameter>
+        </random_variable>
+      </uncertain_quantity>
+    </request>
+    <request id="29" node="30">
+      <uncertain_quantity>
+        <random_variable distribution="Poisson">
+          <parameter name="lambda">50</parameter>
+        </random_variable>
+      </uncertain_quantity>
+    </request>
+    <request id="30" node="31">
+      <uncertain_quantity>
+        <random_variable distribution="Poisson">
+          <parameter name="lambda">250</parameter>
+        </random_variable>
+      </uncertain_quantity>
+    </request>
+    <request id="31" node="32">
+      <uncertain_quantity>
+        <random_variable distribution="Poisson">
+          <parameter name="lambda">170</parameter>
+        </random_variable>
+      </uncertain_quantity>
+    </request>
+    <request id="32" node="33">
+      <uncertain_quantity>
+        <random_variable distribution="Poisson">
+          <parameter name="lambda">110</parameter>
+        </random_variable>
+      </uncertain_quantity>
+    </request>
+  </requests>
+</instance>

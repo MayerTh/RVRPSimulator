@@ -50,7 +50,7 @@ import vrpsim.core.model.util.functions.DeterministicTimeFunction;
 import vrpsim.core.model.util.policies.LIFOLoadingPolicy;
 import vrpsim.core.model.util.uncertainty.DeterministicDistributionFunction;
 import vrpsim.core.model.util.uncertainty.UncertainParamters;
-import vrpsim.core.model.util.uncertainty.UncertainParamters.UncertainParameterContainer;
+import vrpsim.core.model.util.uncertainty.UncertainParameterContainer;
 import vrpsim.util.model.generator.GeneratorConfigurationInitializationException;
 
 public class RandomStructureGenerator {
@@ -115,111 +115,89 @@ public class RandomStructureGenerator {
 		List<ICustomer> customers = this.getCustomers(random, configuration);
 		List<IOccasionalDriver> occasionalDrivers = this.getOccasionalDrivers(random, configuration);
 
-		Structure strucutre = new Structure(storableParameters, depots, customers, vehicles, drivers,
-				occasionalDrivers);
+		Structure strucutre = new Structure(storableParameters, depots, customers, vehicles, drivers, occasionalDrivers);
 
 		return strucutre;
 	}
 
-	private List<IOccasionalDriver> getOccasionalDrivers(Random random,
-			RandomStructureGeneratorConfiguration randomStructureGeneratorConfiguration) {
+	private List<IOccasionalDriver> getOccasionalDrivers(Random random, RandomStructureGeneratorConfiguration randomStructureGeneratorConfiguration) {
 		// TODO Auto-generated method stub
 		return new ArrayList<>();
 	}
 
-	private List<IDriver> getDrivers(Random random, List<INode> homeLocations,
-			RandomStructureGeneratorConfiguration randomStructureGeneratorConfiguration) {
+	private List<IDriver> getDrivers(Random random, List<INode> homeLocations, RandomStructureGeneratorConfiguration randomStructureGeneratorConfiguration) {
 		List<IDriver> drivers = new ArrayList<>();
 		for (int i = 0; i < randomStructureGeneratorConfiguration.getNumberOfDriver(); i++) {
-			VRPSimulationModelElementParameters vrpSimulationModelElementParameters = new VRPSimulationModelElementParameters(
-					"driver:" + String.valueOf(i), 0);
+			VRPSimulationModelElementParameters vrpSimulationModelElementParameters = new VRPSimulationModelElementParameters("driver:" + String.valueOf(i), 0);
 			VRPSimulationModelStructureElementParameters vrpSimulationModelStructureElementParameters = new VRPSimulationModelStructureElementParameters(
 					homeLocations.get(i % homeLocations.size()));
 
-			IDriver driver = new DefaultDriver(vrpSimulationModelElementParameters,
-					vrpSimulationModelStructureElementParameters, new UncertainParamters());
+			IDriver driver = new DefaultDriver(vrpSimulationModelElementParameters, vrpSimulationModelStructureElementParameters, new UncertainParamters());
 			drivers.add(driver);
 		}
 		return drivers;
 	}
 
-	private List<IVehicle> getVehicles(Random random, List<INode> homeLocations,
-			RandomStructureGeneratorConfiguration randomStructureGeneratorConfiguration) {
+	private List<IVehicle> getVehicles(Random random, List<INode> homeLocations, RandomStructureGeneratorConfiguration randomStructureGeneratorConfiguration) {
 
 		List<IVehicle> vehicles = new ArrayList<>();
 		for (int i = 0; i < randomStructureGeneratorConfiguration.getNumberOfVehicles(); i++) {
-			VRPSimulationModelElementParameters vrpSimulationModelElementParameters = new VRPSimulationModelElementParameters(
-					"vehicle:" + String.valueOf(i), 0);
+			VRPSimulationModelElementParameters vrpSimulationModelElementParameters = new VRPSimulationModelElementParameters("vehicle:" + String.valueOf(i), 0);
 			VRPSimulationModelStructureElementParameters vrpSimulationModelStructureElementParameters = new VRPSimulationModelStructureElementParameters(
 					homeLocations.get(i % homeLocations.size()));
 
-			CanStoreParameters compartmentParameters = new CanStoreParameters(
-					randomStructureGeneratorConfiguration.getCanStoreType(),
-					new Capacity(randomStructureGeneratorConfiguration.getCapacityUnit(),
-							randomStructureGeneratorConfiguration.getCapacityOfVehicles()),
-					new LIFOLoadingPolicy(),
+			CanStoreParameters compartmentParameters = new CanStoreParameters(randomStructureGeneratorConfiguration.getCanStoreType(),
+					new Capacity(randomStructureGeneratorConfiguration.getCapacityUnit(), randomStructureGeneratorConfiguration.getCapacityOfVehicles()), new LIFOLoadingPolicy(),
 					new StorableGenerator(randomStructureGeneratorConfiguration.getStorableParameters()));
 
 			ICanStore compartment = new Compartment(compartmentParameters);
 			DefaultStorageManager storageManager = new DefaultStorageManager(new DefaultStorage(compartment));
 
 			// new UncertainParamters() -> means empty/no breakdowns.
-			IVehicle vehicle = new DefaultVehicle(vrpSimulationModelElementParameters,
-					vrpSimulationModelStructureElementParameters, new UncertainParamters(), storageManager,
+			IVehicle vehicle = new DefaultVehicle(vrpSimulationModelElementParameters, vrpSimulationModelStructureElementParameters, new UncertainParamters(), storageManager,
 					randomStructureGeneratorConfiguration.getSpeedOfVehicles());
 			vehicles.add(vehicle);
 		}
 		return vehicles;
 	}
 
-	private List<IDepot> getDepots(Random random, List<INode> homeLocations,
-			RandomStructureGeneratorConfiguration randomStructureGeneratorConfiguration)
+	private List<IDepot> getDepots(Random random, List<INode> homeLocations, RandomStructureGeneratorConfiguration randomStructureGeneratorConfiguration)
 			throws VRPArithmeticException, StorageException {
 
 		List<IDepot> depots = new ArrayList<>();
-		for (int i = 0; i < randomStructureGeneratorConfiguration.getNumberOfSourceDepot()
-				+ randomStructureGeneratorConfiguration.getNumberOfDefaultDepot(); i++) {
+		for (int i = 0; i < randomStructureGeneratorConfiguration.getNumberOfSourceDepot() + randomStructureGeneratorConfiguration.getNumberOfDefaultDepot(); i++) {
 
 			IDepot depot = null;
 			if (i < randomStructureGeneratorConfiguration.getNumberOfSourceDepot()) {
 				// Source Depot
-				VRPSimulationModelElementParameters vrpSimulationModelElementParameters = new VRPSimulationModelElementParameters(
-						"source_depot:" + String.valueOf(i), 0);
+				VRPSimulationModelElementParameters vrpSimulationModelElementParameters = new VRPSimulationModelElementParameters("source_depot:" + String.valueOf(i), 0);
 				VRPSimulationModelStructureElementParameters vrpSimulationModelStructureElementParameters = new VRPSimulationModelStructureElementParameters(
 						homeLocations.get(i % homeLocations.size()));
-				CanStoreParameters compartmentParameters = new CanStoreParameters(
-						randomStructureGeneratorConfiguration.getCanStoreType(),
-						new Capacity(randomStructureGeneratorConfiguration.getCapacityUnit(),
-								randomStructureGeneratorConfiguration.getCapacityOfSourceDepot()),
-						new LIFOLoadingPolicy(),
-						new StorableGenerator(randomStructureGeneratorConfiguration.getStorableParameters()));
+				CanStoreParameters compartmentParameters = new CanStoreParameters(randomStructureGeneratorConfiguration.getCanStoreType(),
+						new Capacity(randomStructureGeneratorConfiguration.getCapacityUnit(), randomStructureGeneratorConfiguration.getCapacityOfSourceDepot()),
+						new LIFOLoadingPolicy(), new StorableGenerator(randomStructureGeneratorConfiguration.getStorableParameters()));
 
 				ICanStore compartment = new Compartment(compartmentParameters);
 				DefaultStorageManager storageManager = new DefaultStorageManager(new DefaultStorage(compartment));
 
-				depot = new SourceDepot(vrpSimulationModelElementParameters,
-						vrpSimulationModelStructureElementParameters, new UncertainParamters(), storageManager, new DeterministicTimeFunction(0.0));
+				depot = new SourceDepot(vrpSimulationModelElementParameters, vrpSimulationModelStructureElementParameters, new UncertainParamters(), storageManager,
+						new DeterministicTimeFunction(0.0));
 
 			} else {
 				// Default Depot
-				VRPSimulationModelElementParameters vrpSimulationModelElementParameters = new VRPSimulationModelElementParameters(
-						"default_depot:" + String.valueOf(i), 0);
+				VRPSimulationModelElementParameters vrpSimulationModelElementParameters = new VRPSimulationModelElementParameters("default_depot:" + String.valueOf(i), 0);
 				VRPSimulationModelStructureElementParameters vrpSimulationModelStructureElementParameters = new VRPSimulationModelStructureElementParameters(
 						homeLocations.get(i % homeLocations.size()));
-				CanStoreParameters compartmentParameters = new CanStoreParameters(
-						randomStructureGeneratorConfiguration.getCanStoreType(),
-						new Capacity(randomStructureGeneratorConfiguration.getCapacityUnit(),
-								randomStructureGeneratorConfiguration.getCapacityOfDefaultDepot()),
-						new LIFOLoadingPolicy(),
-						new StorableGenerator(randomStructureGeneratorConfiguration.getStorableParameters()));
+				CanStoreParameters compartmentParameters = new CanStoreParameters(randomStructureGeneratorConfiguration.getCanStoreType(),
+						new Capacity(randomStructureGeneratorConfiguration.getCapacityUnit(), randomStructureGeneratorConfiguration.getCapacityOfDefaultDepot()),
+						new LIFOLoadingPolicy(), new StorableGenerator(randomStructureGeneratorConfiguration.getStorableParameters()));
 
 				ICanStore compartment = new Compartment(compartmentParameters);
 				DefaultStorageManager storageManager = new DefaultStorageManager(new DefaultStorage(compartment));
 
-				depot = new DefaultDepot(vrpSimulationModelElementParameters,
-						vrpSimulationModelStructureElementParameters, new UncertainParamters(), storageManager, new DeterministicTimeFunction(0.0));
-				IStorableGenerator storableGenerator = new StorableGenerator(
-						randomStructureGeneratorConfiguration.getStorableParameters());
+				depot = new DefaultDepot(vrpSimulationModelElementParameters, vrpSimulationModelStructureElementParameters, new UncertainParamters(), storageManager,
+						new DeterministicTimeFunction(0.0));
+				IStorableGenerator storableGenerator = new StorableGenerator(randomStructureGeneratorConfiguration.getStorableParameters());
 				for (int s = 1; s <= randomStructureGeneratorConfiguration.getNumberStorablesInDefaultDepot(); s++) {
 					IStorable storable = storableGenerator.generateDefaultStorable();
 					compartment.load(storable);
@@ -231,23 +209,18 @@ public class RandomStructureGenerator {
 		return depots;
 	}
 
-	private List<ICustomer> getCustomers(Random random,
-			RandomStructureGeneratorConfiguration randomStructureGeneratorConfiguration) {
+	private List<ICustomer> getCustomers(Random random, RandomStructureGeneratorConfiguration randomStructureGeneratorConfiguration) {
 		List<ICustomer> customers = new ArrayList<>();
 		for (int i = 0; i < randomStructureGeneratorConfiguration.getNumberOfStaticCustomers(); i++) {
 
 			// Static customers
-			VRPSimulationModelElementParameters vrpSimulationModelElementParameters = new VRPSimulationModelElementParameters(
-					"default_customer:" + String.valueOf(i), 0);
+			VRPSimulationModelElementParameters vrpSimulationModelElementParameters = new VRPSimulationModelElementParameters("default_customer:" + String.valueOf(i), 0);
 			VRPSimulationModelStructureElementParameters vrpSimulationModelStructureElementParameters = new VRPSimulationModelStructureElementParameters(
 					randomStructureGeneratorConfiguration.getNetworkService().getRandomINode(random));
 
-			CanStoreParameters compartmentParameters = new CanStoreParameters(
-					randomStructureGeneratorConfiguration.getCanStoreType(),
-					new Capacity(randomStructureGeneratorConfiguration.getCapacityUnit(),
-							randomStructureGeneratorConfiguration.getCapacityOfStaticCustomers()),
-					new LIFOLoadingPolicy(),
-					new StorableGenerator(randomStructureGeneratorConfiguration.getStorableParameters()));
+			CanStoreParameters compartmentParameters = new CanStoreParameters(randomStructureGeneratorConfiguration.getCanStoreType(),
+					new Capacity(randomStructureGeneratorConfiguration.getCapacityUnit(), randomStructureGeneratorConfiguration.getCapacityOfStaticCustomers()),
+					new LIFOLoadingPolicy(), new StorableGenerator(randomStructureGeneratorConfiguration.getStorableParameters()));
 			ICanStore compartment = new Compartment(compartmentParameters);
 			DefaultStorageManager storageManager = new DefaultStorageManager(new DefaultStorage(compartment));
 
@@ -256,18 +229,13 @@ public class RandomStructureGenerator {
 			Double minCycle = randomStructureGeneratorConfiguration.getMinConsumptionCycleOfStaticCustomer();
 			Double maxCycle = randomStructureGeneratorConfiguration.getMaxConsumptionCycleOfStaticCustomer();
 
-			UncertainParameterContainer consumparameterContainer = new UncertainParamters.UncertainParameterContainer(
-					randomStructureGeneratorConfiguration.getStorableParameters(),
-					new DeterministicDistributionFunction(
-							random.nextInt(maxAmount.intValue() - minAmount.intValue()) + minAmount),
-					new DeterministicDistributionFunction(0.0), new DeterministicDistributionFunction(
-							random.nextInt(maxCycle.intValue() - minCycle.intValue()) + minCycle),
-					false, true);
+			UncertainParameterContainer consumparameterContainer = new UncertainParameterContainer(randomStructureGeneratorConfiguration.getStorableParameters(),
+					new DeterministicDistributionFunction(random.nextInt(maxAmount.intValue() - minAmount.intValue()) + minAmount), new DeterministicDistributionFunction(0.0),
+					new DeterministicDistributionFunction(random.nextInt(maxCycle.intValue() - minCycle.intValue()) + minCycle), false);
 			UncertainParamters consumptionParameters = new UncertainParamters(consumparameterContainer);
 
-			ICustomer customer = new StaticCustomerWithConsumption(vrpSimulationModelElementParameters,
-					vrpSimulationModelStructureElementParameters, consumptionParameters, storageManager,
-					new DeterministicTimeFunction(0.0));
+			ICustomer customer = new StaticCustomerWithConsumption(vrpSimulationModelElementParameters, vrpSimulationModelStructureElementParameters, consumptionParameters,
+					storageManager, new DeterministicTimeFunction(0.0));
 
 			customers.add(customer);
 		}
@@ -275,17 +243,13 @@ public class RandomStructureGenerator {
 		for (int i = 0; i < randomStructureGeneratorConfiguration.getNumberOfDynamicCustomers(); i++) {
 
 			// Dynamic customers
-			VRPSimulationModelElementParameters vrpSimulationModelElementParameters = new VRPSimulationModelElementParameters(
-					"dynamic_customer:" + String.valueOf(i), 0);
+			VRPSimulationModelElementParameters vrpSimulationModelElementParameters = new VRPSimulationModelElementParameters("dynamic_customer:" + String.valueOf(i), 0);
 			VRPSimulationModelStructureElementParameters vrpSimulationModelStructureElementParameters = new VRPSimulationModelStructureElementParameters(
 					randomStructureGeneratorConfiguration.getNetworkService().getRandomINode(random));
 
-			CanStoreParameters compartmentParameters = new CanStoreParameters(
-					randomStructureGeneratorConfiguration.getCanStoreType(),
-					new Capacity(randomStructureGeneratorConfiguration.getCapacityUnit(),
-							randomStructureGeneratorConfiguration.getCapacityOfDynamicCustomers()),
-					new LIFOLoadingPolicy(),
-					new StorableGenerator(randomStructureGeneratorConfiguration.getStorableParameters()));
+			CanStoreParameters compartmentParameters = new CanStoreParameters(randomStructureGeneratorConfiguration.getCanStoreType(),
+					new Capacity(randomStructureGeneratorConfiguration.getCapacityUnit(), randomStructureGeneratorConfiguration.getCapacityOfDynamicCustomers()),
+					new LIFOLoadingPolicy(), new StorableGenerator(randomStructureGeneratorConfiguration.getStorableParameters()));
 			ICanStore compartment = new Compartment(compartmentParameters);
 			DefaultStorageManager storageManager = new DefaultStorageManager(new DefaultStorage(compartment));
 
@@ -294,18 +258,12 @@ public class RandomStructureGenerator {
 			Double minCycle = randomStructureGeneratorConfiguration.getMinOrderCycleOfDynamicCustomer();
 			Double maxCycle = randomStructureGeneratorConfiguration.getMaxOrderCycleOfDynamicCustomer();
 
-			UncertainParamters orderParameters = new UncertainParamters(
-					new UncertainParamters.UncertainParameterContainer(
-							randomStructureGeneratorConfiguration.getStorableParameters(),
-							new DeterministicDistributionFunction(
-									random.nextInt(maxAmount.intValue() - minAmount.intValue()) + minAmount),
-							new DeterministicDistributionFunction(
-									random.nextInt(maxCycle.intValue() - minCycle.intValue()) + minCycle),
-							new DeterministicDistributionFunction(
-									random.nextInt(maxCycle.intValue() - minCycle.intValue()) + minCycle)));
+			UncertainParamters orderParameters = new UncertainParamters(new UncertainParameterContainer(randomStructureGeneratorConfiguration.getStorableParameters(),
+					new DeterministicDistributionFunction(random.nextInt(maxAmount.intValue() - minAmount.intValue()) + minAmount),
+					new DeterministicDistributionFunction(random.nextInt(maxCycle.intValue() - minCycle.intValue()) + minCycle),
+					new DeterministicDistributionFunction(random.nextInt(maxCycle.intValue() - minCycle.intValue()) + minCycle)));
 
-			ICustomer customer = new DynamicCustomer(vrpSimulationModelElementParameters,
-					vrpSimulationModelStructureElementParameters, storageManager, orderParameters,
+			ICustomer customer = new DynamicCustomer(vrpSimulationModelElementParameters, vrpSimulationModelStructureElementParameters, storageManager, orderParameters,
 					new DeterministicTimeFunction(0.0));
 
 			customers.add(customer);

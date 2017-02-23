@@ -21,6 +21,7 @@ import vrpsim.core.model.behaviour.IVRPSimulationBehaviourElement;
 import vrpsim.core.model.behaviour.IVRPSimulationBehaviourElementCanAllocate;
 import vrpsim.core.model.behaviour.activities.util.IJob;
 import vrpsim.core.model.behaviour.activities.util.TimeCalculationInformationContainer;
+import vrpsim.core.model.util.functions.ITimeFunction;
 import vrpsim.core.simulator.IClock;
 import vrpsim.core.simulator.ITime;
 
@@ -77,6 +78,13 @@ public interface IVRPSimulationModelElement extends IVRPSimulationElement {
 	 * @return
 	 */
 	public ITime getServiceTime(TimeCalculationInformationContainer container, IClock clock);
+
+	/**
+	 * Returns the {@link ITimeFunction} used to calculate the service time.
+	 * 
+	 * @return
+	 */
+	public ITimeFunction getServiceTimeFunction();
 
 	/**
 	 * {@link Observer} getting notified when released from an allocation.

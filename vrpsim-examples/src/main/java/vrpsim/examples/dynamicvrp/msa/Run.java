@@ -13,7 +13,6 @@ import vrpsim.core.model.network.NetworkService;
 import vrpsim.core.model.solution.AbstractOrderManager;
 import vrpsim.core.model.solution.IInitialBehaviourProvider;
 import vrpsim.core.model.solution.Order;
-import vrpsim.core.model.solution.OrderState;
 import vrpsim.core.model.solution.SolutionManager;
 import vrpsim.core.model.structure.StructureService;
 import vrpsim.core.model.structure.occasionaldriver.IOccasionalDriver;

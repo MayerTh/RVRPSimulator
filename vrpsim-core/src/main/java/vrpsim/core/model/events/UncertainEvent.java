@@ -15,7 +15,7 @@
  */
 package vrpsim.core.model.events;
 
-import vrpsim.core.model.util.uncertainty.UncertainParamters;
+import vrpsim.core.model.util.uncertainty.UncertainParameterContainer;
 import vrpsim.core.simulator.ITime;
 
 /**
@@ -29,17 +29,17 @@ public class UncertainEvent implements IEvent {
 	private final IEventType eventType;
 	private final ITime timeTillOccurrence;
 	private ITime simulationTimeOfOccurrence;
-	private final UncertainParamters.UncertainParameterContainer container;
+	private final UncertainParameterContainer container;
 
 	public UncertainEvent(final IEventOwner owner, final IEventType eventType, final ITime timeTillOccurrence,
-			final UncertainParamters.UncertainParameterContainer container) {
+			final UncertainParameterContainer container) {
 		this.owner = owner;
 		this.eventType = eventType;
 		this.timeTillOccurrence = timeTillOccurrence;
 		this.container = container;
 	}
 
-	public UncertainParamters.UncertainParameterContainer getContainer() {
+	public UncertainParameterContainer getContainer() {
 		return container;
 	}
 

@@ -35,8 +35,9 @@ import vrpsim.core.model.util.exceptions.BehaviourException;
 import vrpsim.core.model.util.exceptions.EventException;
 import vrpsim.core.model.util.exceptions.detail.ErrorDuringEventProcessingException;
 import vrpsim.core.model.util.exceptions.detail.RejectEventException;
+import vrpsim.core.model.util.functions.ITimeFunction;
+import vrpsim.core.model.util.uncertainty.UncertainParameterContainer;
 import vrpsim.core.model.util.uncertainty.UncertainParamters;
-import vrpsim.core.model.util.uncertainty.UncertainParamters.UncertainParameterContainer;
 import vrpsim.core.simulator.EventListService;
 import vrpsim.core.simulator.IClock;
 import vrpsim.core.simulator.ITime;
@@ -81,7 +82,7 @@ public class DefaultDriver extends Observable implements IDriver {
 	public List<IEvent> getInitialEvents(IClock clock) {
 		// Create an breakdownevent for each container.
 		List<IEvent> events = new ArrayList<IEvent>();
-		for (UncertainParamters.UncertainParameterContainer container : this.breakdownParameters.getParameter()) {
+		for (UncertainParameterContainer container : this.breakdownParameters.getParameter()) {
 			events.add(createEvent(container, clock, true));
 		}
 		return events;
@@ -136,15 +137,15 @@ public class DefaultDriver extends Observable implements IDriver {
 
 		List<IEvent> events = new ArrayList<>();
 		if (((UncertainEvent) event).getContainer().isCyclic()) {
-			((UncertainEvent) event).getContainer().resetInstances();
+//			((UncertainEvent) event).getContainer().resetInstances();
 			events.add(createEvent(((UncertainEvent) event).getContainer(), clock, false));
 		}
 		return events;
 	}
 
 	private IEvent createEvent(UncertainParameterContainer container, IClock clock, boolean isInitialEvent) {
-		double t = isInitialEvent ? container.getStart() : container.getCycle();
-		double timeFrom = this.isAvailable(clock) ? container.getNumber() : t;
+		double t = isInitialEvent ? container.getNewRealizationFromStartDistributionFunction() : container.getNewRealizationOfCycleDistributionFunction();
+		double timeFrom = this.isAvailable(clock) ? container.getNewRealizationFromNumberDistributionFunction() : t;
 		ITime time = clock.getCurrentSimulationTime().createTimeFrom(timeFrom);
 		return new UncertainEvent(this, this.getAllEventTypes().get(0), time, container);
 	}
@@ -173,6 +174,11 @@ public class DefaultDriver extends Observable implements IDriver {
 	public ITime getServiceTime(TimeCalculationInformationContainer serviceTimeCalculationInformationContainer,
 			IClock clock) {
 		return clock.getCurrentSimulationTime().createTimeFrom(0.0);
+	}
+	
+	@Override
+	public ITimeFunction getServiceTimeFunction() {
+		return null;
 	}
 
 	@Override

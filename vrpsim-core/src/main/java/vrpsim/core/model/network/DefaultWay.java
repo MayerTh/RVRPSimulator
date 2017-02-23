@@ -84,6 +84,11 @@ public class DefaultWay extends Observable implements IWay {
 	public ITime getServiceTime(TimeCalculationInformationContainer container, IClock clock) {
 		return clock.getCurrentSimulationTime().createTimeFrom(this.travelTimeFunction.getTime(container, clock));
 	}
+	
+	@Override
+	public ITimeFunction getServiceTimeFunction() {
+		return this.travelTimeFunction;
+	}
 
 	@Override
 	public INode getSource() {

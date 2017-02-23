@@ -23,6 +23,7 @@ import java.util.Observer;
 import vrpsim.core.model.VRPSimulationModelElementParameters;
 import vrpsim.core.model.behaviour.IVRPSimulationBehaviourElementCanAllocate;
 import vrpsim.core.model.behaviour.activities.util.TimeCalculationInformationContainer;
+import vrpsim.core.model.util.functions.ITimeFunction;
 import vrpsim.core.simulator.IClock;
 import vrpsim.core.simulator.ITime;
 
@@ -69,6 +70,11 @@ public class DefaultNode extends Observable implements INode {
 	@Override
 	public ITime getServiceTime(TimeCalculationInformationContainer conatiner, IClock clock) {
 		return clock.getCurrentSimulationTime().createTimeFrom(0.0);
+	}
+	
+	@Override
+	public ITimeFunction getServiceTimeFunction() {
+		return null;
 	}
 
 	@Override

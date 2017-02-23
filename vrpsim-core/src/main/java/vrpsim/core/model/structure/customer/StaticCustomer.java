@@ -32,6 +32,7 @@ import vrpsim.core.model.structure.VRPSimulationModelStructureElementParameters;
 import vrpsim.core.model.structure.util.storage.DefaultStorageManager;
 import vrpsim.core.model.util.exceptions.EventException;
 import vrpsim.core.model.util.functions.ITimeFunction;
+import vrpsim.core.model.util.uncertainty.UncertainParameterContainer;
 import vrpsim.core.model.util.uncertainty.UncertainParamters;
 import vrpsim.core.simulator.Clock;
 import vrpsim.core.simulator.EventListService;
@@ -48,9 +49,8 @@ public class StaticCustomer extends AbstractVRPSimulationModelStructureElementWi
 	private final List<Order> staticOrdersBeforeEventGeneration;
 
 	public StaticCustomer(final VRPSimulationModelElementParameters vrpSimulationModelElementParameters,
-			final VRPSimulationModelStructureElementParameters vrpSimulationModelStructureElementParameters,
-			final UncertainParamters consumptionParameters, final DefaultStorageManager storageManager,
-			final ITimeFunction serviceTimeFunction) {
+			final VRPSimulationModelStructureElementParameters vrpSimulationModelStructureElementParameters, final UncertainParamters consumptionParameters,
+			final DefaultStorageManager storageManager, final ITimeFunction serviceTimeFunction) {
 
 		super(vrpSimulationModelElementParameters, vrpSimulationModelStructureElementParameters, storageManager);
 		this.consumptionParameters = consumptionParameters;
@@ -60,16 +60,14 @@ public class StaticCustomer extends AbstractVRPSimulationModelStructureElementWi
 		this.eventTypes.add(() -> IEventType.CONSUMPTION_EVENT);
 
 		this.staticOrdersBeforeEventGeneration = new ArrayList<>();
-		for (UncertainParamters.UncertainParameterContainer container : this.consumptionParameters.getParameter()) {
+		for (UncertainParameterContainer container : this.consumptionParameters.getParameter()) {
 
 			// Also latest due date
-			ITime timeTillOccurence = new Clock.Time(container.getLatestDueDate());
+			ITime timeTillOccurence = new Clock.Time(container.getNewRealizationFromLatestDueDateDistributionFunction());
 
-			Order order = new Order(createOrderId(), new Clock.Time(container.getEarliestDueDate()),
-					timeTillOccurence, container.getStorableParameters().getStorableType(),
-					container.getNumber().intValue(),
-					(IVRPSimulationModelStructureElementWithStorage) this);
-			
+			Order order = new Order(createOrderId(), new Clock.Time(container.getNewRealizationFromEarliestDueDateDistributionFunction()), timeTillOccurence, container.getStorableParameters().getStorableType(),
+					container.getNewRealizationFromNumberDistributionFunction().intValue(), (IVRPSimulationModelStructureElementWithStorage) this);
+
 			logger.debug("Static order created {}.", order.getId());
 
 			this.staticOrdersBeforeEventGeneration.add(order);
@@ -106,8 +104,7 @@ public class StaticCustomer extends AbstractVRPSimulationModelStructureElementWi
 	}
 
 	@Override
-	public List<IEvent> processEvent(IEvent event, IClock clock, EventListService eventListAnalyzer)
-			throws EventException {
+	public List<IEvent> processEvent(IEvent event, IClock clock, EventListService eventListAnalyzer) throws EventException {
 		return new ArrayList<>();
 	}
 

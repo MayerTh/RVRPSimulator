@@ -31,7 +31,7 @@ import vrpsim.core.model.structure.IVRPSimulationModelStructureElementWithStorag
 import vrpsim.core.model.structure.customer.ICustomer;
 import vrpsim.core.model.structure.util.storage.CanStoreType;
 import vrpsim.core.model.util.exceptions.VRPArithmeticException;
-import vrpsim.core.model.util.uncertainty.UncertainParamters.UncertainParameterContainer;
+import vrpsim.core.model.util.uncertainty.UncertainParameterContainer;
 import vrpsim.core.simulator.ITime;
 import vrpsim.visualization.util.AlphanumericSorting;
 
@@ -43,14 +43,12 @@ public class NetworkNodeVisualizationPopup extends VisualizationPopup {
 	public NetworkNodeVisualizationPopup(IVRPSimulationModelNetworkElement networkElement) {
 		if (networkElement instanceof INode) {
 			INode node = (INode) networkElement;
-			String title = node.getVRPSimulationModelElementParameters().getId() + " at "
-					+ node.getLocation().toString();
+			String title = node.getVRPSimulationModelElementParameters().getId() + " at " + node.getLocation().toString();
 			buildPopup(title, 410);
 		}
 	}
 
-	public void update(List<IVRPSimulationModelStructureElement> elements, ITime simulationTimeOfLastEventOccurence)
-			throws VRPArithmeticException {
+	public void update(List<IVRPSimulationModelStructureElement> elements, ITime simulationTimeOfLastEventOccurence) throws VRPArithmeticException {
 		this.dataBox.getChildren().clear();
 
 		Collections.sort(elements, new AlphanumericSorting());
@@ -66,12 +64,9 @@ public class NetworkNodeVisualizationPopup extends VisualizationPopup {
 				IVRPSimulationModelStructureElementWithStorage sm = (IVRPSimulationModelStructureElementWithStorage) element;
 				for (CanStoreType type : sm.getAllCanStoreTypes()) {
 
-					String currentCapa = sm.getCurrentCapacity(type).getValue() >= Double.MAX_VALUE ? "~"
-							: sm.getCurrentCapacity(type).getValue().toString();
-					String maxCapa = sm.getCurrentCapacity(type).getValue()
-							+ sm.getFreeCapacity(type).getValue() >= Double.MAX_VALUE ? "~"
-									: (sm.getCurrentCapacity(type).getValue() + sm.getFreeCapacity(type).getValue())
-											+ "";
+					String currentCapa = sm.getCurrentCapacity(type).getValue() >= Double.MAX_VALUE ? "~" : sm.getCurrentCapacity(type).getValue().toString();
+					String maxCapa = sm.getCurrentCapacity(type).getValue() + sm.getFreeCapacity(type).getValue() >= Double.MAX_VALUE ? "~"
+							: (sm.getCurrentCapacity(type).getValue() + sm.getFreeCapacity(type).getValue()) + "";
 
 					Text text = new Text(type.getId() + " " + currentCapa + "/" + maxCapa);
 					VBox.setMargin(text, new Insets(0, 0, 0, 12));
@@ -83,10 +78,8 @@ public class NetworkNodeVisualizationPopup extends VisualizationPopup {
 					int containerIndex = 1;
 					for (UncertainParameterContainer container : customer.getUncertainParameters().getParameter()) {
 
-						String str = MessageFormat.format(
-								"UContainer-{0}: start={1};number={2};type={6};edd={3};ldd={4};cyclic={5}",
-								containerIndex++, container.getStart(), container.getNumber(),
-								container.getEarliestDueDate(), container.getLatestDueDate(), container.isCyclic(),
+						String str = MessageFormat.format("UContainer-{0}: start={1};number={2};type={6};edd={3};ldd={4};cyclic={5}", containerIndex++, container.getNewRealizationFromStartDistributionFunction(),
+								container.getNewRealizationFromNumberDistributionFunction(), container.getNewRealizationFromEarliestDueDateDistributionFunction(), container.getNewRealizationFromLatestDueDateDistributionFunction(), container.isCyclic(),
 								container.getStorableParameters().getStorableType().toString());
 
 						Text text = new Text(str);
