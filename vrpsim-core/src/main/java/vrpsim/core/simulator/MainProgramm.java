@@ -1,11 +1,11 @@
 /**
- * Copyright (C) 2016 Thomas Mayer (thomas.mayer@unibw.de)
+ * Copyright © 2016 Thomas Mayer (thomas.mayer@unibw.de)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *         http://www.apache.org/licenses/LICENSE-2.0
+ *     http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -69,12 +69,10 @@ public class MainProgramm extends Observable {
 		this.model = model;
 		this.simulationEndTime = createTimeFrom(simulationEndTime);
 
-		logger.info(
-				"Start initializing simulation model and collecting all existing IVRPSimualtionElement from model..");
-		List<IVRPSimulationElement> allElements = this.model
-				.initalizeAndReturnSimulationElements(this.eventListInterface);
+		logger.info("Start initializing simulation model and collecting all existing IVRPSimualtionElement from model..");
+		List<IVRPSimulationElement> allElements = this.model.initalizeAndReturnSimulationElements(this.eventListInterface);
 
-		logger.debug("IVRPSimualtionElement from model: {}", allElements);
+		logger.trace("IVRPSimualtionElement from model: {}", allElements);
 
 		logger.info("Add initial events to eventlist.");
 		Set<IEventType> types = new HashSet<IEventType>();
@@ -99,27 +97,31 @@ public class MainProgramm extends Observable {
 					}
 					fel.add(foreignEventListener);
 					foreignEventListeners.put(type.getType(), fel);
-					logger.info("Foreign event listener added class={} for type={} ", element.getClass().getName(),
-							type.getType());
+					logger.info("Foreign event listener added class={} for type={} ", element.getClass().getName(), type.getType());
 				}
 			}
 		}
 	}
 
-	public void run(final VRPSimulationModel model, final double simulationEndTime)
-			throws EventException, InterruptedException, InitializationException {
+	public void run(final VRPSimulationModel model) throws EventException, InterruptedException, InitializationException {
+		this.run(model, Double.MAX_VALUE);
+	}
+
+	public void run(final VRPSimulationModel model, final double simulationEndTime) throws EventException, InterruptedException, InitializationException {
 		this.init(model, simulationEndTime);
 
-		while (0 >= this.clock.getCurrentSimulationTime().compareTo(this.simulationEndTime)
-				&& this.eventListInterface.getEventListSize() > 0) {
+		while (0 >= this.clock.getCurrentSimulationTime().compareTo(this.simulationEndTime) && this.eventListInterface.getEventListSize() > 0) {
 
-			IEvent currentEvent = this.eventListInterface.getAndRemoveNextEvent();
-			this.clock.setSimulationTime(currentEvent.getSimulationTimeOfOccurence());
+			// IEvent currentEvent =
+			// this.eventListInterface.getAndRemoveNextEvent();
+			// this.clock.setSimulationTime(currentEvent.getSimulationTimeOfOccurence());
 
-			if (0 >= this.clock.getCurrentSimulationTime().compareTo(this.simulationEndTime)) {
-				notifyObservers();
-				runStep();
-			}
+			// if (0 >=
+			// this.clock.getCurrentSimulationTime().compareTo(this.simulationEndTime))
+			// {
+			notifyObservers();
+			runStep();
+			// }
 		}
 	}
 
@@ -127,15 +129,14 @@ public class MainProgramm extends Observable {
 
 		IEvent currentEvent = this.eventListInterface.getAndRemoveNextEvent();
 		this.clock.setSimulationTime(currentEvent.getSimulationTimeOfOccurence());
-		logger.info("Current simulation time: {}", this.clock.getCurrentSimulationTime().getValue());
+		logger.info("Current simulation time: {}, triggered from {}", this.clock.getCurrentSimulationTime().getValue(), currentEvent.getOwner().getClass().getSimpleName());
 
-		logger.debug("Event (type=" + currentEvent.getType().getType() + ") from "
-				+ currentEvent.getOwner().getClass().getSimpleName());
+		logger.debug("Event (type=" + currentEvent.getType().getType() + ") from " + currentEvent.getOwner().getClass().getSimpleName());
+		logger.debug("Before processing: Lenght of event list: {}", this.eventListInterface.getEventListSize());
 
 		// Inform all foreign event listeners.
 		if (this.foreignEventListeners.containsKey(currentEvent.getType().getType())) {
-			logger.debug("For the event type {}, {} IForeignEventListener is/are informed",
-					currentEvent.getType().getType(),
+			logger.debug("For the event type {}, {} IForeignEventListener is/are informed", currentEvent.getType().getType(),
 					this.foreignEventListeners.get(currentEvent.getType().getType()).size());
 			for (IForeignEventListener fel : this.foreignEventListeners.get(currentEvent.getType().getType())) {
 				logger.trace("Inform ", fel);
@@ -144,20 +145,19 @@ public class MainProgramm extends Observable {
 		}
 
 		// Can return null, if no more activity is executed with in the tour.
-		List<IEvent> newEvents = currentEvent.getOwner().processEvent(currentEvent, this.clock,
-				this.eventListInterface);
+		List<IEvent> newEvents = currentEvent.getOwner().processEvent(currentEvent, this.clock, this.eventListInterface);
 
 		if (newEvents != null) {
 			for (IEvent newEvent : newEvents) {
 				// Add new event on event list.
 				if (newEvent != null) {
 					this.eventListInterface.addEvent(this.clock, newEvent);
-					logger.debug("Added new event (type={}) from {} to event list.", newEvent.getType().getType(),
-							newEvent.getOwner().getClass().getSimpleName());
+					logger.debug("Added new event (type={}) from {} to event list.", newEvent.getType().getType(), newEvent.getOwner().getClass().getSimpleName());
 				}
 			}
 		}
 
+		logger.debug("After processing: Lenght of event list: {}", this.eventListInterface.getEventListSize());
 		return currentEvent;
 	}
 
@@ -168,10 +168,8 @@ public class MainProgramm extends Observable {
 			return true;
 		}
 
-		if (0 < this.eventListInterface.getNextEvent().getSimulationTimeOfOccurence()
-				.compareTo(this.simulationEndTime)) {
-			logger.info("Simulation ends, current time = {}, simulation end time = {}.",
-					this.eventListInterface.getNextEvent().getSimulationTimeOfOccurence().getValue(),
+		if (0 < this.eventListInterface.getNextEvent().getSimulationTimeOfOccurence().compareTo(this.simulationEndTime)) {
+			logger.info("Simulation ends, current time = {}, simulation end time = {}.", this.eventListInterface.getNextEvent().getSimulationTimeOfOccurence().getValue(),
 					this.simulationEndTime.getValue());
 			return true;
 		}

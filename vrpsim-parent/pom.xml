@@ -1,12 +1,12 @@
 <!--
 
-    Copyright (C) 2016 Thomas Mayer (thomas.mayer@unibw.de)
+    Copyright © 2016 Thomas Mayer (thomas.mayer@unibw.de)
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
     You may obtain a copy of the License at
 
-            http://www.apache.org/licenses/LICENSE-2.0
+        http://www.apache.org/licenses/LICENSE-2.0
 
     Unless required by applicable law or agreed to in writing, software
     distributed under the License is distributed on an "AS IS" BASIS,
@@ -15,6 +15,14 @@
     limitations under the License.
 
 -->
+<!-- Copyright (C) 2016 Thomas Mayer (thomas.mayer@unibw.de) Licensed under 
+	the Apache License, Version 2.0 (the "License"); you may not use this file 
+	except in compliance with the License. You may obtain a copy of the License 
+	at http://www.apache.org/licenses/LICENSE-2.0 Unless required by applicable 
+	law or agreed to in writing, software distributed under the License is distributed 
+	on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either 
+	express or implied. See the License for the specific language governing permissions 
+	and limitations under the License. -->
 <!-- Copyright (C) 2016 Thomas Mayer (thomas.mayer@unibw.de) Licensed under 
 	the Apache License, Version 2.0 (the "License"); you may not use this file 
 	except in compliance with the License. You may obtain a copy of the License 
@@ -45,9 +53,45 @@
 
 	<modules>
 		<module>../vrpsim-core</module>
-		<module>../vrpsim-util</module>
+		<module>../vrpsim-dynamicvrprep-model-api</module>
+		<module>../vrpsim-dynamicvrprep-model-generator-api</module>
+		<module>../vrpsim-dynamicvrprep-model-generator-impl</module>
+		<module>../vrpsim-dynamicvrprep-model-impl</module>
 		<module>../vrpsim-visualization</module>
-		<!-- <module>../vrpsim-examples</module> -->
+		
+		
+		<module>../vrpsim-simulationmodel-api</module>
+		<module>../vrpsim-simulationmodel-impl</module>
+		
+		
+		<module>
+			../vrpsim-simulationmodel-initialbehaviour-generator-api
+		</module>
+		
+		<module>
+			../vrpsim-simulationmodel-dynamicbehaviour-generator-api
+		</module>
+		
+		
+		<module>
+			../vrpsim-simulationmodel-initialbehaviour-generator-jspritimpl
+		</module>
+		<module>../vrpsim-degree-of-dynamic-study</module>
+		<module>../vrpsim-r-util-api</module>
+		<module>../vrpsim-r-util-impl</module>
+		<module>
+			../vrpsim-simulationmodel-dynamicbehaviour-generator-jspritimpl
+		</module>
+		<module>../vrpsim-vrprep-util-api</module>
+		<module>../vrpsim-vrprep-util-impl</module>
+		<module>
+			../vrpsim-simulationmodel-dynamicbehaviour-generator-greedyimpl
+		</module>
+		<module>
+			../vrpsim-simulationmodel-dynamicbehaviour-generator-chainedkernighanlinimpl
+		</module>
+		<module>../vrpsim-resultdatastore-api</module>
+		<module>../vrpsim-resultdatastore-fileimpl</module>
 	</modules>
 
 	<build>
@@ -76,7 +120,7 @@
 			<plugin>
 				<groupId>com.mycila</groupId>
 				<artifactId>license-maven-plugin</artifactId>
-				<version>2.11</version>
+				<version>3.0</version>
 				<configuration>
 					<header>com/mycila/maven/plugin/license/templates/APACHE-2.txt</header>
 					<properties>
@@ -88,12 +132,14 @@
 						<exclude>**/README</exclude>
 						<exclude>src/test/resources/**</exclude>
 						<exclude>src/main/resources/**</exclude>
+						<exclude>statistics/**</exclude>
+						<exclude>oldCreationStatistics/**</exclude>
 						<exclude>uml-model/**</exclude>
 					</excludes>
 					<executions>
 						<execution>
 							<goals>
-								<goal>format</goal>
+								<goal>remove</goal>
 							</goals>
 						</execution>
 					</executions>

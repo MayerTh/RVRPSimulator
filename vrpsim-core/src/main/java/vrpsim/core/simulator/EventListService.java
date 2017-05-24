@@ -1,11 +1,11 @@
 /**
- * Copyright (C) 2016 Thomas Mayer (thomas.mayer@unibw.de)
+ * Copyright © 2016 Thomas Mayer (thomas.mayer@unibw.de)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *         http://www.apache.org/licenses/LICENSE-2.0
+ *     http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -43,7 +43,7 @@ public class EventListService {
 	 * @param clock
 	 * @param tour
 	 */
-	public void introduceTour(IClock clock, ITour tour) {
+	public void introduceTourToEventList(IClock clock, ITour tour) {
 		List<IEvent> events = tour.getInitialEvents(clock);
 		this.addEvents(clock, events);
 	}
@@ -133,6 +133,16 @@ public class EventListService {
 	public IEvent getNextEvent() {
 		this.eventList.sort();
 		return this.eventList.getEventList().get(0);
+	}
+
+	public ITime getNextOccurenceByType(String activityEvent, IClock clock) {
+		ITime result = null;
+		for(IEvent event : this.eventList.getEventList()) {
+			if(event.getType().getType().equals(activityEvent)) {
+				result = event.getSimulationTimeOfOccurence().sub(clock.getCurrentSimulationTime());
+			}
+		}
+		return result;
 	}
 
 }

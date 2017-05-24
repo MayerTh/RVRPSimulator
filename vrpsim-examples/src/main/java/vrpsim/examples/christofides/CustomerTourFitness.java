@@ -71,8 +71,7 @@ public class CustomerTourFitness extends AbstractFitnessFunction<CustomerTour> {
 
 	public CustomerTourFitness(String modelFolder, String modelName) throws URISyntaxException {
 
-		importer = new VRPREPImporter(storageType, storableType, capacityType, consumptionCycleTime,
-				maxCustomerStorageCapacity, numberOfStorablesInDepot, numberOfVehicles);
+		importer = new VRPREPImporter(storageType, storableType, capacityType, consumptionCycleTime, maxCustomerStorageCapacity, numberOfStorablesInDepot, numberOfVehicles);
 		path = Paths.get(ClassLoader.class.getResource(modelFolder + "/" + modelName).toURI());
 		this.setModel();
 	}
@@ -100,8 +99,7 @@ public class CustomerTourFitness extends AbstractFitnessFunction<CustomerTour> {
 		try {
 
 			CustomerTour customerTour = individual.getPhenotype();
-			Behaviour behaviour = this.customerTourTranslator.translate(customerTour, this.model,
-					this.mainProgramm.getSimulationClock());
+			Behaviour behaviour = this.customerTourTranslator.translate(customerTour, this.model, this.mainProgramm.getSimulationClock());
 			this.model.setSolutionManager(new SolutionManager((network, structure) -> behaviour));
 			// this.model.setBehaviour(behaviour);
 
@@ -117,18 +115,15 @@ public class CustomerTourFitness extends AbstractFitnessFunction<CustomerTour> {
 			throw new RuntimeErrorException(new Error(e.getMessage()));
 		}
 
-		double costs = this.model.getSolutionManager().getStaticBehaviourFromStaticBehaviourProvider().getTours().get(0)
-				.getCurrentTourCosts();
+		double costs = this.model.getSolutionManager().getStaticBehaviourFromStaticBehaviourProvider().getTours().get(0).getCurrentTourCosts();
 		this.setModel();
 		return costs;
 	}
 
-	public Behaviour translateToSolution(CustomerTour customerTour)
-			throws NetworkException, BehaviourException, VRPArithmeticException {
+	public Behaviour translateToSolution(CustomerTour customerTour) throws NetworkException, BehaviourException, VRPArithmeticException {
 		this.customerTourTranslator = new CustomerTourSolutionTranslator();
 		this.mainProgramm = new MainProgramm();
-		Behaviour solution = this.customerTourTranslator.translate(customerTour, this.model,
-				this.mainProgramm.getSimulationClock());
+		Behaviour solution = this.customerTourTranslator.translate(customerTour, this.model, this.mainProgramm.getSimulationClock());
 		return solution;
 	}
 

@@ -1,11 +1,11 @@
 /**
- * Copyright (C) 2016 Thomas Mayer (thomas.mayer@unibw.de)
+ * Copyright © 2016 Thomas Mayer (thomas.mayer@unibw.de)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *         http://www.apache.org/licenses/LICENSE-2.0
+ *     http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -62,6 +62,7 @@ public class Tour implements ITour {
 		this.startActivity = startActivity;
 		this.costList = new ArrayList<>();
 		this.currentTourCosts = 0.0;
+		this.context.setCurrentActivity(startActivity);
 
 		this.eventTypes = new ArrayList<IEventType>();
 		this.eventTypes.add(new IEventType() {
@@ -85,13 +86,12 @@ public class Tour implements ITour {
 	@Override
 	public List<IEvent> getInitialEvents(IClock clock) {
 		List<IEvent> events = new ArrayList<IEvent>();
-		events.add(createEvent(this.context.getActivityStart(), this.startActivity, false));
+		events.add(createEvent(this.context.getActivityTimeTillStart(), this.startActivity, false));
 		return events;
 	}
 
 	@Override
-	public List<IEvent> processEvent(IEvent event, IClock clock, EventListService eventListService)
-			throws EventException {
+	public List<IEvent> processEvent(IEvent event, IClock clock, EventListService eventListService) throws EventException {
 
 		if (!(event instanceof TourEvent) || !event.getType().equals(this.eventTypes.get(0))) {
 			throw new RejectEventException("Can not process event " + event);
@@ -99,8 +99,7 @@ public class Tour implements ITour {
 
 		if (!this.areRessoucresAllocatedAlready) {
 			if (!context.getVehicle().isAvailable(clock) || !context.getDriver().isAvailable(clock)) {
-				throw new ErrorDuringEventProcessingException(
-						"Vehicle or driver for tour is not available and can not be allocated.");
+				throw new ErrorDuringEventProcessingException("Vehicle or driver for tour is not available and can not be allocated.");
 			} else {
 				allocate();
 			}
@@ -108,14 +107,14 @@ public class Tour implements ITour {
 
 		TourEvent tEvent = (TourEvent) event;
 		IActivity activityWorkWith = tEvent.getActivityToExecute();
+		this.getTourContext().setCurrentActivity(activityWorkWith);
 
 		try {
 			activityWorkWith.validate(this.context);
 		} catch (BehaviourException e) {
 			e.printStackTrace();
-			throw new ErrorDuringEventProcessingException("Can not process event cause of "
-					+ e.getClass().getSimpleName() + ", validation failed for activity working with " + activityWorkWith
-					+ ". Orginial message:" + e.getMessage());
+			throw new ErrorDuringEventProcessingException("Can not process event cause of " + e.getClass().getSimpleName() + ", validation failed for activity working with "
+					+ activityWorkWith + ". Orginial message:" + e.getMessage());
 		}
 
 		IEvent newEvent = null;
@@ -131,30 +130,24 @@ public class Tour implements ITour {
 				} else {
 					// Preparation was not successful, using the
 					// EventListService to look for Blocking elements.
-					ITime timeTillOccurenceOfBlockingElement = eventListService
-							.getTimeTillOccurenceFor(result.getResponsibleElement(), clock);
+					ITime timeTillOccurenceOfBlockingElement = eventListService.getTimeTillOccurenceFor(result.getResponsibleElement(), clock);
 
 					if (timeTillOccurenceOfBlockingElement == null) {
-						String error = "Activity " + activityWorkWith + " blocked by " + result.getResponsibleElement()
-								+ ", but no regarding time given by " + eventListService.getClass().getSimpleName()
-								+ ".";
+						String error = "Activity " + activityWorkWith + " blocked by " + result.getResponsibleElement() + ", but no regarding time given by "
+								+ eventListService.getClass().getSimpleName() + ".";
 						logger.error(error);
 						throw new ErrorDuringEventProcessingException(error);
 					}
 
 					newEvent = createEvent(timeTillOccurenceOfBlockingElement, activityWorkWith, false);
-					logger.info(
-							"Prepare action of activity {} failed bbecause it is blocked by {}. New event created at time {}.",
-							activityWorkWith,
-							result.getResponsibleElement().getVRPSimulationModelElementParameters().getId(),
-							timeTillOccurenceOfBlockingElement.toString());
+					logger.info("Prepare action of activity {} failed bbecause it is blocked by {}. New event created at time {}.", activityWorkWith,
+							result.getResponsibleElement().getVRPSimulationModelElementParameters().getId(), timeTillOccurenceOfBlockingElement.toString());
 				}
 
 			} catch (VRPArithmeticException | NetworkException | BehaviourException e) {
 				e.printStackTrace();
-				throw new ErrorDuringEventProcessingException("Can not process event cause of "
-						+ e.getClass().getSimpleName() + " within prepareAction of activity " + activityWorkWith
-						+ ". Orginial message:" + e.getMessage());
+				throw new ErrorDuringEventProcessingException("Can not process event cause of " + e.getClass().getSimpleName() + " within prepareAction of activity "
+						+ activityWorkWith + ". Orginial message:" + e.getMessage());
 			}
 
 		} else {
@@ -164,27 +157,29 @@ public class Tour implements ITour {
 				ActivityDoActionResult result = activityWorkWith.doAction(clock, context);
 
 				if (activityWorkWith.getSuccessor() == null) {
-					this.costList.add(new Double(this.currentTourCosts));
+					this.costList.add(new Double(this.currentTourCosts + result.getDoActionCosts()));
 					this.currentTourCosts = 0.0;
 
 					release();
 
 				} else {
 					this.currentTourCosts += result.getDoActionCosts();
-					newEvent = createEvent(clock.getCurrentSimulationTime().createTimeFrom(0.0),
-							activityWorkWith.getSuccessor(), false);
+					newEvent = createEvent(clock.getCurrentSimulationTime().createTimeFrom(0.0), activityWorkWith.getSuccessor(), false);
 				}
 
 			} catch (StorageException | VRPArithmeticException e) {
 				e.printStackTrace();
-				throw new ErrorDuringEventProcessingException("Can not process event cause of "
-						+ e.getClass().getSimpleName() + " within doAction of activity " + activityWorkWith
+				throw new ErrorDuringEventProcessingException("Can not process event cause of " + e.getClass().getSimpleName() + " within doAction of activity " + activityWorkWith
 						+ ". Orginial message:" + e.getMessage());
 			}
 		}
 
 		List<IEvent> events = new ArrayList<>();
-		events.add(newEvent);
+		if (newEvent == null) {
+			release();
+		} else {
+			events.add(newEvent);
+		}
 		return events;
 	}
 
@@ -195,8 +190,7 @@ public class Tour implements ITour {
 	@Override
 	public void allocatedElementStateChanged(IVRPSimulationModelElement element) throws BehaviourException {
 		if (this.areRessoucresAllocatedAlready) {
-			throw new BehaviourException(
-					"The state of vehicle or driver (e.g. breakdown) changed during tour execution. Tour implementation can not handle this yet.");
+			throw new BehaviourException("The state of vehicle or driver (e.g. breakdown) changed during tour execution. Tour implementation can not handle this yet.");
 		}
 	}
 

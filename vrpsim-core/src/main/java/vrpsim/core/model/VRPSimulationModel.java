@@ -1,11 +1,11 @@
 /**
- * Copyright (C) 2016 Thomas Mayer (thomas.mayer@unibw.de)
+ * Copyright © 2016 Thomas Mayer (thomas.mayer@unibw.de)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *         http://www.apache.org/licenses/LICENSE-2.0
+ *     http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -18,11 +18,14 @@ package vrpsim.core.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import vrpsim.core.model.behaviour.BehaviourService;
 import vrpsim.core.model.behaviour.tour.ITour;
 import vrpsim.core.model.network.Network;
+import vrpsim.core.model.network.NetworkService;
 import vrpsim.core.model.solution.IAmInterestedInPubishedOrders;
 import vrpsim.core.model.solution.SolutionManager;
 import vrpsim.core.model.structure.Structure;
+import vrpsim.core.model.structure.StructureService;
 import vrpsim.core.model.structure.customer.ICustomer;
 import vrpsim.core.model.structure.depot.IDepot;
 import vrpsim.core.model.structure.occasionaldriver.OccasionalDriver;
@@ -49,6 +52,18 @@ public class VRPSimulationModel {
 
 		this.structure = structure;
 		this.network = network;
+	}
+	
+	public StructureService getStructureService() {
+		return this.structure.getStructureService();
+	}
+	
+	public NetworkService getNetworkService() {
+		return this.network.getNetworkService();
+	}
+	
+	public BehaviourService getBehaviourService() {
+		return this.solutionManager.getBehaviourFromInitialBehaviourProvider().getBehaviourService();
 	}
 
 	/**

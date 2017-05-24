@@ -1,11 +1,11 @@
 /**
- * Copyright (C) 2016 Thomas Mayer (thomas.mayer@unibw.de)
+ * Copyright © 2016 Thomas Mayer (thomas.mayer@unibw.de)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *         http://www.apache.org/licenses/LICENSE-2.0
+ *     http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -116,7 +116,7 @@ public class OrderBoardVisualizationPopup extends VisualizationPopup implements 
 					? order.getProvider().getVRPSimulationModelElementParameters().getId() : "-"));
 			transporter = new SimpleStringProperty(order.getServicedBy() != null
 					? order.getServicedBy().getVRPSimulationModelElementParameters().getId() : "-");
-			amount_Type = new SimpleStringProperty(order.getAmount() + " (" + order.getStorableType() + ")");
+			amount_Type = new SimpleStringProperty(order.getAmount() + " (" + order.getStorableParameters() + ")");
 			edd = new SimpleStringProperty(
 					(order.getEarliestDueDate() != null ? order.getEarliestDueDate().getValue() : "-"));
 			ldd = new SimpleStringProperty(

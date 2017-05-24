@@ -1,11 +1,11 @@
 /**
- * Copyright (C) 2016 Thomas Mayer (thomas.mayer@unibw.de)
+ * Copyright © 2016 Thomas Mayer (thomas.mayer@unibw.de)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *         http://www.apache.org/licenses/LICENSE-2.0
+ *     http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -31,7 +31,7 @@ public class Location {
 		this.y = y;
 		this.z = z;
 	}
-	
+
 	public Location(Integer x, Integer y, Integer z) {
 		this.x = x.doubleValue();
 		this.y = y.doubleValue();
@@ -51,8 +51,26 @@ public class Location {
 	}
 
 	@Override
+	public boolean equals(Object obj) {
+		boolean result = false;
+		if (obj instanceof Location) {
+			Location other = (Location) obj;
+			result = other.getX().equals(this.getX()) && other.getY().equals(this.getY());
+			if (this.getZ() != null)
+				if (!this.getZ().equals(new Double(0.0))) {
+					result = other.getZ().equals(this.getZ());
+				}
+		}
+		return result;
+	}
+
+	@Override
 	public String toString() {
-		return "x=" + this.x + ", y=" + this.y + ", z=" + this.z;
+		String sZ = "";
+		if(this.z != null) {
+			sZ = ", z=" + this.z;
+		}
+		return "x=" + this.x + ", y=" + this.y + sZ;
 	}
 
 }

@@ -1,11 +1,11 @@
 /**
- * Copyright (C) 2016 Thomas Mayer (thomas.mayer@unibw.de)
+ * Copyright © 2016 Thomas Mayer (thomas.mayer@unibw.de)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *         http://www.apache.org/licenses/LICENSE-2.0
+ *     http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -62,10 +62,21 @@ public class StaticCustomer extends AbstractVRPSimulationModelStructureElementWi
 		this.staticOrdersBeforeEventGeneration = new ArrayList<>();
 		for (UncertainParameterContainer container : this.consumptionParameters.getParameter()) {
 
-			// Also latest due date
-			ITime timeTillOccurence = new Clock.Time(container.getNewRealizationFromLatestDueDateDistributionFunction());
+			ITime earliestDueDate = null;
+			if (container.getNewRealizationFromEarliestDueDateDistributionFunction() != null) {
+				earliestDueDate = new Clock.Time(container.getNewRealizationFromEarliestDueDateDistributionFunction());
+			}
 
-			Order order = new Order(createOrderId(), new Clock.Time(container.getNewRealizationFromEarliestDueDateDistributionFunction()), timeTillOccurence, container.getStorableParameters().getStorableType(),
+			ITime latestDueDate = null;
+			if (container.getNewRealizationFromLatestDueDateDistributionFunction() != null) {
+				latestDueDate = new Clock.Time(container.getNewRealizationFromLatestDueDateDistributionFunction());
+			}
+
+			// Also latest due date
+//			ITime timeTillOccurence = container.getNewRealizationFromLatestDueDateDistributionFunction() == null ? null
+//					: new Clock.Time(container.getNewRealizationFromLatestDueDateDistributionFunction());
+
+			Order order = new Order(createOrderId(), earliestDueDate, latestDueDate, container.getStorableParameters(),
 					container.getNewRealizationFromNumberDistributionFunction().intValue(), (IVRPSimulationModelStructureElementWithStorage) this);
 
 			logger.debug("Static order created {}.", order.getId());

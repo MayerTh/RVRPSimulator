@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<instance>
+    <info>
+        <dataset></dataset>
+        <name></name>
+    </info>
+    <network>
+        <nodes>
+            <node type="0" id="1">
+                <cx>0.0</cx>
+                <cy>0.0</cy>
+            </node>
+            <node type="1" id="2">
+                <cx>-16.943301</cx>
+                <cy>12.905622</cy>
+            </node>
+            <node type="1" id="3">
+                <cx>18.555556</cx>
+                <cy>-7.461163</cy>
+            </node>
+            <node type="1" id="4">
+                <cx>9.276785</cx>
+                <cy>-10.292568</cy>
+            </node>
+            <node type="1" id="5">
+                <cx>1.531465</cx>
+                <cy>16.621169</cy>
+            </node>
+            <node type="1" id="6">
+                <cx>4.87451</cx>
+                <cy>-8.234433</cy>
+            </node>
+            <node type="1" id="7">
+                <cx>-10.038749</cx>
+                <cy>-2.370373</cy>
+            </node>
+            <node type="1" id="8">
+                <cx>-3.867717</cx>
+                <cy>-7.019684</cy>
+            </node>
+            <node type="1" id="9">
+                <cx>2.91596</cx>
+                <cy>12.127268</cy>
+            </node>
+            <node type="1" id="10">
+                <cx>-3.783261</cx>
+                <cy>-3.532211</cy>
+            </node>
+            <node type="1" id="11">
+                <cx>-18.756362</cx>
+                <cy>-23.778299</cy>
+            </node>
+            <node type="1" id="12">
+                <cx>-10.490737</cx>
+                <cy>-9.123971</cy>
+            </node>
+            <node type="1" id="13">
+                <cx>7.684507</cx>
+                <cy>22.846796</cy>
+            </node>
+            <node type="0" id="14">
+                <cx>0.0</cx>
+                <cy>0.0</cy>
+            </node>
+        </nodes>
+        <euclidean/>
+        <decimals>6</decimals>
+    </network>
+    <fleet>
+        <vehicle_profile number="1" type="0">
+            <departure_node>1</departure_node>
+            <arrival_node>12</arrival_node>
+            <max_travel_time>1.0</max_travel_time>
+            <speed_factor>5.0</speed_factor>
+        </vehicle_profile>
+        <vehicle_profile number="1" type="1">
+            <departure_node>1</departure_node>
+            <arrival_node>12</arrival_node>
+            <speed_factor>1.0</speed_factor>
+        </vehicle_profile>
+    </fleet>
+    <requests>
+        <request node="2" id="1"/>
+        <request node="3" id="2"/>
+        <request node="4" id="3"/>
+        <request node="5" id="4"/>
+        <request node="6" id="5"/>
+        <request node="7" id="6"/>
+        <request node="8" id="7"/>
+        <request node="9" id="8"/>
+        <request node="10" id="9"/>
+        <request node="11" id="10"/>
+        <request node="12" id="11"/>
+        <request node="13" id="12"/>
+    </requests>
+</instance>

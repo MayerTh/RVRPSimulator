@@ -1,11 +1,11 @@
 /**
- * Copyright (C) 2016 Thomas Mayer (thomas.mayer@unibw.de)
+ * Copyright © 2016 Thomas Mayer (thomas.mayer@unibw.de)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *         http://www.apache.org/licenses/LICENSE-2.0
+ *     http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -32,6 +32,16 @@ public class NetworkService {
 
 	public NetworkService(Network network) {
 		this.network = network;
+	}
+	
+	public INode getNodeByLoaction(Location loaction) {
+		INode result = null;
+		for(INode node : this.network.getNodes()) {
+			if(node.getLocation().equals(loaction)) {
+				result = node;
+			}
+		}
+		return result;
 	}
 
 	/**

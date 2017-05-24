@@ -1,11 +1,11 @@
 /**
- * Copyright (C) 2016 Thomas Mayer (thomas.mayer@unibw.de)
+ * Copyright © 2016 Thomas Mayer (thomas.mayer@unibw.de)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *         http://www.apache.org/licenses/LICENSE-2.0
+ *     http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -15,9 +15,11 @@
  */
 package vrpsim.core.model.structure;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import vrpsim.core.model.network.INode;
 import vrpsim.core.model.structure.customer.ICustomer;
 import vrpsim.core.model.structure.depot.IDepot;
 import vrpsim.core.model.structure.driver.IDriver;
@@ -36,6 +38,42 @@ public class StructureService {
 
 	public StructureService(Structure structure) {
 		this.structure = structure;
+	}
+	
+	/**
+	 * Returns all {@link ICustomer} located at the given {@link INode};
+	 * 
+	 * @param node
+	 * @return
+	 */
+	public List<ICustomer> getCustomersByNodeId(INode node) {
+		List<ICustomer> result = new ArrayList<>();
+		String nodeId = node.getVRPSimulationModelElementParameters().getId();
+		for(ICustomer customer : structure.getCustomers()) {
+			String customerHomeId = customer.getVRPSimulationModelStructureElementParameters().getHome().getVRPSimulationModelElementParameters().getId();
+			if(nodeId.equals(customerHomeId)) {
+				result.add(customer);
+			}
+		}
+		return result;
+	}
+	
+	/**
+	 * Returns all {@link IDepot} located at the given {@link INode};
+	 * 
+	 * @param node
+	 * @return
+	 */
+	public List<IDepot> getDepotsByNodeId(INode node) {
+		List<IDepot> result = new ArrayList<>();
+		String nodeId = node.getVRPSimulationModelElementParameters().getId();
+		for(IDepot depot : structure.getDepots()) {
+			String depotHomeId = depot.getVRPSimulationModelStructureElementParameters().getHome().getVRPSimulationModelElementParameters().getId();
+			if(nodeId.equals(depotHomeId)) {
+				result.add(depot);
+			}
+		}
+		return result;
 	}
 	
 	/**

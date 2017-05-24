@@ -1,11 +1,11 @@
 /**
- * Copyright (C) 2016 Thomas Mayer (thomas.mayer@unibw.de)
+ * Copyright © 2016 Thomas Mayer (thomas.mayer@unibw.de)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *         http://www.apache.org/licenses/LICENSE-2.0
+ *     http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import vrpsim.core.model.IVRPSimulationModelElement;
+import vrpsim.core.model.behaviour.activities.IActivity;
 import vrpsim.core.model.network.IVRPSimulationModelNetworkElement;
 import vrpsim.core.model.structure.IVRPSimulationModelStructureElementWithStorageMovable;
 import vrpsim.core.model.structure.driver.IDriver;
@@ -31,21 +32,23 @@ import vrpsim.core.simulator.ITime;
  */
 public class TourContext {
 
-	private final ITime activityStart;
+	private final ITime activityTimeTillStart;
 
 	private final IVRPSimulationModelStructureElementWithStorageMovable vehicle;
 	private final IDriver driver;
 	private List<IVRPSimulationModelElement> elementsUpdated;
-
+	
 	private List<IVRPSimulationModelNetworkElement> placeHistory;
 
-	public ITime getActivityStart() {
-		return activityStart;
+	private IActivity currentActivity;
+	
+	public ITime getActivityTimeTillStart() {
+		return activityTimeTillStart;
 	}
 
-	public TourContext(ITime activityStartTime, IVRPSimulationModelStructureElementWithStorageMovable vehicle, IDriver driver) {
+	public TourContext(ITime activityTimeTillStart, IVRPSimulationModelStructureElementWithStorageMovable vehicle, IDriver driver) {
 		super();
-		this.activityStart = activityStartTime;
+		this.activityTimeTillStart = activityTimeTillStart;
 		this.vehicle = vehicle;
 		this.driver = driver;
 		this.placeHistory = new ArrayList<>();
@@ -63,6 +66,18 @@ public class TourContext {
 
 	public IVRPSimulationModelNetworkElement getCurrentPlace() {
 		return this.vehicle.getCurrentPlace();
+	}
+
+	public IActivity getCurrentActivity() {
+		return currentActivity;
+	}
+	
+	public boolean isTourActive() {
+		return this.currentActivity.getSuccessor() != null;
+	}
+
+	public void setCurrentActivity(IActivity currentActivity) {
+		this.currentActivity = currentActivity;
 	}
 
 	public void setCurrentPlace(IVRPSimulationModelNetworkElement currentPlace) {

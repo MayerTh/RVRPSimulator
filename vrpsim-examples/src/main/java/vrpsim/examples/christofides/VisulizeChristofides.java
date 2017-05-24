@@ -44,8 +44,8 @@ public class VisulizeChristofides extends Visualisation {
 
 	private static String workWith = "CMT12";
 
-	public static void main(String[] args) throws JAXBException, VRPArithmeticException, StorageException,
-			NetworkException, BehaviourException, EventException, FileNotFoundException, URISyntaxException {
+	public static void main(String[] args)
+			throws JAXBException, VRPArithmeticException, StorageException, NetworkException, BehaviourException, EventException, FileNotFoundException, URISyntaxException {
 
 		MainProgramm mainProgramm = new MainProgramm();
 		IClock clock = mainProgramm.getSimulationClock();
@@ -53,13 +53,12 @@ public class VisulizeChristofides extends Visualisation {
 
 		VRPREPImporter importer = new VRPREPImporter("Storage A", "Item A", "Capacity", 100.0, 15000.0, 10000, 1);
 
-		VRPSimulationModel model = importer.getSimulationModelWithoutSolutionFromVRPREPModel(Paths.get(
-				ClassLoader.class.getResource("/cvrp/christofides1979/" + workWith + ".xml").toURI()));
+		VRPSimulationModel model = importer
+				.getSimulationModelWithoutSolutionFromVRPREPModel(Paths.get(ClassLoader.class.getResource("/cvrp/christofides1979/" + workWith + ".xml").toURI()));
 
 		JAXBContext context = JAXBContext.newInstance(CustomerTour.class);
 		Unmarshaller um = context.createUnmarshaller();
-		CustomerTour tour = (CustomerTour) um.unmarshal(new FileReader(ClassLoader.class
-				.getResource("/cvrp/christofides1979/solutions/" + workWith + "_solution.xml").getFile()));
+		CustomerTour tour = (CustomerTour) um.unmarshal(new FileReader(ClassLoader.class.getResource("/cvrp/christofides1979/solutions/" + workWith + "_solution.xml").getFile()));
 
 		SimpleBehaviorGenerator behaviourGenerator = new SimpleBehaviorGenerator();
 		Behaviour behaviour = behaviourGenerator.createBehaviour(model, tour.getCustomerIds(), clock);

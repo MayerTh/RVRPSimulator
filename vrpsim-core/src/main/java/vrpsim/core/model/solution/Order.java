@@ -1,11 +1,11 @@
 /**
- * Copyright (C) 2016 Thomas Mayer (thomas.mayer@unibw.de)
+ * Copyright © 2016 Thomas Mayer (thomas.mayer@unibw.de)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *         http://www.apache.org/licenses/LICENSE-2.0
+ *     http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -22,6 +22,7 @@ import java.util.Observable;
 import vrpsim.core.model.network.IVRPSimulationModelNetworkElement;
 import vrpsim.core.model.structure.IVRPSimulationModelStructureElementWithStorage;
 import vrpsim.core.model.structure.util.storage.IStorable;
+import vrpsim.core.model.structure.util.storage.StorableParameters;
 import vrpsim.core.model.structure.util.storage.StorableType;
 import vrpsim.core.simulator.ITime;
 
@@ -66,7 +67,7 @@ public class Order extends Observable {
 	/* latest due date of the order. */
 	private final ITime latestDueDate;
 	/* What is ordered. */
-	private final StorableType storableType;
+	private final StorableParameters storableParameters;
 	/* How many of what is ordered. */
 	private final int amount;
 
@@ -89,13 +90,13 @@ public class Order extends Observable {
 	 * @param owner
 	 * @param initialCots
 	 */
-	public Order(String id, ITime earliestDueDate, ITime latestDueDate, StorableType storableType, int amount,
+	public Order(String id, ITime earliestDueDate, ITime latestDueDate, StorableParameters storableParameters, int amount,
 			IVRPSimulationModelStructureElementWithStorage owner, OrderCost initialCots) {
 
 		this.id = id;
 		this.earliestDueDate = earliestDueDate;
 		this.latestDueDate = latestDueDate;
-		this.storableType = storableType;
+		this.storableParameters = storableParameters;
 		this.amount = amount;
 		this.owner = owner;
 		this.initialCost = initialCots;
@@ -117,9 +118,9 @@ public class Order extends Observable {
 	 * @param amount
 	 * @param owner
 	 */
-	public Order(String id, ITime earliestDueDate, ITime latestDueDate, StorableType storableType, int amount,
+	public Order(String id, ITime earliestDueDate, ITime latestDueDate, StorableParameters storableParameters, int amount,
 			IVRPSimulationModelStructureElementWithStorage owner) {
-		this(id, earliestDueDate, latestDueDate, storableType, amount, owner, new OrderCost());
+		this(id, earliestDueDate, latestDueDate, storableParameters, amount, owner, new OrderCost());
 	}
 
 	/**
@@ -302,9 +303,9 @@ public class Order extends Observable {
 	 * 
 	 * @return
 	 */
-	public StorableType getStorableType() {
-		return storableType;
-	}
+	public StorableParameters getStorableParameters() {
+		return storableParameters;
+	}	
 
 	/**
 	 * How much is ordered?
@@ -314,6 +315,7 @@ public class Order extends Observable {
 	public int getAmount() {
 		return amount;
 	}
+
 
 	/**
 	 * Returns true, if the order state change is valid.

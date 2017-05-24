@@ -1,11 +1,11 @@
 /**
- * Copyright (C) 2016 Thomas Mayer (thomas.mayer@unibw.de)
+ * Copyright © 2016 Thomas Mayer (thomas.mayer@unibw.de)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *         http://www.apache.org/licenses/LICENSE-2.0
+ *     http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -42,12 +42,12 @@ public class SolutionManager implements IVRPSimulationSolutionElement {
 
 	private static Logger logger = LoggerFactory.getLogger(SolutionManager.class);
 
-	private final IInitialBehaviourProvider staticBehaviourProvider;
+	private final IInitialBehaviourProvider initialBehaviourProvider;
 	private IDynamicBehaviourProvider dynamicBehaviourProvider;
-	private Behaviour staticBehaviour;
+	private Behaviour behaviour;
 
-	public SolutionManager(IInitialBehaviourProvider staticBehaviourProvider) {
-		this.staticBehaviourProvider = staticBehaviourProvider;
+	public SolutionManager(IInitialBehaviourProvider initialBehaviourProvider) {
+		this.initialBehaviourProvider = initialBehaviourProvider;
 	}
 
 	/**
@@ -59,8 +59,8 @@ public class SolutionManager implements IVRPSimulationSolutionElement {
 		this.dynamicBehaviourProvider = dynamicBehaviourProvider;
 	}
 
-	public Behaviour getStaticBehaviourFromStaticBehaviourProvider() {
-		return this.staticBehaviour;
+	public Behaviour getBehaviourFromInitialBehaviourProvider() {
+		return this.behaviour;
 	}
 
 	/**
@@ -76,13 +76,13 @@ public class SolutionManager implements IVRPSimulationSolutionElement {
 	public List<IVRPSimulationElement> initalizeAndReturnSolutionBehaviourSimulationElements(
 			EventListService eventListService, StructureService structureService, NetworkService networkService) {
 
-		this.staticBehaviour = this.staticBehaviourProvider.provideBehavior(networkService, structureService);
+		this.behaviour = this.initialBehaviourProvider.provideBehavior(networkService, structureService);
 		List<IVRPSimulationElement> elements = new ArrayList<>();
-		elements.addAll(this.staticBehaviour.getAllSimulationElements());
+		elements.addAll(this.behaviour.getAllSimulationElements());
 
 		if (this.dynamicBehaviourProvider != null) {
 			this.dynamicBehaviourProvider.initialize(eventListService, structureService, networkService,
-					staticBehaviour.getBehaviourService());
+					behaviour.getBehaviourService());
 			elements.add(this.dynamicBehaviourProvider);
 			logger.info("Behavior Provider initialized.");
 		} else {

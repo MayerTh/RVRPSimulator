@@ -1,11 +1,11 @@
 /**
- * Copyright (C) 2016 Thomas Mayer (thomas.mayer@unibw.de)
+ * Copyright © 2016 Thomas Mayer (thomas.mayer@unibw.de)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *         http://www.apache.org/licenses/LICENSE-2.0
+ *     http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -39,8 +39,8 @@ import vrpsim.core.model.util.exceptions.StorageException;
 import vrpsim.core.model.util.exceptions.VRPArithmeticException;
 import vrpsim.core.model.util.exceptions.detail.ErrorDuringEventProcessingException;
 import vrpsim.core.model.util.functions.ITimeFunction;
-import vrpsim.core.model.util.uncertainty.UncertainParamters;
 import vrpsim.core.model.util.uncertainty.UncertainParameterContainer;
+import vrpsim.core.model.util.uncertainty.UncertainParamters;
 import vrpsim.core.simulator.EventListService;
 import vrpsim.core.simulator.IClock;
 import vrpsim.core.simulator.ITime;
@@ -118,7 +118,7 @@ public class DynamicCustomerWithConsumption extends AbstractVRPSimulationModelSt
 		} else if (event.getType().getType().equals(IEventType.CONSUMPTION_EVENT)) {
 
 			Order order = ((ConsumptionEvent) event).getOrder();
-			StorableType storableType = order.getStorableType();
+			StorableType storableType = order.getStorableParameters().getStorableType();
 			int numberToConsum = order.getAmount();
 
 			try {
@@ -196,7 +196,7 @@ public class DynamicCustomerWithConsumption extends AbstractVRPSimulationModelSt
 //				: null;
 
 		Order order = new Order(createOrderId(clock.getCurrentSimulationTime()), earliestDueDate, latestDueDate,
-				container.getStorableParameters().getStorableType(), container.getNewRealizationFromNumberDistributionFunction().intValue(),
+				container.getStorableParameters(), container.getNewRealizationFromNumberDistributionFunction().intValue(),
 				this);
 
 		// Save order in history.
