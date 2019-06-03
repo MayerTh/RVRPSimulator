@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.effect.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.layout.BorderPane?>
+
+<BorderPane fx:id="rootPane" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vrpsim.visualization.view.RootLayoutController">
+	<top>
+		<MenuBar BorderPane.alignment="CENTER">
+			<menus>
+				<Menu mnemonicParsing="false" text="Simulation">
+					<items>
+						<MenuItem fx:id="startSimulation" mnemonicParsing="false" text="Start" />
+						<MenuItem fx:id="stepSimulation" mnemonicParsing="false" text="Step" />
+						<MenuItem fx:id="pauseSimulation" mnemonicParsing="false" text="Pause" />
+					</items>
+				</Menu>
+				<Menu mnemonicParsing="false" text="Delay">
+					<items>
+						<MenuItem fx:id="speed1" mnemonicParsing="false" text="1 ms" />
+						<MenuItem fx:id="speed250" mnemonicParsing="false" text="250 ms" />
+						<MenuItem fx:id="speed500" mnemonicParsing="false" text="500 ms" />
+					</items>
+				</Menu>
+			</menus>
+		</MenuBar>
+	</top>
+   <left>
+      <AnchorPane fx:id="leftPane" prefHeight="575.0" prefWidth="217.0" BorderPane.alignment="CENTER">
+         <children>
+            <ScrollPane fx:id="scrollPane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <content>
+                  <VBox fx:id="infoPane" />
+               </content>
+            </ScrollPane>
+         </children>
+      </AnchorPane>
+   </left>
+   <center>
+   	  <!-- <AnchorPane fx:id="centerPane" prefHeight="575.0" prefWidth="217.0" BorderPane.alignment="CENTER"> 
+      <children> -->
+           <SplitPane fx:id="centerPane" dividerPositions="0.6666666666666666" orientation="VERTICAL" BorderPane.alignment="CENTER">
+             <items>
+               <AnchorPane fx:id="modelPane" prefHeight="575.0" />
+               <AnchorPane fx:id="orderPane" prefHeight="200.0" />
+             </items>
+           </SplitPane>
+      <!--</children>
+      </AnchorPane> -->
+   </center>
+</BorderPane>

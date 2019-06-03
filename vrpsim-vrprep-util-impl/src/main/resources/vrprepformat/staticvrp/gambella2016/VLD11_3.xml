@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<instance>
+    <info>
+        <dataset></dataset>
+        <name></name>
+    </info>
+    <network>
+        <nodes>
+            <node type="0" id="1">
+                <cx>0.0</cx>
+                <cy>0.0</cy>
+            </node>
+            <node type="1" id="2">
+                <cx>29.187918</cx>
+                <cy>-4.78265</cy>
+            </node>
+            <node type="1" id="3">
+                <cx>34.919871</cx>
+                <cy>-10.956917</cy>
+            </node>
+            <node type="1" id="4">
+                <cx>23.837651</cx>
+                <cy>47.643856</cy>
+            </node>
+            <node type="1" id="5">
+                <cx>2.329906</cx>
+                <cy>-7.00847</cy>
+            </node>
+            <node type="1" id="6">
+                <cx>-29.284192</cx>
+                <cy>-17.659862</cy>
+            </node>
+            <node type="1" id="7">
+                <cx>-38.912978</cx>
+                <cy>-12.478995</cy>
+            </node>
+            <node type="1" id="8">
+                <cx>-17.009602</cx>
+                <cy>-15.789483</cy>
+            </node>
+            <node type="1" id="9">
+                <cx>31.711885</cx>
+                <cy>3.168531</cy>
+            </node>
+            <node type="1" id="10">
+                <cx>2.112205</cx>
+                <cy>27.430971</cy>
+            </node>
+            <node type="1" id="11">
+                <cx>-37.973723</cx>
+                <cy>12.545015</cy>
+            </node>
+            <node type="0" id="12">
+                <cx>0.0</cx>
+                <cy>0.0</cy>
+            </node>
+        </nodes>
+        <euclidean/>
+        <decimals>6</decimals>
+    </network>
+    <fleet>
+        <vehicle_profile number="1" type="0">
+            <departure_node>1</departure_node>
+            <arrival_node>12</arrival_node>
+            <max_travel_time>1.0</max_travel_time>
+            <speed_factor>5.0</speed_factor>
+        </vehicle_profile>
+        <vehicle_profile number="1" type="1">
+            <departure_node>1</departure_node>
+            <arrival_node>12</arrival_node>
+            <speed_factor>1.0</speed_factor>
+        </vehicle_profile>
+    </fleet>
+    <requests>
+        <request node="2" id="1"/>
+        <request node="3" id="2"/>
+        <request node="4" id="3"/>
+        <request node="5" id="4"/>
+        <request node="6" id="5"/>
+        <request node="7" id="6"/>
+        <request node="8" id="7"/>
+        <request node="9" id="8"/>
+        <request node="10" id="9"/>
+        <request node="11" id="10"/>
+    </requests>
+</instance>

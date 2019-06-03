@@ -1,0 +1,1188 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<instance>
+	<info>
+	 	<dataset>Uchoa 2014 — Set X</dataset>
+	 	<name>X-n167-k10</name>
+	</info>
+	<network>
+	 	<nodes>
+	 	 	<node id="1" type="1">
+	 	 	 	<cx>0</cx>
+	 	 	 	<cy>0</cy>
+	 	 	</node>
+	 	 	<node id="2" type="1">
+	 	 	 	<cx>832</cx>
+	 	 	 	<cy>885</cy>
+	 	 	</node>
+	 	 	<node id="3" type="1">
+	 	 	 	<cx>777</cx>
+	 	 	 	<cy>632</cy>
+	 	 	</node>
+	 	 	<node id="4" type="1">
+	 	 	 	<cx>406</cx>
+	 	 	 	<cy>257</cy>
+	 	 	</node>
+	 	 	<node id="5" type="1">
+	 	 	 	<cx>620</cx>
+	 	 	 	<cy>467</cy>
+	 	 	</node>
+	 	 	<node id="6" type="1">
+	 	 	 	<cx>58</cx>
+	 	 	 	<cy>70</cy>
+	 	 	</node>
+	 	 	<node id="7" type="1">
+	 	 	 	<cx>116</cx>
+	 	 	 	<cy>423</cy>
+	 	 	</node>
+	 	 	<node id="8" type="1">
+	 	 	 	<cx>104</cx>
+	 	 	 	<cy>445</cy>
+	 	 	</node>
+	 	 	<node id="9" type="1">
+	 	 	 	<cx>714</cx>
+	 	 	 	<cy>722</cy>
+	 	 	</node>
+	 	 	<node id="10" type="1">
+	 	 	 	<cx>188</cx>
+	 	 	 	<cy>503</cy>
+	 	 	</node>
+	 	 	<node id="11" type="1">
+	 	 	 	<cx>856</cx>
+	 	 	 	<cy>594</cy>
+	 	 	</node>
+	 	 	<node id="12" type="1">
+	 	 	 	<cx>932</cx>
+	 	 	 	<cy>448</cy>
+	 	 	</node>
+	 	 	<node id="13" type="1">
+	 	 	 	<cx>749</cx>
+	 	 	 	<cy>982</cy>
+	 	 	</node>
+	 	 	<node id="14" type="1">
+	 	 	 	<cx>818</cx>
+	 	 	 	<cy>889</cy>
+	 	 	</node>
+	 	 	<node id="15" type="1">
+	 	 	 	<cx>377</cx>
+	 	 	 	<cy>493</cy>
+	 	 	</node>
+	 	 	<node id="16" type="1">
+	 	 	 	<cx>337</cx>
+	 	 	 	<cy>419</cy>
+	 	 	</node>
+	 	 	<node id="17" type="1">
+	 	 	 	<cx>772</cx>
+	 	 	 	<cy>605</cy>
+	 	 	</node>
+	 	 	<node id="18" type="1">
+	 	 	 	<cx>373</cx>
+	 	 	 	<cy>448</cy>
+	 	 	</node>
+	 	 	<node id="19" type="1">
+	 	 	 	<cx>519</cx>
+	 	 	 	<cy>112</cy>
+	 	 	</node>
+	 	 	<node id="20" type="1">
+	 	 	 	<cx>849</cx>
+	 	 	 	<cy>274</cy>
+	 	 	</node>
+	 	 	<node id="21" type="1">
+	 	 	 	<cx>533</cx>
+	 	 	 	<cy>839</cy>
+	 	 	</node>
+	 	 	<node id="22" type="1">
+	 	 	 	<cx>610</cx>
+	 	 	 	<cy>417</cy>
+	 	 	</node>
+	 	 	<node id="23" type="1">
+	 	 	 	<cx>69</cx>
+	 	 	 	<cy>583</cy>
+	 	 	</node>
+	 	 	<node id="24" type="1">
+	 	 	 	<cx>573</cx>
+	 	 	 	<cy>195</cy>
+	 	 	</node>
+	 	 	<node id="25" type="1">
+	 	 	 	<cx>988</cx>
+	 	 	 	<cy>324</cy>
+	 	 	</node>
+	 	 	<node id="26" type="1">
+	 	 	 	<cx>110</cx>
+	 	 	 	<cy>550</cy>
+	 	 	</node>
+	 	 	<node id="27" type="1">
+	 	 	 	<cx>271</cx>
+	 	 	 	<cy>676</cy>
+	 	 	</node>
+	 	 	<node id="28" type="1">
+	 	 	 	<cx>694</cx>
+	 	 	 	<cy>130</cy>
+	 	 	</node>
+	 	 	<node id="29" type="1">
+	 	 	 	<cx>791</cx>
+	 	 	 	<cy>590</cy>
+	 	 	</node>
+	 	 	<node id="30" type="1">
+	 	 	 	<cx>785</cx>
+	 	 	 	<cy>614</cy>
+	 	 	</node>
+	 	 	<node id="31" type="1">
+	 	 	 	<cx>321</cx>
+	 	 	 	<cy>305</cy>
+	 	 	</node>
+	 	 	<node id="32" type="1">
+	 	 	 	<cx>974</cx>
+	 	 	 	<cy>292</cy>
+	 	 	</node>
+	 	 	<node id="33" type="1">
+	 	 	 	<cx>804</cx>
+	 	 	 	<cy>556</cy>
+	 	 	</node>
+	 	 	<node id="34" type="1">
+	 	 	 	<cx>372</cx>
+	 	 	 	<cy>893</cy>
+	 	 	</node>
+	 	 	<node id="35" type="1">
+	 	 	 	<cx>867</cx>
+	 	 	 	<cy>23</cy>
+	 	 	</node>
+	 	 	<node id="36" type="1">
+	 	 	 	<cx>252</cx>
+	 	 	 	<cy>660</cy>
+	 	 	</node>
+	 	 	<node id="37" type="1">
+	 	 	 	<cx>588</cx>
+	 	 	 	<cy>34</cy>
+	 	 	</node>
+	 	 	<node id="38" type="1">
+	 	 	 	<cx>939</cx>
+	 	 	 	<cy>685</cy>
+	 	 	</node>
+	 	 	<node id="39" type="1">
+	 	 	 	<cx>511</cx>
+	 	 	 	<cy>524</cy>
+	 	 	</node>
+	 	 	<node id="40" type="1">
+	 	 	 	<cx>948</cx>
+	 	 	 	<cy>479</cy>
+	 	 	</node>
+	 	 	<node id="41" type="1">
+	 	 	 	<cx>912</cx>
+	 	 	 	<cy>227</cy>
+	 	 	</node>
+	 	 	<node id="42" type="1">
+	 	 	 	<cx>380</cx>
+	 	 	 	<cy>807</cy>
+	 	 	</node>
+	 	 	<node id="43" type="1">
+	 	 	 	<cx>309</cx>
+	 	 	 	<cy>141</cy>
+	 	 	</node>
+	 	 	<node id="44" type="1">
+	 	 	 	<cx>558</cx>
+	 	 	 	<cy>759</cy>
+	 	 	</node>
+	 	 	<node id="45" type="1">
+	 	 	 	<cx>241</cx>
+	 	 	 	<cy>225</cy>
+	 	 	</node>
+	 	 	<node id="46" type="1">
+	 	 	 	<cx>920</cx>
+	 	 	 	<cy>87</cy>
+	 	 	</node>
+	 	 	<node id="47" type="1">
+	 	 	 	<cx>269</cx>
+	 	 	 	<cy>351</cy>
+	 	 	</node>
+	 	 	<node id="48" type="1">
+	 	 	 	<cx>156</cx>
+	 	 	 	<cy>776</cy>
+	 	 	</node>
+	 	 	<node id="49" type="1">
+	 	 	 	<cx>251</cx>
+	 	 	 	<cy>512</cy>
+	 	 	</node>
+	 	 	<node id="50" type="1">
+	 	 	 	<cx>608</cx>
+	 	 	 	<cy>874</cy>
+	 	 	</node>
+	 	 	<node id="51" type="1">
+	 	 	 	<cx>853</cx>
+	 	 	 	<cy>269</cy>
+	 	 	</node>
+	 	 	<node id="52" type="1">
+	 	 	 	<cx>897</cx>
+	 	 	 	<cy>572</cy>
+	 	 	</node>
+	 	 	<node id="53" type="1">
+	 	 	 	<cx>316</cx>
+	 	 	 	<cy>461</cy>
+	 	 	</node>
+	 	 	<node id="54" type="1">
+	 	 	 	<cx>825</cx>
+	 	 	 	<cy>529</cy>
+	 	 	</node>
+	 	 	<node id="55" type="1">
+	 	 	 	<cx>474</cx>
+	 	 	 	<cy>152</cy>
+	 	 	</node>
+	 	 	<node id="56" type="1">
+	 	 	 	<cx>510</cx>
+	 	 	 	<cy>453</cy>
+	 	 	</node>
+	 	 	<node id="57" type="1">
+	 	 	 	<cx>15</cx>
+	 	 	 	<cy>838</cy>
+	 	 	</node>
+	 	 	<node id="58" type="1">
+	 	 	 	<cx>778</cx>
+	 	 	 	<cy>928</cy>
+	 	 	</node>
+	 	 	<node id="59" type="1">
+	 	 	 	<cx>1</cx>
+	 	 	 	<cy>896</cy>
+	 	 	</node>
+	 	 	<node id="60" type="1">
+	 	 	 	<cx>804</cx>
+	 	 	 	<cy>492</cy>
+	 	 	</node>
+	 	 	<node id="61" type="1">
+	 	 	 	<cx>630</cx>
+	 	 	 	<cy>294</cy>
+	 	 	</node>
+	 	 	<node id="62" type="1">
+	 	 	 	<cx>2</cx>
+	 	 	 	<cy>966</cy>
+	 	 	</node>
+	 	 	<node id="63" type="1">
+	 	 	 	<cx>254</cx>
+	 	 	 	<cy>539</cy>
+	 	 	</node>
+	 	 	<node id="64" type="1">
+	 	 	 	<cx>167</cx>
+	 	 	 	<cy>28</cy>
+	 	 	</node>
+	 	 	<node id="65" type="1">
+	 	 	 	<cx>646</cx>
+	 	 	 	<cy>879</cy>
+	 	 	</node>
+	 	 	<node id="66" type="1">
+	 	 	 	<cx>863</cx>
+	 	 	 	<cy>49</cy>
+	 	 	</node>
+	 	 	<node id="67" type="1">
+	 	 	 	<cx>508</cx>
+	 	 	 	<cy>759</cy>
+	 	 	</node>
+	 	 	<node id="68" type="1">
+	 	 	 	<cx>64</cx>
+	 	 	 	<cy>165</cy>
+	 	 	</node>
+	 	 	<node id="69" type="1">
+	 	 	 	<cx>249</cx>
+	 	 	 	<cy>525</cy>
+	 	 	</node>
+	 	 	<node id="70" type="1">
+	 	 	 	<cx>49</cx>
+	 	 	 	<cy>605</cy>
+	 	 	</node>
+	 	 	<node id="71" type="1">
+	 	 	 	<cx>990</cx>
+	 	 	 	<cy>375</cy>
+	 	 	</node>
+	 	 	<node id="72" type="1">
+	 	 	 	<cx>539</cx>
+	 	 	 	<cy>272</cy>
+	 	 	</node>
+	 	 	<node id="73" type="1">
+	 	 	 	<cx>833</cx>
+	 	 	 	<cy>561</cy>
+	 	 	</node>
+	 	 	<node id="74" type="1">
+	 	 	 	<cx>84</cx>
+	 	 	 	<cy>571</cy>
+	 	 	</node>
+	 	 	<node id="75" type="1">
+	 	 	 	<cx>378</cx>
+	 	 	 	<cy>847</cy>
+	 	 	</node>
+	 	 	<node id="76" type="1">
+	 	 	 	<cx>713</cx>
+	 	 	 	<cy>485</cy>
+	 	 	</node>
+	 	 	<node id="77" type="1">
+	 	 	 	<cx>489</cx>
+	 	 	 	<cy>204</cy>
+	 	 	</node>
+	 	 	<node id="78" type="1">
+	 	 	 	<cx>815</cx>
+	 	 	 	<cy>905</cy>
+	 	 	</node>
+	 	 	<node id="79" type="1">
+	 	 	 	<cx>307</cx>
+	 	 	 	<cy>774</cy>
+	 	 	</node>
+	 	 	<node id="80" type="1">
+	 	 	 	<cx>286</cx>
+	 	 	 	<cy>204</cy>
+	 	 	</node>
+	 	 	<node id="81" type="1">
+	 	 	 	<cx>517</cx>
+	 	 	 	<cy>61</cy>
+	 	 	</node>
+	 	 	<node id="82" type="1">
+	 	 	 	<cx>918</cx>
+	 	 	 	<cy>74</cy>
+	 	 	</node>
+	 	 	<node id="83" type="1">
+	 	 	 	<cx>864</cx>
+	 	 	 	<cy>397</cy>
+	 	 	</node>
+	 	 	<node id="84" type="1">
+	 	 	 	<cx>35</cx>
+	 	 	 	<cy>597</cy>
+	 	 	</node>
+	 	 	<node id="85" type="1">
+	 	 	 	<cx>918</cx>
+	 	 	 	<cy>632</cy>
+	 	 	</node>
+	 	 	<node id="86" type="1">
+	 	 	 	<cx>395</cx>
+	 	 	 	<cy>570</cy>
+	 	 	</node>
+	 	 	<node id="87" type="1">
+	 	 	 	<cx>87</cx>
+	 	 	 	<cy>97</cy>
+	 	 	</node>
+	 	 	<node id="88" type="1">
+	 	 	 	<cx>318</cx>
+	 	 	 	<cy>94</cy>
+	 	 	</node>
+	 	 	<node id="89" type="1">
+	 	 	 	<cx>893</cx>
+	 	 	 	<cy>805</cy>
+	 	 	</node>
+	 	 	<node id="90" type="1">
+	 	 	 	<cx>82</cx>
+	 	 	 	<cy>392</cy>
+	 	 	</node>
+	 	 	<node id="91" type="1">
+	 	 	 	<cx>471</cx>
+	 	 	 	<cy>899</cy>
+	 	 	</node>
+	 	 	<node id="92" type="1">
+	 	 	 	<cx>567</cx>
+	 	 	 	<cy>895</cy>
+	 	 	</node>
+	 	 	<node id="93" type="1">
+	 	 	 	<cx>349</cx>
+	 	 	 	<cy>360</cy>
+	 	 	</node>
+	 	 	<node id="94" type="1">
+	 	 	 	<cx>138</cx>
+	 	 	 	<cy>560</cy>
+	 	 	</node>
+	 	 	<node id="95" type="1">
+	 	 	 	<cx>459</cx>
+	 	 	 	<cy>962</cy>
+	 	 	</node>
+	 	 	<node id="96" type="1">
+	 	 	 	<cx>795</cx>
+	 	 	 	<cy>461</cy>
+	 	 	</node>
+	 	 	<node id="97" type="1">
+	 	 	 	<cx>398</cx>
+	 	 	 	<cy>467</cy>
+	 	 	</node>
+	 	 	<node id="98" type="1">
+	 	 	 	<cx>553</cx>
+	 	 	 	<cy>606</cy>
+	 	 	</node>
+	 	 	<node id="99" type="1">
+	 	 	 	<cx>952</cx>
+	 	 	 	<cy>89</cy>
+	 	 	</node>
+	 	 	<node id="100" type="1">
+	 	 	 	<cx>92</cx>
+	 	 	 	<cy>22</cy>
+	 	 	</node>
+	 	 	<node id="101" type="1">
+	 	 	 	<cx>853</cx>
+	 	 	 	<cy>188</cy>
+	 	 	</node>
+	 	 	<node id="102" type="1">
+	 	 	 	<cx>643</cx>
+	 	 	 	<cy>80</cy>
+	 	 	</node>
+	 	 	<node id="103" type="1">
+	 	 	 	<cx>801</cx>
+	 	 	 	<cy>227</cy>
+	 	 	</node>
+	 	 	<node id="104" type="1">
+	 	 	 	<cx>127</cx>
+	 	 	 	<cy>74</cy>
+	 	 	</node>
+	 	 	<node id="105" type="1">
+	 	 	 	<cx>727</cx>
+	 	 	 	<cy>975</cy>
+	 	 	</node>
+	 	 	<node id="106" type="1">
+	 	 	 	<cx>552</cx>
+	 	 	 	<cy>48</cy>
+	 	 	</node>
+	 	 	<node id="107" type="1">
+	 	 	 	<cx>311</cx>
+	 	 	 	<cy>959</cy>
+	 	 	</node>
+	 	 	<node id="108" type="1">
+	 	 	 	<cx>647</cx>
+	 	 	 	<cy>876</cy>
+	 	 	</node>
+	 	 	<node id="109" type="1">
+	 	 	 	<cx>742</cx>
+	 	 	 	<cy>168</cy>
+	 	 	</node>
+	 	 	<node id="110" type="1">
+	 	 	 	<cx>755</cx>
+	 	 	 	<cy>589</cy>
+	 	 	</node>
+	 	 	<node id="111" type="1">
+	 	 	 	<cx>741</cx>
+	 	 	 	<cy>8</cy>
+	 	 	</node>
+	 	 	<node id="112" type="1">
+	 	 	 	<cx>975</cx>
+	 	 	 	<cy>954</cy>
+	 	 	</node>
+	 	 	<node id="113" type="1">
+	 	 	 	<cx>820</cx>
+	 	 	 	<cy>502</cy>
+	 	 	</node>
+	 	 	<node id="114" type="1">
+	 	 	 	<cx>552</cx>
+	 	 	 	<cy>300</cy>
+	 	 	</node>
+	 	 	<node id="115" type="1">
+	 	 	 	<cx>802</cx>
+	 	 	 	<cy>744</cy>
+	 	 	</node>
+	 	 	<node id="116" type="1">
+	 	 	 	<cx>515</cx>
+	 	 	 	<cy>599</cy>
+	 	 	</node>
+	 	 	<node id="117" type="1">
+	 	 	 	<cx>585</cx>
+	 	 	 	<cy>600</cy>
+	 	 	</node>
+	 	 	<node id="118" type="1">
+	 	 	 	<cx>573</cx>
+	 	 	 	<cy>793</cy>
+	 	 	</node>
+	 	 	<node id="119" type="1">
+	 	 	 	<cx>159</cx>
+	 	 	 	<cy>669</cy>
+	 	 	</node>
+	 	 	<node id="120" type="1">
+	 	 	 	<cx>248</cx>
+	 	 	 	<cy>369</cy>
+	 	 	</node>
+	 	 	<node id="121" type="1">
+	 	 	 	<cx>868</cx>
+	 	 	 	<cy>476</cy>
+	 	 	</node>
+	 	 	<node id="122" type="1">
+	 	 	 	<cx>275</cx>
+	 	 	 	<cy>194</cy>
+	 	 	</node>
+	 	 	<node id="123" type="1">
+	 	 	 	<cx>930</cx>
+	 	 	 	<cy>933</cy>
+	 	 	</node>
+	 	 	<node id="124" type="1">
+	 	 	 	<cx>233</cx>
+	 	 	 	<cy>587</cy>
+	 	 	</node>
+	 	 	<node id="125" type="1">
+	 	 	 	<cx>198</cx>
+	 	 	 	<cy>35</cy>
+	 	 	</node>
+	 	 	<node id="126" type="1">
+	 	 	 	<cx>444</cx>
+	 	 	 	<cy>648</cy>
+	 	 	</node>
+	 	 	<node id="127" type="1">
+	 	 	 	<cx>184</cx>
+	 	 	 	<cy>822</cy>
+	 	 	</node>
+	 	 	<node id="128" type="1">
+	 	 	 	<cx>107</cx>
+	 	 	 	<cy>840</cy>
+	 	 	</node>
+	 	 	<node id="129" type="1">
+	 	 	 	<cx>312</cx>
+	 	 	 	<cy>573</cy>
+	 	 	</node>
+	 	 	<node id="130" type="1">
+	 	 	 	<cx>694</cx>
+	 	 	 	<cy>813</cy>
+	 	 	</node>
+	 	 	<node id="131" type="1">
+	 	 	 	<cx>446</cx>
+	 	 	 	<cy>264</cy>
+	 	 	</node>
+	 	 	<node id="132" type="1">
+	 	 	 	<cx>586</cx>
+	 	 	 	<cy>483</cy>
+	 	 	</node>
+	 	 	<node id="133" type="1">
+	 	 	 	<cx>648</cx>
+	 	 	 	<cy>274</cy>
+	 	 	</node>
+	 	 	<node id="134" type="1">
+	 	 	 	<cx>967</cx>
+	 	 	 	<cy>362</cy>
+	 	 	</node>
+	 	 	<node id="135" type="1">
+	 	 	 	<cx>194</cx>
+	 	 	 	<cy>330</cy>
+	 	 	</node>
+	 	 	<node id="136" type="1">
+	 	 	 	<cx>963</cx>
+	 	 	 	<cy>135</cy>
+	 	 	</node>
+	 	 	<node id="137" type="1">
+	 	 	 	<cx>846</cx>
+	 	 	 	<cy>717</cy>
+	 	 	</node>
+	 	 	<node id="138" type="1">
+	 	 	 	<cx>32</cx>
+	 	 	 	<cy>487</cy>
+	 	 	</node>
+	 	 	<node id="139" type="1">
+	 	 	 	<cx>358</cx>
+	 	 	 	<cy>728</cy>
+	 	 	</node>
+	 	 	<node id="140" type="1">
+	 	 	 	<cx>608</cx>
+	 	 	 	<cy>182</cy>
+	 	 	</node>
+	 	 	<node id="141" type="1">
+	 	 	 	<cx>250</cx>
+	 	 	 	<cy>367</cy>
+	 	 	</node>
+	 	 	<node id="142" type="1">
+	 	 	 	<cx>989</cx>
+	 	 	 	<cy>392</cy>
+	 	 	</node>
+	 	 	<node id="143" type="1">
+	 	 	 	<cx>820</cx>
+	 	 	 	<cy>307</cy>
+	 	 	</node>
+	 	 	<node id="144" type="1">
+	 	 	 	<cx>473</cx>
+	 	 	 	<cy>274</cy>
+	 	 	</node>
+	 	 	<node id="145" type="1">
+	 	 	 	<cx>408</cx>
+	 	 	 	<cy>84</cy>
+	 	 	</node>
+	 	 	<node id="146" type="1">
+	 	 	 	<cx>762</cx>
+	 	 	 	<cy>800</cy>
+	 	 	</node>
+	 	 	<node id="147" type="1">
+	 	 	 	<cx>917</cx>
+	 	 	 	<cy>560</cy>
+	 	 	</node>
+	 	 	<node id="148" type="1">
+	 	 	 	<cx>586</cx>
+	 	 	 	<cy>830</cy>
+	 	 	</node>
+	 	 	<node id="149" type="1">
+	 	 	 	<cx>571</cx>
+	 	 	 	<cy>616</cy>
+	 	 	</node>
+	 	 	<node id="150" type="1">
+	 	 	 	<cx>606</cx>
+	 	 	 	<cy>445</cy>
+	 	 	</node>
+	 	 	<node id="151" type="1">
+	 	 	 	<cx>939</cx>
+	 	 	 	<cy>116</cy>
+	 	 	</node>
+	 	 	<node id="152" type="1">
+	 	 	 	<cx>551</cx>
+	 	 	 	<cy>528</cy>
+	 	 	</node>
+	 	 	<node id="153" type="1">
+	 	 	 	<cx>191</cx>
+	 	 	 	<cy>102</cy>
+	 	 	</node>
+	 	 	<node id="154" type="1">
+	 	 	 	<cx>605</cx>
+	 	 	 	<cy>583</cy>
+	 	 	</node>
+	 	 	<node id="155" type="1">
+	 	 	 	<cx>627</cx>
+	 	 	 	<cy>249</cy>
+	 	 	</node>
+	 	 	<node id="156" type="1">
+	 	 	 	<cx>53</cx>
+	 	 	 	<cy>819</cy>
+	 	 	</node>
+	 	 	<node id="157" type="1">
+	 	 	 	<cx>427</cx>
+	 	 	 	<cy>571</cy>
+	 	 	</node>
+	 	 	<node id="158" type="1">
+	 	 	 	<cx>168</cx>
+	 	 	 	<cy>479</cy>
+	 	 	</node>
+	 	 	<node id="159" type="1">
+	 	 	 	<cx>679</cx>
+	 	 	 	<cy>371</cy>
+	 	 	</node>
+	 	 	<node id="160" type="1">
+	 	 	 	<cx>354</cx>
+	 	 	 	<cy>415</cy>
+	 	 	</node>
+	 	 	<node id="161" type="1">
+	 	 	 	<cx>638</cx>
+	 	 	 	<cy>444</cy>
+	 	 	</node>
+	 	 	<node id="162" type="1">
+	 	 	 	<cx>535</cx>
+	 	 	 	<cy>918</cy>
+	 	 	</node>
+	 	 	<node id="163" type="1">
+	 	 	 	<cx>243</cx>
+	 	 	 	<cy>535</cy>
+	 	 	</node>
+	 	 	<node id="164" type="1">
+	 	 	 	<cx>796</cx>
+	 	 	 	<cy>796</cy>
+	 	 	</node>
+	 	 	<node id="165" type="1">
+	 	 	 	<cx>886</cx>
+	 	 	 	<cy>32</cy>
+	 	 	</node>
+	 	 	<node id="166" type="1">
+	 	 	 	<cx>272</cx>
+	 	 	 	<cy>699</cy>
+	 	 	</node>
+	 	 	<node id="167" type="1">
+	 	 	 	<cx>421</cx>
+	 	 	 	<cy>935</cy>
+	 	 	</node>
+	 	</nodes>
+	 	<euclidean/>
+	 	<decimals>0</decimals>
+	 </network>
+	 <fleet>
+	 	 <vehicle_profile type="0">
+	 	  	 <departure_node>1</departure_node>
+	 	  	 <arrival_node>1</arrival_node>
+	 	  	 <capacity>133</capacity>
+	 	 </vehicle_profile>
+	 </fleet>
+	 <requests>
+	 	 <request id="1" node="2">
+	 	 	 <quantity>6</quantity>
+	 	 </request>
+	 	 <request id="2" node="3">
+	 	 	 <quantity>9</quantity>
+	 	 </request>
+	 	 <request id="3" node="4">
+	 	 	 <quantity>7</quantity>
+	 	 </request>
+	 	 <request id="4" node="5">
+	 	 	 <quantity>5</quantity>
+	 	 </request>
+	 	 <request id="5" node="6">
+	 	 	 <quantity>9</quantity>
+	 	 </request>
+	 	 <request id="6" node="7">
+	 	 	 <quantity>5</quantity>
+	 	 </request>
+	 	 <request id="7" node="8">
+	 	 	 <quantity>9</quantity>
+	 	 </request>
+	 	 <request id="8" node="9">
+	 	 	 <quantity>7</quantity>
+	 	 </request>
+	 	 <request id="9" node="10">
+	 	 	 <quantity>10</quantity>
+	 	 </request>
+	 	 <request id="10" node="11">
+	 	 	 <quantity>8</quantity>
+	 	 </request>
+	 	 <request id="11" node="12">
+	 	 	 <quantity>6</quantity>
+	 	 </request>
+	 	 <request id="12" node="13">
+	 	 	 <quantity>5</quantity>
+	 	 </request>
+	 	 <request id="13" node="14">
+	 	 	 <quantity>9</quantity>
+	 	 </request>
+	 	 <request id="14" node="15">
+	 	 	 <quantity>8</quantity>
+	 	 </request>
+	 	 <request id="15" node="16">
+	 	 	 <quantity>9</quantity>
+	 	 </request>
+	 	 <request id="16" node="17">
+	 	 	 <quantity>10</quantity>
+	 	 </request>
+	 	 <request id="17" node="18">
+	 	 	 <quantity>5</quantity>
+	 	 </request>
+	 	 <request id="18" node="19">
+	 	 	 <quantity>7</quantity>
+	 	 </request>
+	 	 <request id="19" node="20">
+	 	 	 <quantity>8</quantity>
+	 	 </request>
+	 	 <request id="20" node="21">
+	 	 	 <quantity>5</quantity>
+	 	 </request>
+	 	 <request id="21" node="22">
+	 	 	 <quantity>9</quantity>
+	 	 </request>
+	 	 <request id="22" node="23">
+	 	 	 <quantity>9</quantity>
+	 	 </request>
+	 	 <request id="23" node="24">
+	 	 	 <quantity>7</quantity>
+	 	 </request>
+	 	 <request id="24" node="25">
+	 	 	 <quantity>5</quantity>
+	 	 </request>
+	 	 <request id="25" node="26">
+	 	 	 <quantity>7</quantity>
+	 	 </request>
+	 	 <request id="26" node="27">
+	 	 	 <quantity>8</quantity>
+	 	 </request>
+	 	 <request id="27" node="28">
+	 	 	 <quantity>5</quantity>
+	 	 </request>
+	 	 <request id="28" node="29">
+	 	 	 <quantity>10</quantity>
+	 	 </request>
+	 	 <request id="29" node="30">
+	 	 	 <quantity>9</quantity>
+	 	 </request>
+	 	 <request id="30" node="31">
+	 	 	 <quantity>9</quantity>
+	 	 </request>
+	 	 <request id="31" node="32">
+	 	 	 <quantity>9</quantity>
+	 	 </request>
+	 	 <request id="32" node="33">
+	 	 	 <quantity>9</quantity>
+	 	 </request>
+	 	 <request id="33" node="34">
+	 	 	 <quantity>7</quantity>
+	 	 </request>
+	 	 <request id="34" node="35">
+	 	 	 <quantity>9</quantity>
+	 	 </request>
+	 	 <request id="35" node="36">
+	 	 	 <quantity>5</quantity>
+	 	 </request>
+	 	 <request id="36" node="37">
+	 	 	 <quantity>10</quantity>
+	 	 </request>
+	 	 <request id="37" node="38">
+	 	 	 <quantity>6</quantity>
+	 	 </request>
+	 	 <request id="38" node="39">
+	 	 	 <quantity>9</quantity>
+	 	 </request>
+	 	 <request id="39" node="40">
+	 	 	 <quantity>9</quantity>
+	 	 </request>
+	 	 <request id="40" node="41">
+	 	 	 <quantity>5</quantity>
+	 	 </request>
+	 	 <request id="41" node="42">
+	 	 	 <quantity>6</quantity>
+	 	 </request>
+	 	 <request id="42" node="43">
+	 	 	 <quantity>10</quantity>
+	 	 </request>
+	 	 <request id="43" node="44">
+	 	 	 <quantity>6</quantity>
+	 	 </request>
+	 	 <request id="44" node="45">
+	 	 	 <quantity>6</quantity>
+	 	 </request>
+	 	 <request id="45" node="46">
+	 	 	 <quantity>8</quantity>
+	 	 </request>
+	 	 <request id="46" node="47">
+	 	 	 <quantity>6</quantity>
+	 	 </request>
+	 	 <request id="47" node="48">
+	 	 	 <quantity>6</quantity>
+	 	 </request>
+	 	 <request id="48" node="49">
+	 	 	 <quantity>10</quantity>
+	 	 </request>
+	 	 <request id="49" node="50">
+	 	 	 <quantity>9</quantity>
+	 	 </request>
+	 	 <request id="50" node="51">
+	 	 	 <quantity>7</quantity>
+	 	 </request>
+	 	 <request id="51" node="52">
+	 	 	 <quantity>8</quantity>
+	 	 </request>
+	 	 <request id="52" node="53">
+	 	 	 <quantity>6</quantity>
+	 	 </request>
+	 	 <request id="53" node="54">
+	 	 	 <quantity>6</quantity>
+	 	 </request>
+	 	 <request id="54" node="55">
+	 	 	 <quantity>6</quantity>
+	 	 </request>
+	 	 <request id="55" node="56">
+	 	 	 <quantity>8</quantity>
+	 	 </request>
+	 	 <request id="56" node="57">
+	 	 	 <quantity>5</quantity>
+	 	 </request>
+	 	 <request id="57" node="58">
+	 	 	 <quantity>10</quantity>
+	 	 </request>
+	 	 <request id="58" node="59">
+	 	 	 <quantity>6</quantity>
+	 	 </request>
+	 	 <request id="59" node="60">
+	 	 	 <quantity>9</quantity>
+	 	 </request>
+	 	 <request id="60" node="61">
+	 	 	 <quantity>9</quantity>
+	 	 </request>
+	 	 <request id="61" node="62">
+	 	 	 <quantity>9</quantity>
+	 	 </request>
+	 	 <request id="62" node="63">
+	 	 	 <quantity>7</quantity>
+	 	 </request>
+	 	 <request id="63" node="64">
+	 	 	 <quantity>9</quantity>
+	 	 </request>
+	 	 <request id="64" node="65">
+	 	 	 <quantity>6</quantity>
+	 	 </request>
+	 	 <request id="65" node="66">
+	 	 	 <quantity>7</quantity>
+	 	 </request>
+	 	 <request id="66" node="67">
+	 	 	 <quantity>5</quantity>
+	 	 </request>
+	 	 <request id="67" node="68">
+	 	 	 <quantity>9</quantity>
+	 	 </request>
+	 	 <request id="68" node="69">
+	 	 	 <quantity>6</quantity>
+	 	 </request>
+	 	 <request id="69" node="70">
+	 	 	 <quantity>5</quantity>
+	 	 </request>
+	 	 <request id="70" node="71">
+	 	 	 <quantity>6</quantity>
+	 	 </request>
+	 	 <request id="71" node="72">
+	 	 	 <quantity>9</quantity>
+	 	 </request>
+	 	 <request id="72" node="73">
+	 	 	 <quantity>6</quantity>
+	 	 </request>
+	 	 <request id="73" node="74">
+	 	 	 <quantity>8</quantity>
+	 	 </request>
+	 	 <request id="74" node="75">
+	 	 	 <quantity>8</quantity>
+	 	 </request>
+	 	 <request id="75" node="76">
+	 	 	 <quantity>5</quantity>
+	 	 </request>
+	 	 <request id="76" node="77">
+	 	 	 <quantity>7</quantity>
+	 	 </request>
+	 	 <request id="77" node="78">
+	 	 	 <quantity>7</quantity>
+	 	 </request>
+	 	 <request id="78" node="79">
+	 	 	 <quantity>7</quantity>
+	 	 </request>
+	 	 <request id="79" node="80">
+	 	 	 <quantity>10</quantity>
+	 	 </request>
+	 	 <request id="80" node="81">
+	 	 	 <quantity>5</quantity>
+	 	 </request>
+	 	 <request id="81" node="82">
+	 	 	 <quantity>10</quantity>
+	 	 </request>
+	 	 <request id="82" node="83">
+	 	 	 <quantity>8</quantity>
+	 	 </request>
+	 	 <request id="83" node="84">
+	 	 	 <quantity>7</quantity>
+	 	 </request>
+	 	 <request id="84" node="85">
+	 	 	 <quantity>9</quantity>
+	 	 </request>
+	 	 <request id="85" node="86">
+	 	 	 <quantity>10</quantity>
+	 	 </request>
+	 	 <request id="86" node="87">
+	 	 	 <quantity>8</quantity>
+	 	 </request>
+	 	 <request id="87" node="88">
+	 	 	 <quantity>9</quantity>
+	 	 </request>
+	 	 <request id="88" node="89">
+	 	 	 <quantity>8</quantity>
+	 	 </request>
+	 	 <request id="89" node="90">
+	 	 	 <quantity>7</quantity>
+	 	 </request>
+	 	 <request id="90" node="91">
+	 	 	 <quantity>10</quantity>
+	 	 </request>
+	 	 <request id="91" node="92">
+	 	 	 <quantity>7</quantity>
+	 	 </request>
+	 	 <request id="92" node="93">
+	 	 	 <quantity>9</quantity>
+	 	 </request>
+	 	 <request id="93" node="94">
+	 	 	 <quantity>6</quantity>
+	 	 </request>
+	 	 <request id="94" node="95">
+	 	 	 <quantity>5</quantity>
+	 	 </request>
+	 	 <request id="95" node="96">
+	 	 	 <quantity>8</quantity>
+	 	 </request>
+	 	 <request id="96" node="97">
+	 	 	 <quantity>8</quantity>
+	 	 </request>
+	 	 <request id="97" node="98">
+	 	 	 <quantity>6</quantity>
+	 	 </request>
+	 	 <request id="98" node="99">
+	 	 	 <quantity>7</quantity>
+	 	 </request>
+	 	 <request id="99" node="100">
+	 	 	 <quantity>10</quantity>
+	 	 </request>
+	 	 <request id="100" node="101">
+	 	 	 <quantity>6</quantity>
+	 	 </request>
+	 	 <request id="101" node="102">
+	 	 	 <quantity>9</quantity>
+	 	 </request>
+	 	 <request id="102" node="103">
+	 	 	 <quantity>5</quantity>
+	 	 </request>
+	 	 <request id="103" node="104">
+	 	 	 <quantity>9</quantity>
+	 	 </request>
+	 	 <request id="104" node="105">
+	 	 	 <quantity>9</quantity>
+	 	 </request>
+	 	 <request id="105" node="106">
+	 	 	 <quantity>5</quantity>
+	 	 </request>
+	 	 <request id="106" node="107">
+	 	 	 <quantity>10</quantity>
+	 	 </request>
+	 	 <request id="107" node="108">
+	 	 	 <quantity>5</quantity>
+	 	 </request>
+	 	 <request id="108" node="109">
+	 	 	 <quantity>6</quantity>
+	 	 </request>
+	 	 <request id="109" node="110">
+	 	 	 <quantity>10</quantity>
+	 	 </request>
+	 	 <request id="110" node="111">
+	 	 	 <quantity>7</quantity>
+	 	 </request>
+	 	 <request id="111" node="112">
+	 	 	 <quantity>10</quantity>
+	 	 </request>
+	 	 <request id="112" node="113">
+	 	 	 <quantity>8</quantity>
+	 	 </request>
+	 	 <request id="113" node="114">
+	 	 	 <quantity>8</quantity>
+	 	 </request>
+	 	 <request id="114" node="115">
+	 	 	 <quantity>5</quantity>
+	 	 </request>
+	 	 <request id="115" node="116">
+	 	 	 <quantity>8</quantity>
+	 	 </request>
+	 	 <request id="116" node="117">
+	 	 	 <quantity>7</quantity>
+	 	 </request>
+	 	 <request id="117" node="118">
+	 	 	 <quantity>6</quantity>
+	 	 </request>
+	 	 <request id="118" node="119">
+	 	 	 <quantity>9</quantity>
+	 	 </request>
+	 	 <request id="119" node="120">
+	 	 	 <quantity>9</quantity>
+	 	 </request>
+	 	 <request id="120" node="121">
+	 	 	 <quantity>7</quantity>
+	 	 </request>
+	 	 <request id="121" node="122">
+	 	 	 <quantity>7</quantity>
+	 	 </request>
+	 	 <request id="122" node="123">
+	 	 	 <quantity>10</quantity>
+	 	 </request>
+	 	 <request id="123" node="124">
+	 	 	 <quantity>9</quantity>
+	 	 </request>
+	 	 <request id="124" node="125">
+	 	 	 <quantity>8</quantity>
+	 	 </request>
+	 	 <request id="125" node="126">
+	 	 	 <quantity>9</quantity>
+	 	 </request>
+	 	 <request id="126" node="127">
+	 	 	 <quantity>8</quantity>
+	 	 </request>
+	 	 <request id="127" node="128">
+	 	 	 <quantity>7</quantity>
+	 	 </request>
+	 	 <request id="128" node="129">
+	 	 	 <quantity>8</quantity>
+	 	 </request>
+	 	 <request id="129" node="130">
+	 	 	 <quantity>7</quantity>
+	 	 </request>
+	 	 <request id="130" node="131">
+	 	 	 <quantity>7</quantity>
+	 	 </request>
+	 	 <request id="131" node="132">
+	 	 	 <quantity>5</quantity>
+	 	 </request>
+	 	 <request id="132" node="133">
+	 	 	 <quantity>7</quantity>
+	 	 </request>
+	 	 <request id="133" node="134">
+	 	 	 <quantity>5</quantity>
+	 	 </request>
+	 	 <request id="134" node="135">
+	 	 	 <quantity>5</quantity>
+	 	 </request>
+	 	 <request id="135" node="136">
+	 	 	 <quantity>9</quantity>
+	 	 </request>
+	 	 <request id="136" node="137">
+	 	 	 <quantity>7</quantity>
+	 	 </request>
+	 	 <request id="137" node="138">
+	 	 	 <quantity>5</quantity>
+	 	 </request>
+	 	 <request id="138" node="139">
+	 	 	 <quantity>5</quantity>
+	 	 </request>
+	 	 <request id="139" node="140">
+	 	 	 <quantity>9</quantity>
+	 	 </request>
+	 	 <request id="140" node="141">
+	 	 	 <quantity>10</quantity>
+	 	 </request>
+	 	 <request id="141" node="142">
+	 	 	 <quantity>10</quantity>
+	 	 </request>
+	 	 <request id="142" node="143">
+	 	 	 <quantity>5</quantity>
+	 	 </request>
+	 	 <request id="143" node="144">
+	 	 	 <quantity>7</quantity>
+	 	 </request>
+	 	 <request id="144" node="145">
+	 	 	 <quantity>5</quantity>
+	 	 </request>
+	 	 <request id="145" node="146">
+	 	 	 <quantity>6</quantity>
+	 	 </request>
+	 	 <request id="146" node="147">
+	 	 	 <quantity>5</quantity>
+	 	 </request>
+	 	 <request id="147" node="148">
+	 	 	 <quantity>7</quantity>
+	 	 </request>
+	 	 <request id="148" node="149">
+	 	 	 <quantity>6</quantity>
+	 	 </request>
+	 	 <request id="149" node="150">
+	 	 	 <quantity>7</quantity>
+	 	 </request>
+	 	 <request id="150" node="151">
+	 	 	 <quantity>7</quantity>
+	 	 </request>
+	 	 <request id="151" node="152">
+	 	 	 <quantity>9</quantity>
+	 	 </request>
+	 	 <request id="152" node="153">
+	 	 	 <quantity>6</quantity>
+	 	 </request>
+	 	 <request id="153" node="154">
+	 	 	 <quantity>10</quantity>
+	 	 </request>
+	 	 <request id="154" node="155">
+	 	 	 <quantity>7</quantity>
+	 	 </request>
+	 	 <request id="155" node="156">
+	 	 	 <quantity>10</quantity>
+	 	 </request>
+	 	 <request id="156" node="157">
+	 	 	 <quantity>7</quantity>
+	 	 </request>
+	 	 <request id="157" node="158">
+	 	 	 <quantity>7</quantity>
+	 	 </request>
+	 	 <request id="158" node="159">
+	 	 	 <quantity>7</quantity>
+	 	 </request>
+	 	 <request id="159" node="160">
+	 	 	 <quantity>5</quantity>
+	 	 </request>
+	 	 <request id="160" node="161">
+	 	 	 <quantity>6</quantity>
+	 	 </request>
+	 	 <request id="161" node="162">
+	 	 	 <quantity>6</quantity>
+	 	 </request>
+	 	 <request id="162" node="163">
+	 	 	 <quantity>9</quantity>
+	 	 </request>
+	 	 <request id="163" node="164">
+	 	 	 <quantity>9</quantity>
+	 	 </request>
+	 	 <request id="164" node="165">
+	 	 	 <quantity>6</quantity>
+	 	 </request>
+	 	 <request id="165" node="166">
+	 	 	 <quantity>10</quantity>
+	 	 </request>
+	 	 <request id="166" node="167">
+	 	 	 <quantity>9</quantity>
+	 	 </request>
+	 </requests>
+</instance>

@@ -1,0 +1,42 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>de.terministic</groupId>
+		<artifactId>vrpsim-parent</artifactId>
+		<version>0.0.1</version>
+		<relativePath>../vrpsim-parent</relativePath>
+	</parent>
+
+	<artifactId>vrpsim-simulationmodel-initialbehaviour-simpleapi</artifactId>
+	<packaging>jar</packaging>
+
+	<dependencies>
+
+		<dependency>
+			<groupId>de.terministic</groupId>
+			<artifactId>vrpsim-core</artifactId>
+			<version>0.0.2</version>
+		</dependency>
+
+		<dependency>
+			<groupId>de.terministic</groupId>
+			<artifactId>vrpsim-r-util-api</artifactId>
+			<version>0.0.1</version>
+		</dependency>
+		<dependency>
+			<groupId>de.terministic</groupId>
+			<artifactId>vrpsim-r-util-impl</artifactId>
+			<version>0.0.1</version>
+		</dependency>
+		
+		<!-- MMAS implementation from https://github.com/cptanalatriste/isula (download and build with mvn install) -->
+		<dependency>
+			<groupId>isula</groupId>
+			<artifactId>isula</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+
+	</dependencies>
+</project>

@@ -16,6 +16,6 @@
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
-vrpsim-degree-of-dynamic-study/oldCreationStatistics/*
-vrpsim-degree-of-dynamic-study/statistics/*
-vrpsim-currentlyunused/*
+vrpsim-degree-of-dynamic-study/*
+vrpsim-diss-experiments/*
+vrpsim-test/*
